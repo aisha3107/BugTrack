@@ -52,6 +52,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -180,6 +182,60 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="DAL\AspNetRoles.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\AspNetUsers.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\BugTrack.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BugTrack.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\BugTrack.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\BugTrack.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>BugTrack.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Comments.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Files.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\ProjectRoles.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Projects.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\ProjectTaskHistory.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\ProjectTasks.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Status.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\sysdiagrams.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\TaskTypes.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\UserBoards.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\UserBoardTasks.cs">
+      <DependentUpon>BugTrack.tt</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -192,12 +248,29 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="DAL\BugTrack.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BugTrack.edmx</DependentUpon>
+      <LastGenOutput>BugTrack.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="DAL\BugTrack.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>BugTrack.edmx</DependentUpon>
+      <LastGenOutput>BugTrack.cs</LastGenOutput>
+    </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <EntityDeploy Include="DAL\BugTrack.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>BugTrack.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="DAL\BugTrack.edmx.diagram">
+      <DependentUpon>BugTrack.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
@@ -248,7 +321,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="BLL\" />
-    <Folder Include="DAL\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -257,6 +329,9 @@
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
