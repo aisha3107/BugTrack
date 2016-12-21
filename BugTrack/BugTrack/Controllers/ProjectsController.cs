@@ -22,21 +22,27 @@ namespace BugTrack.Controllers
         {
             return db.Projects.Select(t => new
             {
-                t.Id, t.Name, Nodes = t.Projects1.Select(d => new {d.Id, d.Name})
+                t.Id,
+                t.Name,
+                Nodes = t.Projects1.Select(d => new { d.Id, d.Name })
             });
         }
 
         // GET: api/Projects/5
-//        [ResponseType(typeof(Projects))]
+        //        [ResponseType(typeof(Projects))]
         public IHttpActionResult GetProjects(int id)
         {
-            var projects = db.Projects.Find(id);
-            if (projects == null)
-            {
-                return NotFound();
-            }
+            var projectItem = db.Projects
+                .Where(x => x.Id == id)
+                .Select(x=> new
+                {
+                    x.Id,
+                    x.Name,
+                    Nodes = x.Projects1.Select(d => new { d.Id, d.Name })
+                })
+                .FirstOrDefault();
 
-            return Ok(new {projects.Id, projects.Name});
+            return Ok(projectItem);
         }
 
         // PUT: api/Projects/5
