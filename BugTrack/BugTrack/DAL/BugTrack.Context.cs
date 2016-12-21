@@ -18,6 +18,8 @@ namespace BugTrack.DAL
         public BugTrackEntities()
             : base("name=BugTrackEntities")
         {
+            Configuration.ProxyCreationEnabled = false;
+//            Configuration.LazyLoadingEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

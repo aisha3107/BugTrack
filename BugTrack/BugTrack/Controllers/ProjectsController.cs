@@ -18,35 +18,39 @@ namespace BugTrack.Controllers
         private BugTrackEntities db = new BugTrackEntities();
 
         // GET: api/Projects
-        public IEnumerable<ProjectViewModel> GetProjects()
+        public dynamic GetProjects()
         {
-            return db.Projects.ToList()
-                .Select(x => new ProjectViewModel()
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    ChildNodes = x.Projects1
-                        .Select(childX => new ProjectViewModel()
-                        {
-                            Id = childX.Id,
-                            Name = childX.Name
-                        })
-                        .ToList(),
-                })
-                .ToList();
+            return db.Projects.Select(t => new
+            {
+                t.Id, t.Name, Nodes = t.Projects1.Select(d => new {d.Id, d.Name})
+            });
+//            return db.Projects.ToList()
+//                .Select(x => new ProjectViewModel()
+//                {
+//                    Id = x.Id,
+//                    Name = x.Name,
+//                    ChildNodes = x.Projects1
+//                        .Select(childX => new ProjectViewModel()
+//                        {
+//                            Id = childX.Id,
+//                            Name = childX.Name
+//                        })
+//                        .ToList(),
+//                })
+//                .ToList();
         }
 
         // GET: api/Projects/5
-        [ResponseType(typeof(Projects))]
+//        [ResponseType(typeof(Projects))]
         public IHttpActionResult GetProjects(int id)
         {
-            Projects projects = db.Projects.Find(id);
+            var projects = db.Projects.Find(id);
             if (projects == null)
             {
                 return NotFound();
             }
 
-            return Ok(projects);
+            return Ok(new {projects.Id, projects.Name});
         }
 
         // PUT: api/Projects/5

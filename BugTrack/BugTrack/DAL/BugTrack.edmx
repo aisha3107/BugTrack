@@ -37,6 +37,7 @@
           <Property Name="Text" Type="nvarchar(max)" />
           <Property Name="CreateDate" Type="datetime" Nullable="false" />
           <Property Name="ProjectTaskId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
         </EntityType>
         <EntityType Name="Files">
           <Key>
@@ -144,6 +145,18 @@
           <Property Name="TaskId" Type="int" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Comments_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId">
           <End Role="ProjectTasks" Type="Self.ProjectTasks" Multiplicity="1">
             <OnDelete Action="Cascade" />
@@ -384,6 +397,10 @@
           <EntitySet Name="TaskTypes" EntityType="Self.TaskTypes" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBoards" EntityType="Self.UserBoards" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserBoardTasks" EntityType="Self.UserBoardTasks" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Comments_AspNetUsers" Association="Self.FK_Comments_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId" Association="Self.FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId">
             <End Role="ProjectTasks" EntitySet="ProjectTasks" />
             <End Role="Comments" EntitySet="Comments" />
@@ -488,6 +505,7 @@
           <NavigationProperty Name="ProjectTaskHistory" Relationship="Self.FK_ProjectTaskHistory_AspNetUsers" FromRole="AspNetUsers" ToRole="ProjectTaskHistory" />
           <NavigationProperty Name="ProjectTasks" Relationship="Self.FK_ProjectTasks_AspNetUsers" FromRole="AspNetUsers" ToRole="ProjectTasks" />
           <NavigationProperty Name="ProjectTasks1" Relationship="Self.FK_ProjectTasks_AspNetUsers1" FromRole="AspNetUsers" ToRole="ProjectTasks" />
+          <NavigationProperty Name="Comments" Relationship="BugTrackModel.FK_Comments_AspNetUsers" FromRole="AspNetUsers" ToRole="Comments" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -498,6 +516,8 @@
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ProjectTaskId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ProjectTasks" Relationship="Self.FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId" FromRole="Comments" ToRole="ProjectTasks" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="BugTrackModel.FK_Comments_AspNetUsers" FromRole="Comments" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="Files">
           <Key>
@@ -910,6 +930,10 @@
             <End Role="Projects" EntitySet="Projects" />
             <End Role="ProjectRoles" EntitySet="ProjectRoles" />
           </AssociationSet>
+          <AssociationSet Name="FK_Comments_AspNetUsers" Association="BugTrackModel.FK_Comments_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="ProjectRoles">
           <Key>
@@ -949,6 +973,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Comments_AspNetUsers">
+          <End Type="BugTrackModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+          <End Type="BugTrackModel.Comments" Role="Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -984,6 +1020,7 @@
           <EntitySetMapping Name="Comments">
             <EntityTypeMapping TypeName="BugTrackModel.Comments">
               <MappingFragment StoreEntitySet="Comments">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
