@@ -21,7 +21,7 @@ namespace BugTrack.Controllers
         public dynamic GetProjectTasks()
         {
             return db.ProjectTasks
-                .Select(x=>new 
+                .Select(x => new
                 {
                     x.Id,
                     x.Title,
@@ -59,19 +59,42 @@ namespace BugTrack.Controllers
                     x.EndedOn,
                     x.Url,
                     x.StatusId,
-                    StatusName = x.Status.Name,
                     x.TaskTypeId,
-                    TaskTypeName = x.TaskTypes.Name,
                     x.AssignedUserId,
-                    AssignedUserName = x.AspNetUsers.UserName,
                     x.EstimatedEndsOn,
                     x.UserId,
-                    AuthorUserName = x.AspNetUsers1.UserName,
                     x.ParentTaskId,
                     x.ProjectId,
-                    ProjectName = x.Projects.Name,
                     x.Description,
-                    x.CreatedOn
+                    x.CreatedOn,
+                    StatusName = x.Status.Name,
+                    TaskTypeName = x.TaskTypes.Name,
+                    AssignedUserName = x.AspNetUsers.UserName,
+                    AuthorUserName = x.AspNetUsers1.UserName,                    
+                    ProjectName = x.Projects.Name,                    
+                    CommentsList = x.Comments.Select(comm=>new {comm.Id,
+                        comm.Text,
+                        comm.CreateDate,
+                        comm.UserId,
+                        Author = comm.AspNetUsers.UserName
+                    }).ToList(),
+                    ProjectTaskHistoryList = x.ProjectTaskHistory.Select(hist =>new {
+                        hist.Id,
+                        hist.UserId,
+                        AuthorName = hist.AspNetUsers.UserName,
+                        hist.ChangedOn,
+                        hist.EstimatedEndsOn,
+                        hist.AssignedUserId,
+                        hist.StartedOn,
+                        hist.EndedOn,
+                        hist.TaskTypeId,
+                        hist.Title,
+                        hist.StatusId,
+                        StatusName = hist.Status.Name,
+                        hist.ParentTaskId,
+                        hist.ProjectId,
+                        hist.Description
+                    }).ToList(),
                 })
                 .FirstOrDefault();
 
