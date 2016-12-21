@@ -18,30 +18,30 @@ namespace BugTrack.Controllers
         private BugTrackEntities db = new BugTrackEntities();
 
         // GET: api/ProjectTasks
-        public IEnumerable<ProjectTasksViewModel> GetProjectTasks()
+        public dynamic GetProjectTasks()
         {
-            return db.ProjectTasks.ToList()
-                .Select(x=>new ProjectTasksViewModel()
+            return db.ProjectTasks
+                .Select(x=>new 
                 {
-                    Id = x.Id,
-                    Title = x.Title,
-                    StartedOn = x.StartedOn,
-                    EndedOn = x.EndedOn,
-                    Url = x.Url,
-                    StatusId = x.StatusId,
+                    x.Id,
+                    x.Title,
+                    x.StartedOn,
+                    x.EndedOn,
+                    x.Url,
+                    x.StatusId,
                     StatusName = x.Status.Name,
-                    TaskTypeId = x.TaskTypeId,
+                    x.TaskTypeId,
                     TaskTypeName = x.TaskTypes.Name,
-                    AssignedUserId = x.AssignedUserId,
+                    x.AssignedUserId,
                     AssignedUserName = x.AspNetUsers.UserName,
-                    EstimatedEndsOn = x.EstimatedEndsOn,
-                    UserId = x.UserId,
+                    x.EstimatedEndsOn,
+                    x.UserId,
                     AuthorUserName = x.AspNetUsers1.UserName,
-                    ParentTaskId = x.ParentTaskId,
-                    ProjectId = x.ProjectId,
+                    x.ParentTaskId,
+                    x.ProjectId,
                     ProjectName = x.Projects.Name,
-                    Description = x.Description,
-                    CreatedOn = x.CreatedOn
+                    x.Description,
+                    x.CreatedOn
                 });
         }
 

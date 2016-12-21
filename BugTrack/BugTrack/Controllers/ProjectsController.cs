@@ -24,20 +24,6 @@ namespace BugTrack.Controllers
             {
                 t.Id, t.Name, Nodes = t.Projects1.Select(d => new {d.Id, d.Name})
             });
-//            return db.Projects.ToList()
-//                .Select(x => new ProjectViewModel()
-//                {
-//                    Id = x.Id,
-//                    Name = x.Name,
-//                    ChildNodes = x.Projects1
-//                        .Select(childX => new ProjectViewModel()
-//                        {
-//                            Id = childX.Id,
-//                            Name = childX.Name
-//                        })
-//                        .ToList(),
-//                })
-//                .ToList();
         }
 
         // GET: api/Projects/5
