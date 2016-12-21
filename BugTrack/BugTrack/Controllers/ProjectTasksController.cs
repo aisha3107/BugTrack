@@ -9,6 +9,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Http.Description;
 using BugTrack.DAL;
+using BugTrack.Models;
 
 namespace BugTrack.Controllers
 {
@@ -17,9 +18,31 @@ namespace BugTrack.Controllers
         private BugTrackEntities db = new BugTrackEntities();
 
         // GET: api/ProjectTasks
-        public IEnumerable<ProjectTasks> GetProjectTasks()
+        public IEnumerable<ProjectTasksViewModel> GetProjectTasks()
         {
-            return db.ProjectTasks.ToList();
+            return db.ProjectTasks.ToList()
+                .Select(x=>new ProjectTasksViewModel()
+                {
+                    Id = x.Id,
+                    Title = x.Title,
+                    StartedOn = x.StartedOn,
+                    EndedOn = x.EndedOn,
+                    Url = x.Url,
+                    StatusId = x.StatusId,
+                    StatusName = x.Status.Name,
+                    TaskTypeId = x.TaskTypeId,
+                    TaskTypeName = x.TaskTypes.Name,
+                    AssignedUserId = x.AssignedUserId,
+                    AssignedUserName = x.AspNetUsers.UserName,
+                    EstimatedEndsOn = x.EstimatedEndsOn,
+                    UserId = x.UserId,
+                    AuthorUserName = x.AspNetUsers1.UserName,
+                    ParentTaskId = x.ParentTaskId,
+                    ProjectId = x.ProjectId,
+                    ProjectName = x.Projects.Name,
+                    Description = x.Description,
+                    CreatedOn = x.CreatedOn
+                });
         }
 
         // GET: api/ProjectTasks/5
