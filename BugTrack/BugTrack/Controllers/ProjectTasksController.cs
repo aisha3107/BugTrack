@@ -49,13 +49,38 @@ namespace BugTrack.Controllers
         [ResponseType(typeof(ProjectTasks))]
         public IHttpActionResult GetProjectTasks(int id)
         {
-            ProjectTasks projectTasks = db.ProjectTasks.Find(id);
-            if (projectTasks == null)
+            var projectTasksItem = db.ProjectTasks
+                .Where(x => x.Id == id)
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Title,
+                    x.StartedOn,
+                    x.EndedOn,
+                    x.Url,
+                    x.StatusId,
+                    StatusName = x.Status.Name,
+                    x.TaskTypeId,
+                    TaskTypeName = x.TaskTypes.Name,
+                    x.AssignedUserId,
+                    AssignedUserName = x.AspNetUsers.UserName,
+                    x.EstimatedEndsOn,
+                    x.UserId,
+                    AuthorUserName = x.AspNetUsers1.UserName,
+                    x.ParentTaskId,
+                    x.ProjectId,
+                    ProjectName = x.Projects.Name,
+                    x.Description,
+                    x.CreatedOn
+                })
+                .FirstOrDefault();
+
+            if (projectTasksItem == null)
             {
                 return NotFound();
             }
 
-            return Ok(projectTasks);
+            return Ok(projectTasksItem);
         }
 
         // PUT: api/ProjectTasks/5
