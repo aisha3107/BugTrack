@@ -179,10 +179,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="BLL\ProjectBll.cs" />
-    <Compile Include="Repositories\ProjectsRepository.cs" />
-    <Compile Include="Repositories\ProjectTasksRepository.cs" />
-    <Compile Include="Repositories\IRepository.cs" />
+    <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Models\ProjectViewModel.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -325,6 +322,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="BLL\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

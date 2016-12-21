@@ -1,5 +1,4 @@
-﻿using BugTrack.BLL;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -8,12 +7,9 @@ using System.Web.Mvc;
 namespace BugTrack.Controllers
 {
     public class HomeController : Controller
-    {
-        ProjectBll bll;
-
+    {        
         public HomeController()
-        {
-            bll = new ProjectBll();                
+        {              
         }
 
         public ActionResult Index()
@@ -33,12 +29,6 @@ namespace BugTrack.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        public JsonResult GetProjects()
-        {
-            return Json(bll.GetProjectsList(), JsonRequestBehavior.AllowGet);
-        }
-        
+        }        
     }
 }
