@@ -172,6 +172,35 @@ namespace BugTrack.Controllers
             return Ok(projectTasks);
         }
 
+        public dynamic SearchByParams(string title = "", string description = "")
+        {
+            return db.ProjectTasks.Where(x => x.Title.Contains(title) ||
+                x.Description.Contains(description))
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Title,
+                    x.StartedOn,
+                    x.EndedOn,
+                    x.Url,
+                    x.StatusId,
+                    StatusName = x.Status.Name,
+                    x.TaskTypeId,
+                    TaskTypeName = x.TaskTypes.Name,
+                    x.AssignedUserId,
+                    AssignedUserName = x.AspNetUsers.UserName,
+                    x.EstimatedEndsOn,
+                    x.UserId,
+                    AuthorUserName = x.AspNetUsers1.UserName,
+                    x.ParentTaskId,
+                    x.ProjectId,
+                    ProjectName = x.Projects.Name,
+                    x.Description,
+                    x.CreatedOn
+                })
+                .ToList();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
