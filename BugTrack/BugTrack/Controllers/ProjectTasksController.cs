@@ -46,7 +46,6 @@ namespace BugTrack.Controllers
         }
 
         // GET: api/ProjectTasks/5
-        [ResponseType(typeof(ProjectTasks))]
         public IHttpActionResult GetProjectTasks(int id)
         {
             var projectTasksItem = db.ProjectTasks
@@ -176,6 +175,34 @@ namespace BugTrack.Controllers
         {
             return db.ProjectTasks.Where(x => x.Title.Contains(title) ||
                 x.Description.Contains(description))
+                .Select(x => new
+                {
+                    x.Id,
+                    x.Title,
+                    x.StartedOn,
+                    x.EndedOn,
+                    x.Url,
+                    x.StatusId,
+                    StatusName = x.Status.Name,
+                    x.TaskTypeId,
+                    TaskTypeName = x.TaskTypes.Name,
+                    x.AssignedUserId,
+                    AssignedUserName = x.AspNetUsers.UserName,
+                    x.EstimatedEndsOn,
+                    x.UserId,
+                    AuthorUserName = x.AspNetUsers1.UserName,
+                    x.ParentTaskId,
+                    x.ProjectId,
+                    ProjectName = x.Projects.Name,
+                    x.Description,
+                    x.CreatedOn
+                })
+                .ToList();
+        }
+
+        public dynamic GetProjectTasksByProjectId(int projectId)
+        {
+            return db.ProjectTasks.Where(x => x.ProjectId == projectId)
                 .Select(x => new
                 {
                     x.Id,

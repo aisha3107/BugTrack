@@ -16,26 +16,45 @@ namespace BugTrack.Controllers
     {
         private BugTrackEntities db = new BugTrackEntities();
 
-        //// GET: api/Comments
-        //public dynamic GetComments()
-        //{
-        //    return db.Comments.Select(x=>new {
-        //        x.Id, x.Text, x.CreateDate, x.ProjectTaskId,
-        //    }).ToList();
-        //}
+        // GET: api/Comments
+        public dynamic GetCommentsByTaskId(int projectTaskId)
+        {
+            return db.Comments
+                .Where(x=>x.ProjectTaskId == projectTaskId)
+                .Select(x => new
+            {
+                x.Id,
+                x.Text,
+                x.CreateDate,
+                x.ProjectTaskId,
+                Author = x.AspNetUsers.UserName
+            }).ToList();
+        }
 
-        //// GET: api/Comments/5
-        //[ResponseType(typeof(Comments))]
-        //public IHttpActionResult GetComments(int id)
-        //{
-        //    Comments comments = db.Comments.Find(id);
-        //    if (comments == null)
-        //    {
-        //        return NotFound();
-        //    }
+        // GET: api/Comments/5
+        public IHttpActionResult GetComments(int id)
+        {
+            var comment = db.Comments
+                .Where(x=>x.Id == id)
+                .Select(x=>new {
+                    x.Id,
+                    x.Text,
+                    x.CreateDate,
+                    x.ProjectTaskId,
+                    TaskTitle = x.ProjectTasks.Title,
+                    ProjectId = x.ProjectTasks.ProjectId,
+                    ProjectTitle = x.ProjectTasks.Projects.Name,
+                    Author = x.AspNetUsers.UserName
+                })
+                .FirstOrDefault();
 
-        //    return Ok(comments);
-        //}
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(comment);
+        }
 
         // PUT: api/Comments/5
         [ResponseType(typeof(void))]

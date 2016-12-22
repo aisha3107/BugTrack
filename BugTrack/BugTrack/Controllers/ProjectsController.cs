@@ -29,7 +29,6 @@ namespace BugTrack.Controllers
         }
 
         // GET: api/Projects/5
-        //        [ResponseType(typeof(Projects))]
         public IHttpActionResult GetProjects(int id)
         {
             var projectItem = db.Projects
