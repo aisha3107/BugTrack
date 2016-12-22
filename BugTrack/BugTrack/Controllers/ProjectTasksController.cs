@@ -71,15 +71,18 @@ namespace BugTrack.Controllers
                     StatusName = x.Status.Name,
                     TaskTypeName = x.TaskTypes.Name,
                     AssignedUserName = x.AspNetUsers.UserName,
-                    AuthorUserName = x.AspNetUsers1.UserName,                    
-                    ProjectName = x.Projects.Name,                    
-                    CommentsList = x.Comments.Select(comm=>new {comm.Id,
+                    AuthorUserName = x.AspNetUsers1.UserName,
+                    ProjectName = x.Projects.Name,
+                    CommentsList = x.Comments.Select(comm => new
+                    {
+                        comm.Id,
                         comm.Text,
                         comm.CreateDate,
                         comm.UserId,
                         Author = comm.AspNetUsers.UserName
                     }).ToList(),
-                    ProjectTaskHistoryList = x.ProjectTaskHistory.Select(hist =>new {
+                    ProjectTaskHistoryList = x.ProjectTaskHistory.Select(hist => new
+                    {
                         hist.Id,
                         hist.UserId,
                         AuthorName = hist.AspNetUsers.UserName,
@@ -120,9 +123,8 @@ namespace BugTrack.Controllers
             {
                 return BadRequest();
             }
-
+            
             db.Entry(projectTasks).State = EntityState.Modified;
-
             try
             {
                 db.SaveChanges();
@@ -150,7 +152,6 @@ namespace BugTrack.Controllers
             {
                 return BadRequest(ModelState);
             }
-
             db.ProjectTasks.Add(projectTasks);
             db.SaveChanges();
 
