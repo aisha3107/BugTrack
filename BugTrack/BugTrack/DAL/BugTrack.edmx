@@ -45,7 +45,7 @@
           </Key>
           <Property Name="TaskId" Type="int" />
           <Property Name="FileName" Type="nvarchar" MaxLength="256" />
-          <Property Name="FileContent" Type="binary" MaxLength="4000" />
+          <Property Name="FileContent" Type="varbinary(max)" />
           <Property Name="Uploaded" Type="datetime" />
           <Property Name="IsDeleted" Type="bit" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
@@ -74,7 +74,7 @@
           <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ChangedOn" Type="datetime" Nullable="false" />
           <Property Name="EstimatedEndsOn" Type="datetime" />
-          <Property Name="AssignedUserId" Type="nchar" MaxLength="10" />
+          <Property Name="AssignedUserId" Type="nvarchar" MaxLength="128" />
           <Property Name="StartedOn" Type="datetime" />
           <Property Name="EndedOn" Type="datetime" />
           <Property Name="TaskTypeId" Type="int" />
@@ -525,7 +525,7 @@
           </Key>
           <Property Name="TaskId" Type="Int32" />
           <Property Name="FileName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
-          <Property Name="FileContent" Type="Binary" MaxLength="4000" FixedLength="true" />
+          <Property Name="FileContent" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="Uploaded" Type="DateTime" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
@@ -552,7 +552,7 @@
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ChangedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EstimatedEndsOn" Type="DateTime" Precision="3" />
-          <Property Name="AssignedUserId" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="AssignedUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="StartedOn" Type="DateTime" Precision="3" />
           <Property Name="EndedOn" Type="DateTime" Precision="3" />
           <Property Name="TaskTypeId" Type="Int32" />
