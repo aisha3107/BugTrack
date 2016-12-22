@@ -174,7 +174,7 @@ namespace BugTrack.Controllers
         }
 
         [HttpGet, Route("SearchByParams")]
-        public dynamic SearchByParams(string title = "", string description = "")
+        public dynamic SearchByParams(string title = null, string description = null)
         {
             return db.ProjectTasks.Where(x => x.Title.Contains(title) ||
                 x.Description.Contains(description))
