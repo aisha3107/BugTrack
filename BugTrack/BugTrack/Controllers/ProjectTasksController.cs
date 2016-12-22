@@ -13,11 +13,13 @@ using BugTrack.Models;
 
 namespace BugTrack.Controllers
 {
+    [RoutePrefix("api/ProjectTasks")]
     public class ProjectTasksController : ApiController
     {
         private BugTrackEntities db = new BugTrackEntities();
 
         // GET: api/ProjectTasks
+        [HttpGet]
         public dynamic GetProjectTasks()
         {
             return db.ProjectTasks
@@ -171,6 +173,7 @@ namespace BugTrack.Controllers
             return Ok(projectTasks);
         }
 
+        [HttpGet, Route("SearchByParams")]
         public dynamic SearchByParams(string title = "", string description = "")
         {
             return db.ProjectTasks.Where(x => x.Title.Contains(title) ||
@@ -200,6 +203,7 @@ namespace BugTrack.Controllers
                 .ToList();
         }
 
+        [HttpGet, Route("GetProjectTasksByProjectId")]
         public dynamic GetProjectTasksByProjectId(int projectId)
         {
             return db.ProjectTasks.Where(x => x.ProjectId == projectId)

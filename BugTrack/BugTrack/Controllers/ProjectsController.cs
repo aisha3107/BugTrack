@@ -45,8 +45,8 @@ namespace BugTrack.Controllers
         }
 
         // PUT: api/Projects/5
-        [ResponseType(typeof(void))]
-        public IHttpActionResult PutProjects(int id, Projects projects)
+        [HttpPut, ResponseType(typeof(void))]
+        public IHttpActionResult PutProjects(int id, [FromBody]Projects projects)
         {
             if (!ModelState.IsValid)
             {
