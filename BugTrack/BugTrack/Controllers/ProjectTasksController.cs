@@ -10,6 +10,7 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using BugTrack.DAL;
 using BugTrack.Models;
+using BugTrack.BLL;
 
 namespace BugTrack.Controllers
 {
@@ -245,6 +246,14 @@ namespace BugTrack.Controllers
         private bool ProjectTasksExists(int id)
         {
             return db.ProjectTasks.Count(e => e.Id == id) > 0;
+        }
+
+        //TEST
+        [HttpGet, Route("GetTree")]
+        public dynamic GetTree()
+        {
+            var tr = new ProjectTreeGrid();
+            return tr.GetTreeGrid();
         }
     }
 }
