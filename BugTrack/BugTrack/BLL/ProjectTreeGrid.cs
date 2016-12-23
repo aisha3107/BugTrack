@@ -46,20 +46,12 @@ namespace BugTrack.BLL
                         treeGrid.Add(node);
                     else
                     {
-                        var childNodes = parentNode.ChildNodes;
-                        childNodes.Add(new
-                        {
-                            projectItem.Id,
-                            projectItem.Name,
-                            projectItem.ParentId,
-                            ChildNodes = new List<dynamic>(),
-                        });
+                        parentNode.ChildNodes.Add(node);
                     }
                     addedProjects.Add(projectItem.Id);
-
-
+                    
                     if (projectItem.Projects1.Count > 0)
-                    {
+                    {                        
                         AddRecursively(projectItem.Projects1, ref node);
                     }
                 }
