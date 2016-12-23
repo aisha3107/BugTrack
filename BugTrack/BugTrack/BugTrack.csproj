@@ -200,6 +200,9 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\StatusController.cs" />
+    <Compile Include="Controllers\TaskTypesController.cs" />
+    <Compile Include="Controllers\UserBoardsController.cs" />
     <Compile Include="DAL\AspNetRoles.cs">
       <DependentUpon>BugTrack.tt</DependentUpon>
     </Compile>
