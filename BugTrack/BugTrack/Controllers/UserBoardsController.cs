@@ -163,6 +163,17 @@ namespace BugTrack.Controllers
             return Ok(userBoards);
         }
 
+        [HttpGet, Route("AddProjectTaskToUserBoard")]
+        public void AddProjectTaskToUserBoard(int taskId, int userBoardId)
+        {
+            var userBoardTask = new UserBoardTasks() {
+                TaskId = taskId,
+                UserBoardId = userBoardId                
+            };
+            db.UserBoardTasks.Add(userBoardTask);
+            db.SaveChanges();
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
