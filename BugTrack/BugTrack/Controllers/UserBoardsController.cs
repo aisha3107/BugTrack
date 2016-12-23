@@ -174,6 +174,23 @@ namespace BugTrack.Controllers
             db.SaveChanges();
         }
 
+        [HttpDelete, Route("DeleteProjectTaskFromUserBoard"), ResponseType(typeof(UserBoards))]
+        public IHttpActionResult DeleteTaskFromBoard(int taskId, int userBoardId)
+        {
+            var userBoardTask = db.UserBoardTasks
+                .Where(x => x.TaskId == taskId && x.UserBoardId == userBoardId)
+                .FirstOrDefault();
+            if (userBoardTask == null)
+            {
+                return NotFound();
+            }
+
+            db.UserBoardTasks.Remove(userBoardTask);
+            db.SaveChanges();
+
+            return Ok(userBoardTask);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
