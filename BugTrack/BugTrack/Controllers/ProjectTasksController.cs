@@ -255,5 +255,13 @@ namespace BugTrack.Controllers
             var tr = new ProjectTreeGrid();
             return tr.GetTreeGrid();
         }
+
+
+        [HttpGet, Route("GetTaskGrid")]
+        public dynamic GetTaskTree()
+        {
+            var tr = new ProjectTaskTreeGrid();
+            return tr.GetTasksTreeGrid();
+        }
     }
 }
