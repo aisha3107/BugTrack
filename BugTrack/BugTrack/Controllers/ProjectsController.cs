@@ -24,7 +24,7 @@ namespace BugTrack.Controllers
             {
                 t.Id,
                 t.Name,
-                Nodes = t.Projects1.Select(d => new { d.Id, d.Name })
+                //Nodes = t.Projects1.Select(d => new { d.Id, d.Name })
             });
         }
 
