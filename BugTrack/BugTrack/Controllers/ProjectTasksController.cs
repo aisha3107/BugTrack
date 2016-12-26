@@ -100,6 +100,12 @@ namespace BugTrack.Controllers
                         hist.ProjectId,
                         hist.Description
                     }).ToList(),
+                    Files = x.Files.Where(file => file.IsDeleted != true).Select(file => new
+                    {
+                        file.Id,
+                        file.FileName,
+                        file.Uploaded
+                    }).ToList(),
                 })
                 .FirstOrDefault();
 
@@ -124,7 +130,7 @@ namespace BugTrack.Controllers
             {
                 return BadRequest();
             }
-            
+
             db.Entry(projectTasks).State = EntityState.Modified;
             try
             {
