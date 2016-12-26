@@ -25,7 +25,7 @@ namespace BugTrack.BLL
             return treeGrid;
         }
 
-        private void AddRecursively(List<Projects> projects1,
+        private void AddRecursively(ICollection<Projects> projects1,
             ref dynamic parentNode)
         {
             foreach (var projectItem in projects1)
