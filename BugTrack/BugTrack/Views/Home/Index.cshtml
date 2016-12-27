@@ -1,31 +1,79 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+@Styles.Render("~/Content/home")
 
-<div class="jumbotron">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="http://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
+<div class="row" style="margin-top:20px;margin-bottom:20px;">
+    <div class="col-md-offset-4 col-md-4">
+        <div class="input-group">
+            <span class="input-group-addon" id="sizing-addon3">Поиск</span>
+            <input type="text" class="form-control" placeholder="Введите название проекта..." aria-describedby="sizing-addon3">
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default table3" aria-label="Left Align">
+                <span class="glyphicon glyphicon-th" aria-hidden="true"></span>
+            </button>
+            <button type="button" class="btn btn-default list1" aria-label="Center Align">
+                <span class="glyphicon glyphicon-list" aria-hidden="true"></span>
+            </button>
+        </div>
+    </div>
 </div>
 
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Get more libraries</h2>
-        <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-    </div>
-    <div class="col-md-4">
-        <h2>Web Hosting</h2>
-        <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-        <p><a class="btn btn-default" href="http://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
+<div class="col-md-12">
+    <div id="spinner" class="spinner" style="display:none;">
+        <img id="img-spinner" src="~/Content/ajax-loader.gif" alt="Загрузка..." />
     </div>
 </div>
+<div class="row" id="projects">
+
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            $.ajax({
+                type: "GET",
+                url: "/api/Projects",
+                beforeSend: function () {
+                    showSpinner();
+                },
+                success: function (data) {
+                    hideSpinner();
+
+                    for (var item in data) {
+                        var htmlLt = '<div class="col-md-4"><div class="panel panel-default">' +
+        '<div class="panel-body"><h3>' + data[item].Name + '</h3>' +
+        '<p><a class="btn btn-default" href="/Projects/' + data[item].Id +
+        '">Подробнее &raquo;</a></p></div></div></div>';
+
+                        $('#projects').append(htmlLt);
+                        //console.log(data[item]);
+                    }
+                },
+                error: function () {
+                    hideSpinner();
+                }
+            });
+
+            function hideSpinner() {
+                $("#spinner").css("display", "none");
+            }
+
+            function showSpinner() {
+                $("#spinner").css("display", "inline");
+            }
+
+            $(".list1").click(function () {
+                console.log("List clicked");
+                $('#projects div.col-md-4').switchClass("col-md-4", "col-md-12", 500);
+            });
+
+            $(".table3").click(function () {
+                console.log("Table clicked");
+                $('#projects div.col-md-12').switchClass("col-md-12", "col-md-4", 500);
+            });
+        });
+    </script>
+}
