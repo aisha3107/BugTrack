@@ -22,6 +22,7 @@ namespace BugTrack
             );
 
             config.Formatters.JsonFormatter.SupportedMediaTypes.Add(new MediaTypeHeaderValue("text/html"));
+            config.Filters.Add(new AuthorizeAttribute());
         }
     }
 }
