@@ -10,12 +10,15 @@ using System.Web.Http;
 using System.Web.Http.Description;
 using BugTrack.DAL;
 using BugTrack.Models;
+using BugTrack.BLL;
 
 namespace BugTrack.Controllers
 {
+    [RoutePrefix("api/Projects")]
     public class ProjectsController : ApiController
     {
         private BugTrackEntities db = new BugTrackEntities();
+        private ProjectTreeGrid treeBuilder = new ProjectTreeGrid();
 
         // GET: api/Projects
         public dynamic GetProjects()
@@ -108,6 +111,13 @@ namespace BugTrack.Controllers
             db.SaveChanges();
 
             return Ok(projects);
+        }
+
+
+        [HttpGet, Route("GetProjectTaskHierarchyByProjectId")] 
+        public dynamic GetTasksHierarchyByProjectId(int id)
+        {
+            return treeBuilder.GetHierarchyByProjectId(id);
         }
 
         protected override void Dispose(bool disposing)

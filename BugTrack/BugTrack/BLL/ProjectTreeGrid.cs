@@ -49,9 +49,9 @@ namespace BugTrack.BLL
                         parentNode.ChildNodes.Add(node);
                     }
                     addedProjects.Add(projectItem.Id);
-                    
+
                     if (projectItem.Projects1.Count > 0)
-                    {                        
+                    {
                         AddRecursively(projectItem.Projects1, ref node);
                     }
                 }
@@ -61,6 +61,80 @@ namespace BugTrack.BLL
         private bool IsInTree(int projectId)
         {
             return addedProjects.Contains(projectId);
+        }
+
+
+        public dynamic GetHierarchyByProjectId(int projectID)
+        {
+            //взять данные по проекту       
+            var selectedProject = db.Projects.Where(x => x.Id == projectID)
+                .FirstOrDefault();
+
+            //при первой вставке определяется структура объекта в дереве
+            treeGrid.Add(new
+            {
+                ProjectId = selectedProject.Id,
+                ProjectTitle = selectedProject.Name,
+                ProjectNodes = new List<dynamic>(),
+                TaskNodes = new List<dynamic>(),
+            });
+
+            var parentNodeFirst = treeGrid.FirstOrDefault();
+            AddProjectAndTasksRecursively(selectedProject.Projects1, 
+                selectedProject.ProjectTasks.Where(x=>x.ParentTaskId == null).ToList(), 
+                ref parentNodeFirst);
+
+            return treeGrid;
+        }
+
+        private void AddProjectAndTasksRecursively(ICollection<Projects> projects1,
+            ICollection<ProjectTasks> projectTasks,
+            ref dynamic parentNode)
+        {
+            foreach(var projectItem in projects1)
+            {
+                var projectNode = new object();
+
+                projectNode = new
+
+                {
+                    ProjectId = projectItem.Id,
+                    ProjectTitle = projectItem.Name,
+                    ProjectNodes = new List<dynamic>(),
+                    TaskNodes = new List<dynamic>(),
+                };
+
+                parentNode.ProjectNodes.Add(projectNode);
+
+                if(projectItem.Projects1.Count > 0 || projectItem.ProjectTasks.Count > 0)
+                {
+                    AddProjectAndTasksRecursively(projectItem.Projects1,
+                        projectItem.ProjectTasks.Where(x => x.ParentTaskId == null).ToList(),
+                        ref projectNode);
+                }
+            }
+
+            foreach(var taskItem in projectTasks)
+            {
+                var taskNode = new object();
+
+                taskNode = new {
+                    TaskId = taskItem.Id,
+                    TaskTitle = taskItem.Title,
+                    ProjectId = taskItem.ProjectId,
+                    ParentTaskId = taskItem.ParentTaskId,
+                    TaskNodes = new List<dynamic>()
+                };
+
+                parentNode.TaskNodes.Add(taskNode);
+
+                if(taskItem.ProjectTasks1.Count > 0)
+                {
+                    AddProjectAndTasksRecursively(new List<Projects>(),
+                        taskItem.ProjectTasks1,
+                        ref taskNode);
+                }
+            }            
         }
     }
 }
