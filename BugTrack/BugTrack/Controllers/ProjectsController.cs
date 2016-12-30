@@ -21,14 +21,18 @@ namespace BugTrack.Controllers
         private ProjectTreeGrid treeBuilder = new ProjectTreeGrid();
 
         // GET: api/Projects
-        public dynamic GetProjects()
+        public dynamic GetProjects(bool IsIncludeNodes = false)
         {
-            return db.Projects.Select(t => new
+            if (!IsIncludeNodes)
+                return db.Projects.Select(t => new
+                {
+                    t.Id,
+                    t.Name,
+                });
+            else
             {
-                t.Id,
-                t.Name,
-                //Nodes = t.Projects1.Select(d => new { d.Id, d.Name })
-            });
+                return treeBuilder.GetTreeGrid();
+            }
         }
 
         // GET: api/Projects/5
@@ -36,7 +40,7 @@ namespace BugTrack.Controllers
         {
             var projectItem = db.Projects
                 .Where(x => x.Id == id)
-                .Select(x=> new
+                .Select(x => new
                 {
                     x.Id,
                     x.Name,
@@ -114,7 +118,7 @@ namespace BugTrack.Controllers
         }
 
 
-        [HttpGet, Route("GetProjectTaskHierarchyByProjectId")] 
+        [HttpGet, Route("GetProjectTaskHierarchyByProjectId")]
         public dynamic GetTasksHierarchyByProjectId(int id)
         {
             return treeBuilder.GetHierarchyByProjectId(id);

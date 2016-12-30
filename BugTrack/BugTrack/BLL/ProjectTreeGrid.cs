@@ -40,13 +40,13 @@ namespace BugTrack.BLL
                         projectItem.Id,
                         projectItem.Name,
                         projectItem.ParentId,
-                        ChildNodes = new List<dynamic>(),
+                        Nodes = new List<dynamic>(),
                     };
                     if (parentProjectId == 0)
                         treeGrid.Add(node);
                     else
                     {
-                        parentNode.ChildNodes.Add(node);
+                        parentNode.Nodes.Add(node);
                     }
                     addedProjects.Add(projectItem.Id);
 

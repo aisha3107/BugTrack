@@ -18,34 +18,40 @@ namespace BugTrack.Controllers
     public class ProjectTasksController : ApiController
     {
         private BugTrackEntities db = new BugTrackEntities();
+        private ProjectTaskTreeGrid treeBuilder = new ProjectTaskTreeGrid();
 
         // GET: api/ProjectTasks
         [HttpGet]
-        public dynamic GetProjectTasks()
+        public dynamic GetProjectTasks(bool IsIncludeNodes = false)
         {
-            return db.ProjectTasks
-                .Select(x => new
-                {
-                    x.Id,
-                    x.Title,
-                    x.StartedOn,
-                    x.EndedOn,
-                    x.Url,
-                    x.StatusId,
-                    StatusName = x.Status.Name,
-                    x.TaskTypeId,
-                    TaskTypeName = x.TaskTypes.Name,
-                    x.AssignedUserId,
-                    AssignedUserName = x.AspNetUsers.UserName,
-                    x.EstimatedEndsOn,
-                    x.UserId,
-                    AuthorUserName = x.AspNetUsers1.UserName,
-                    x.ParentTaskId,
-                    x.ProjectId,
-                    ProjectName = x.Projects.Name,
-                    x.Description,
-                    x.CreatedOn
-                });
+            if (!IsIncludeNodes)
+                return db.ProjectTasks
+                    .Select(x => new
+                    {
+                        x.Id,
+                        x.Title,
+                        x.StartedOn,
+                        x.EndedOn,
+                        x.Url,
+                        x.StatusId,
+                        StatusName = x.Status.Name,
+                        x.TaskTypeId,
+                        TaskTypeName = x.TaskTypes.Name,
+                        x.AssignedUserId,
+                        AssignedUserName = x.AspNetUsers.UserName,
+                        x.EstimatedEndsOn,
+                        x.UserId,
+                        AuthorUserName = x.AspNetUsers1.UserName,
+                        x.ParentTaskId,
+                        x.ProjectId,
+                        ProjectName = x.Projects.Name,
+                        x.Description,
+                        x.CreatedOn
+                    });
+            else
+            {
+                return treeBuilder.GetTasksTreeGrid();
+            }
         }
 
         // GET: api/ProjectTasks/5
@@ -255,19 +261,17 @@ namespace BugTrack.Controllers
         }
 
         //TEST
-        [HttpGet, Route("GetTree")]
-        public dynamic GetTree()
-        {
-            var tr = new ProjectTreeGrid();
-            return tr.GetTreeGrid();
-        }
-
-
-        [HttpGet, Route("GetTaskGrid")]
-        public dynamic GetTaskTree()
-        {
-            var tr = new ProjectTaskTreeGrid();
-            return tr.GetTasksTreeGrid();
-        }
+        //[HttpGet, Route("GetTree")]
+        //public dynamic GetTree()
+        //{
+        //    var tr = new ProjectTreeGrid();
+        //    return tr.GetTreeGrid();
+        //}
+        //[HttpGet, Route("GetTaskGrid")]
+        //public dynamic GetTaskTree()
+        //{
+        //    var tr = new ProjectTaskTreeGrid();
+        //    return tr.GetTasksTreeGrid();
+        //}
     }
 }

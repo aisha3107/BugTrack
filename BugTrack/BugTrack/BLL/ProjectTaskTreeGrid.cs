@@ -54,13 +54,13 @@ namespace BugTrack.BLL
                         ProjectName = taskItem.Projects.Name,
                         taskItem.Description,
                         taskItem.CreatedOn,
-                        ChildTaskNodes = new List<dynamic>(),
+                        Nodes = new List<dynamic>(),
                     };
                     if (parentProjectId == 0)
                         treeGrid.Add(node);
                     else
                     {
-                        parentNodeFirst.ChildTaskNodes.Add(node);
+                        parentNodeFirst.Nodes.Add(node);
                     }
                     addedTasks.Add(taskItem.Id);
 
