@@ -246,6 +246,12 @@ namespace BugTrack.Controllers
                 .ToList();
         }
 
+        [HttpGet, Route("GetTasksHierarchyByProjectId")]
+        public dynamic GetTasksHierarchyByProjectId(int id)
+        {
+            return treeBuilder.GetTasksTreeGridByProjectId(id);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
