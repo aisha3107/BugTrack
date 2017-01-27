@@ -75,6 +75,7 @@ namespace BugTrack.Controllers
                     x.ProjectId,
                     x.Description,
                     x.CreatedOn,
+                    x.CompletedPercent,
                     StatusName = x.Status.Name,
                     TaskTypeName = x.TaskTypes.Name,
                     AssignedUserName = x.AspNetUsers.UserName,
