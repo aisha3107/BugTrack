@@ -21,6 +21,7 @@ namespace BugTrack.DAL
             this.ProjectTasks = new HashSet<ProjectTasks>();
             this.ProjectTasks1 = new HashSet<ProjectTasks>();
             this.Comments = new HashSet<Comments>();
+            this.UserBoards = new HashSet<UserBoards>();
         }
     
         public string Id { get; set; }
@@ -44,5 +45,7 @@ namespace BugTrack.DAL
         public virtual ICollection<ProjectTasks> ProjectTasks1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Comments> Comments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<UserBoards> UserBoards { get; set; }
     }
 }

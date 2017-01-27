@@ -37,6 +37,7 @@
         <AssociationConnector Association="BugTrackModel.FK_ProjectRoles_AspNetRoles" />
         <AssociationConnector Association="BugTrackModel.FK_ProjectRoles_Projects" />
         <AssociationConnector Association="BugTrackModel.FK_Comments_AspNetUsers" />
+        <AssociationConnector Association="BugTrackModel.FK_UserBoards_AspNetUsers" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

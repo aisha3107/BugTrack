@@ -28,6 +28,7 @@ namespace BugTrack.DAL
         public Nullable<int> ProjectId { get; set; }
         public string Description { get; set; }
         public int Id { get; set; }
+        public Nullable<int> CompletedPercent { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Projects Projects { get; set; }

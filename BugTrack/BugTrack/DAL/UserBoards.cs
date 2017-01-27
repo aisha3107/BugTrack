@@ -27,5 +27,6 @@ namespace BugTrack.DAL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBoardTasks> UserBoardTasks { get; set; }
+        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

@@ -26,7 +26,7 @@ namespace BugTrack.DAL
     
         public int Id { get; set; }
         public string Title { get; set; }
-        public System.DateTime StartedOn { get; set; }
+        public Nullable<System.DateTime> StartedOn { get; set; }
         public Nullable<System.DateTime> EndedOn { get; set; }
         public string Url { get; set; }
         public int StatusId { get; set; }
@@ -35,9 +35,10 @@ namespace BugTrack.DAL
         public Nullable<System.DateTime> EstimatedEndsOn { get; set; }
         public string UserId { get; set; }
         public Nullable<int> ParentTaskId { get; set; }
-        public Nullable<int> ProjectId { get; set; }
+        public int ProjectId { get; set; }
         public string Description { get; set; }
-        public Nullable<System.DateTime> CreatedOn { get; set; }
+        public System.DateTime CreatedOn { get; set; }
+        public Nullable<int> CompletedPercent { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }
