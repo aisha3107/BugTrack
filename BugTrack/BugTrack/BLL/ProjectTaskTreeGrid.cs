@@ -54,6 +54,7 @@ namespace BugTrack.BLL
                         ProjectName = taskItem.Projects.Name,
                         taskItem.Description,
                         taskItem.CreatedOn,
+                        taskItem.CompletedPercent,
                         Nodes = new List<dynamic>(),
                     };
                     if (parentProjectId == 0)
@@ -124,6 +125,7 @@ namespace BugTrack.BLL
                     ProjectName = taskItem.Projects.Name,
                     taskItem.Description,
                     taskItem.CreatedOn,
+                    taskItem.CompletedPercent,
                     Nodes = new List<dynamic>(),
                 };
 
