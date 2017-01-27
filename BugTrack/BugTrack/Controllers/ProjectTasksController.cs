@@ -46,7 +46,8 @@ namespace BugTrack.Controllers
                         x.ProjectId,
                         ProjectName = x.Projects.Name,
                         x.Description,
-                        x.CreatedOn
+                        x.CreatedOn,
+                        x.CompletedPercent
                     });
             else
             {
