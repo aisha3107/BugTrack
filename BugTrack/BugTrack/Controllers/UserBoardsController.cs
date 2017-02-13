@@ -29,9 +29,11 @@ namespace BugTrack.Controllers
                 .Select(x => new
                 {
                     x.Id,
-                    x.Title,
+                    x.ProjectId,
                     x.UserId,
+                    x.Title,
                     x.IsArchived,
+                    x.Order,
                     Tasks = x.UserBoardTasks.Select(y => new
                     {
                         y.TaskId,
@@ -43,6 +45,7 @@ namespace BugTrack.Controllers
                         ProjectId = y.ProjectTasks.ProjectId,
                         ProjectTitle = y.ProjectTasks.Projects.Name,
                         StartedOn = y.ProjectTasks.StartedOn,
+                        y.Order,
                         ProjectFiles = y.ProjectTasks.Files.Where(file => file.IsDeleted != true)
                             .Select(file => new
                             {
@@ -65,9 +68,11 @@ namespace BugTrack.Controllers
                 .Select(x => new
                 {
                     x.Id,
-                    x.Title,
+                    x.ProjectId,
                     x.UserId,
+                    x.Title,
                     x.IsArchived,
+                    x.Order,
                     Tasks = x.UserBoardTasks.Select(y => new
                     {
                         y.TaskId,
@@ -79,6 +84,7 @@ namespace BugTrack.Controllers
                         ProjectId = y.ProjectTasks.ProjectId,
                         ProjectTitle = y.ProjectTasks.Projects.Name,
                         StartedOn = y.ProjectTasks.StartedOn,
+                        y.Order,
                         ProjectFiles = y.ProjectTasks.Files.Where(file => file.IsDeleted != true)
                             .Select(file => new
                             {
@@ -96,6 +102,46 @@ namespace BugTrack.Controllers
 
             return Ok(userBoards);
         }
+
+
+        [HttpGet, Route("GetProjectBoardsByProjectId")]
+        public dynamic GetProjectBoardsByProjectId(int projectId)
+        {
+            //string projectId = User.Identity.GetUserId();
+
+            return db.UserBoards
+                .Where(x => x.ProjectId == projectId)
+                .Select(x => new
+                {
+                    x.Id,
+                    x.ProjectId,
+                    x.UserId,
+                    x.Title,
+                    x.IsArchived,
+                    x.Order,
+                    Tasks = x.UserBoardTasks.Select(y => new
+                    {
+                        y.TaskId,
+                        ProjectTaskTitle = y.ProjectTasks.Title,
+                        ProjectTaskTypesId = y.ProjectTasks.TaskTypeId,
+                        ProjectTaskTypesTitle = y.ProjectTasks.TaskTypes.Name,
+                        ProjectTaskStatusId = y.ProjectTasks.StatusId,
+                        ProjectTaskStatusTitle = y.ProjectTasks.Status.Name,
+                        ProjectId = y.ProjectTasks.ProjectId,
+                        ProjectTitle = y.ProjectTasks.Projects.Name,
+                        StartedOn = y.ProjectTasks.StartedOn,
+                        y.Order,
+                        ProjectFiles = y.ProjectTasks.Files.Where(file => file.IsDeleted != true)
+                            .Select(file => new
+                            {
+                                file.Id,
+                                file.FileName,
+                            }),
+                    }).ToList()
+                })
+                .ToList();
+        }
+
 
         // PUT: api/UserBoards/5
         [ResponseType(typeof(void))]
@@ -166,11 +212,12 @@ namespace BugTrack.Controllers
         }
 
         [HttpGet, Route("AddProjectTaskToUserBoard")]
-        public void AddProjectTaskToUserBoard(int taskId, int userBoardId)
+        public void AddProjectTaskToUserBoard(int taskId, int userBoardId, int order)
         {
             var userBoardTask = new UserBoardTasks() {
                 TaskId = taskId,
-                UserBoardId = userBoardId                
+                UserBoardId = userBoardId,
+                Order = order           
             };
             db.UserBoardTasks.Add(userBoardTask);
             db.SaveChanges();
