@@ -48,7 +48,8 @@ namespace BugTrack.Controllers
                         ProjectName = x.Projects.Name,
                         x.Description,
                         x.CreatedOn,
-                        x.CompletedPercent
+                        x.CompletedPercent,
+                        x.Color
                     });
             else
             {
@@ -78,6 +79,7 @@ namespace BugTrack.Controllers
                     x.Description,
                     x.CreatedOn,
                     x.CompletedPercent,
+                    x.Color,
                     StatusName = x.Status.Name,
                     TaskTypeName = x.TaskTypes.Name,
                     AssignedUserName = x.AspNetUsers.UserName,
@@ -107,7 +109,8 @@ namespace BugTrack.Controllers
                         StatusName = hist.Status.Name,
                         hist.ParentTaskId,
                         hist.ProjectId,
-                        hist.Description
+                        hist.Description,
+                        hist.Color
                     }).ToList(),
                     Files = x.Files.Where(file => file.IsDeleted != true).Select(file => new
                     {
@@ -130,6 +133,7 @@ namespace BugTrack.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutProjectTasks(int id, ProjectTasks projectTasks)
         {
+            //projectTasks.CreatedOn = DateTime.Now;
             if (User.Identity.GetUserId() != null)
                 projectTasks.CreatedBy = User.Identity.GetUserId();
 
@@ -229,7 +233,8 @@ namespace BugTrack.Controllers
                     x.ProjectId,
                     ProjectName = x.Projects.Name,
                     x.Description,
-                    x.CreatedOn
+                    x.CreatedOn,
+                    x.Color
                 })
                 .ToList();
         }
@@ -259,7 +264,8 @@ namespace BugTrack.Controllers
                     ProjectName = x.Projects.Name,
                     x.Description,
                     x.CreatedOn,
-                    x.CompletedPercent
+                    x.CompletedPercent,
+                    x.Color
                 })
                 .ToList();
         }
