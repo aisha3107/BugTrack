@@ -12,15 +12,13 @@ namespace BugTrack.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Comments
+    public partial class AspNetUserClaims
     {
         public int Id { get; set; }
-        public string Text { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public int ProjectTaskId { get; set; }
         public string UserId { get; set; }
+        public string ClaimType { get; set; }
+        public string ClaimValue { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual ProjectTasks ProjectTasks { get; set; }
     }
 }

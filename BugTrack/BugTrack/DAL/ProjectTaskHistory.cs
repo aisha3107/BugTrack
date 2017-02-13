@@ -15,7 +15,7 @@ namespace BugTrack.DAL
     public partial class ProjectTaskHistory
     {
         public int TaskId { get; set; }
-        public string UserId { get; set; }
+        public string CreatedBy { get; set; }
         public System.DateTime ChangedOn { get; set; }
         public Nullable<System.DateTime> EstimatedEndsOn { get; set; }
         public string AssignedUserId { get; set; }
@@ -29,6 +29,8 @@ namespace BugTrack.DAL
         public string Description { get; set; }
         public int Id { get; set; }
         public Nullable<int> CompletedPercent { get; set; }
+        public string Color { get; set; }
+        public string Url { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual Projects Projects { get; set; }

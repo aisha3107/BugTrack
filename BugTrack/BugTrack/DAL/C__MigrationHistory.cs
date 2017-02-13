@@ -12,15 +12,11 @@ namespace BugTrack.DAL
     using System;
     using System.Collections.Generic;
     
-    public partial class Comments
+    public partial class C__MigrationHistory
     {
-        public int Id { get; set; }
-        public string Text { get; set; }
-        public System.DateTime CreateDate { get; set; }
-        public int ProjectTaskId { get; set; }
-        public string UserId { get; set; }
-    
-        public virtual AspNetUsers AspNetUsers { get; set; }
-        public virtual ProjectTasks ProjectTasks { get; set; }
+        public string MigrationId { get; set; }
+        public string ContextKey { get; set; }
+        public byte[] Model { get; set; }
+        public string ProductVersion { get; set; }
     }
 }

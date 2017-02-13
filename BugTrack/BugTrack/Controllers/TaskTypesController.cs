@@ -14,7 +14,7 @@ namespace BugTrack.Controllers
 {
     public class TaskTypesController : ApiController
     {
-        private BugTrackEntities db = new BugTrackEntities();
+        private bugTrackEntities db = new bugTrackEntities();
 
         // GET: api/TaskTypes
         public dynamic GetTaskTypes()

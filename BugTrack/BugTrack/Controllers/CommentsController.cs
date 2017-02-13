@@ -14,7 +14,7 @@ namespace BugTrack.Controllers
 {
     public class CommentsController : ApiController
     {
-        private BugTrackEntities db = new BugTrackEntities();
+        private bugTrackEntities db = new bugTrackEntities();
 
         // GET: api/Comments
         public dynamic GetCommentsByTaskId(int projectTaskId)

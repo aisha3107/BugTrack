@@ -17,16 +17,19 @@ namespace BugTrack.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Projects()
         {
+            this.ProjectRoles = new HashSet<ProjectRoles>();
             this.Projects1 = new HashSet<Projects>();
             this.ProjectTaskHistory = new HashSet<ProjectTaskHistory>();
             this.ProjectTasks = new HashSet<ProjectTasks>();
-            this.ProjectRoles = new HashSet<ProjectRoles>();
+            this.UserBoards = new HashSet<UserBoards>();
         }
     
         public int Id { get; set; }
         public string Name { get; set; }
         public Nullable<int> ParentId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ProjectRoles> ProjectRoles { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Projects> Projects1 { get; set; }
         public virtual Projects Projects2 { get; set; }
@@ -35,6 +38,6 @@ namespace BugTrack.DAL
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectTasks> ProjectTasks { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProjectRoles> ProjectRoles { get; set; }
+        public virtual ICollection<UserBoards> UserBoards { get; set; }
     }
 }

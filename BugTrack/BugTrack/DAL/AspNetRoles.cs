@@ -18,6 +18,7 @@ namespace BugTrack.DAL
         public AspNetRoles()
         {
             this.ProjectRoles = new HashSet<ProjectRoles>();
+            this.AspNetUsers = new HashSet<AspNetUsers>();
         }
     
         public string Id { get; set; }
@@ -25,5 +26,7 @@ namespace BugTrack.DAL
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ProjectRoles> ProjectRoles { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<AspNetUsers> AspNetUsers { get; set; }
     }
 }

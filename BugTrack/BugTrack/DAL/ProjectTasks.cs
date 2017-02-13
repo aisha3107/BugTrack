@@ -33,12 +33,13 @@ namespace BugTrack.DAL
         public int TaskTypeId { get; set; }
         public string AssignedUserId { get; set; }
         public Nullable<System.DateTime> EstimatedEndsOn { get; set; }
-        public string UserId { get; set; }
+        public string CreatedBy { get; set; }
         public Nullable<int> ParentTaskId { get; set; }
         public int ProjectId { get; set; }
         public string Description { get; set; }
         public System.DateTime CreatedOn { get; set; }
         public Nullable<int> CompletedPercent { get; set; }
+        public string Color { get; set; }
     
         public virtual AspNetUsers AspNetUsers { get; set; }
         public virtual AspNetUsers AspNetUsers1 { get; set; }

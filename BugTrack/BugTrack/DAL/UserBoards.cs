@@ -21,12 +21,15 @@ namespace BugTrack.DAL
         }
     
         public int Id { get; set; }
+        public int ProjectId { get; set; }
         public string UserId { get; set; }
         public string Title { get; set; }
-        public Nullable<bool> IsArchive { get; set; }
+        public bool IsArchived { get; set; }
+        public int Order { get; set; }
     
+        public virtual AspNetUsers AspNetUsers { get; set; }
+        public virtual Projects Projects { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserBoardTasks> UserBoardTasks { get; set; }
-        public virtual AspNetUsers AspNetUsers { get; set; }
     }
 }

@@ -17,7 +17,7 @@ namespace BugTrack.Controllers
     [RoutePrefix("api/Projects")]
     public class ProjectsController : ApiController
     {
-        private BugTrackEntities db = new BugTrackEntities();
+        private bugTrackEntities db = new bugTrackEntities();
         private ProjectTreeGrid treeBuilder = new ProjectTreeGrid();
 
         // GET: api/Projects

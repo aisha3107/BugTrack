@@ -16,7 +16,7 @@ namespace BugTrack.Controllers
     [RoutePrefix("api/UserBoards")]
     public class UserBoardsController : ApiController
     {
-        private BugTrackEntities db = new BugTrackEntities();
+        private bugTrackEntities db = new bugTrackEntities();
 
         // GET: api/UserBoards
         [HttpGet]
@@ -31,7 +31,7 @@ namespace BugTrack.Controllers
                     x.Id,
                     x.Title,
                     x.UserId,
-                    x.IsArchive,
+                    x.IsArchived,
                     Tasks = x.UserBoardTasks.Select(y => new
                     {
                         y.TaskId,
@@ -58,6 +58,8 @@ namespace BugTrack.Controllers
         [ResponseType(typeof(UserBoards))]
         public IHttpActionResult GetUserBoards(int id)
         {
+            string UserId = User.Identity.GetUserId();
+
             var userBoards = db.UserBoards
                 .Where(x=>x.Id == id)
                 .Select(x => new
@@ -65,7 +67,7 @@ namespace BugTrack.Controllers
                     x.Id,
                     x.Title,
                     x.UserId,
-                    x.IsArchive,
+                    x.IsArchived,
                     Tasks = x.UserBoardTasks.Select(y => new
                     {
                         y.TaskId,

@@ -4,13 +4,50 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="BugTrackModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="bugTrackModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="ContextKey" Type="nvarchar" MaxLength="300" Nullable="false" />
+          <Property Name="Model" Type="varbinary(max)" Nullable="false" />
+          <Property Name="ProductVersion" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -71,40 +108,43 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="TaskId" Type="int" Nullable="false" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ChangedOn" Type="datetime" Nullable="false" />
           <Property Name="EstimatedEndsOn" Type="datetime" />
           <Property Name="AssignedUserId" Type="nvarchar" MaxLength="128" />
           <Property Name="StartedOn" Type="datetime" />
           <Property Name="EndedOn" Type="datetime" />
           <Property Name="TaskTypeId" Type="int" />
-          <Property Name="Title" Type="nvarchar" MaxLength="250" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="StatusId" Type="int" />
           <Property Name="ParentTaskId" Type="int" />
           <Property Name="ProjectId" Type="int" />
-          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CompletedPercent" Type="int" />
+          <Property Name="Color" Type="nvarchar" MaxLength="10" />
+          <Property Name="Url" Type="nvarchar" MaxLength="512" />
         </EntityType>
         <EntityType Name="ProjectTasks">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Title" Type="nvarchar" MaxLength="250" />
+          <Property Name="Title" Type="nvarchar" MaxLength="250" Nullable="false" />
           <Property Name="StartedOn" Type="datetime" />
           <Property Name="EndedOn" Type="datetime" />
-          <Property Name="Url" Type="nvarchar(max)" />
+          <Property Name="Url" Type="nvarchar" MaxLength="512" />
           <Property Name="StatusId" Type="int" Nullable="false" />
           <Property Name="TaskTypeId" Type="int" Nullable="false" />
           <Property Name="AssignedUserId" Type="nvarchar" MaxLength="128" />
           <Property Name="EstimatedEndsOn" Type="datetime" />
-          <Property Name="UserId" Type="nvarchar" MaxLength="128" />
+          <Property Name="CreatedBy" Type="nvarchar" MaxLength="128" Nullable="false" />
           <Property Name="ParentTaskId" Type="int" />
           <Property Name="ProjectId" Type="int" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" Nullable="false" />
           <Property Name="CreatedOn" Type="datetime" Nullable="false" />
           <Property Name="CompletedPercent" Type="int" />
+          <Property Name="Color" Type="nvarchar" MaxLength="10" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -135,9 +175,11 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" Nullable="false" />
           <Property Name="UserId" Type="nvarchar" MaxLength="128" />
-          <Property Name="Title" Type="nvarchar" MaxLength="50" />
-          <Property Name="IsArchive" Type="bit" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="IsArchived" Type="bit" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="UserBoardTasks">
           <Key>
@@ -146,6 +188,7 @@
           <Property Name="UserBoardId" Type="int" Nullable="false" />
           <Property Name="TaskId" Type="int" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Comments_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
@@ -155,6 +198,62 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -261,7 +360,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProjectTaskHistory">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -326,14 +425,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProjectTasks_AspNetUsers1">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="ProjectTasks" Type="Self.ProjectTasks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProjectTasks">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -373,6 +472,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_UserBoards_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="UserBoards" Type="Self.UserBoards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserBoards">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_UserBoardTasks_ProjectTasks">
           <End Role="ProjectTasks" Type="Self.ProjectTasks" Multiplicity="0..1" />
           <End Role="UserBoardTasks" Type="Self.UserBoardTasks" Multiplicity="*" />
@@ -397,8 +508,12 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BugTrackModelStoreContainer">
+        <EntityContainer Name="bugTrackModelStoreContainer">
+          <EntitySet Name="__MigrationHistory" EntityType="Self.__MigrationHistory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Comments" EntityType="Self.Comments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Files" EntityType="Self.Files" Schema="dbo" store:Type="Tables" />
@@ -414,6 +529,22 @@
           <AssociationSet Name="FK_Comments_AspNetUsers" Association="Self.FK_Comments_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId" Association="Self.FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId">
             <End Role="ProjectTasks" EntitySet="ProjectTasks" />
@@ -483,6 +614,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="UserBoards" EntitySet="UserBoards" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserBoards_Projects" Association="Self.FK_UserBoards_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="UserBoards" EntitySet="UserBoards" />
+          </AssociationSet>
           <AssociationSet Name="FK_UserBoardTasks_ProjectTasks" Association="Self.FK_UserBoardTasks_ProjectTasks">
             <End Role="ProjectTasks" EntitySet="ProjectTasks" />
             <End Role="UserBoardTasks" EntitySet="UserBoardTasks" />
@@ -492,17 +627,50 @@
             <End Role="UserBoardTasks" EntitySet="UserBoardTasks" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="BugTrackModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="bugTrackModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="C__MigrationHistory">
+          <Key>
+            <PropertyRef Name="MigrationId" />
+            <PropertyRef Name="ContextKey" />
+          </Key>
+          <Property Name="MigrationId" Type="String" MaxLength="150" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ContextKey" Type="String" MaxLength="300" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Model" Type="Binary" MaxLength="Max" FixedLength="false" Nullable="false" />
+          <Property Name="ProductVersion" Type="String" MaxLength="32" FixedLength="false" Unicode="true" Nullable="false" />
+        </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="ProjectRoles" Relationship="BugTrackModel.FK_ProjectRoles_AspNetRoles" FromRole="AspNetRoles" ToRole="ProjectRoles" />
+          <NavigationProperty Name="ProjectRoles" Relationship="Self.FK_ProjectRoles_AspNetRoles" FromRole="AspNetRoles" ToRole="ProjectRoles" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="ProviderKey" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="AspNetUsers">
           <Key>
@@ -520,11 +688,14 @@
           <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
           <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
           <Property Name="UserName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+          <NavigationProperty Name="Comments" Relationship="Self.FK_Comments_AspNetUsers" FromRole="AspNetUsers" ToRole="Comments" />
           <NavigationProperty Name="ProjectTaskHistory" Relationship="Self.FK_ProjectTaskHistory_AspNetUsers" FromRole="AspNetUsers" ToRole="ProjectTaskHistory" />
           <NavigationProperty Name="ProjectTasks" Relationship="Self.FK_ProjectTasks_AspNetUsers" FromRole="AspNetUsers" ToRole="ProjectTasks" />
           <NavigationProperty Name="ProjectTasks1" Relationship="Self.FK_ProjectTasks_AspNetUsers1" FromRole="AspNetUsers" ToRole="ProjectTasks" />
-          <NavigationProperty Name="Comments" Relationship="BugTrackModel.FK_Comments_AspNetUsers" FromRole="AspNetUsers" ToRole="Comments" />
-          <NavigationProperty Name="UserBoards" Relationship="BugTrackModel.FK_UserBoards_AspNetUsers" FromRole="AspNetUsers" ToRole="UserBoards" />
+          <NavigationProperty Name="UserBoards" Relationship="Self.FK_UserBoards_AspNetUsers" FromRole="AspNetUsers" ToRole="UserBoards" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
         </EntityType>
         <EntityType Name="Comments">
           <Key>
@@ -534,9 +705,9 @@
           <Property Name="Text" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ProjectTaskId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ProjectTasks" Relationship="Self.FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId" FromRole="Comments" ToRole="ProjectTasks" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="AspNetUsers" Relationship="BugTrackModel.FK_Comments_AspNetUsers" FromRole="Comments" ToRole="AspNetUsers" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_Comments_AspNetUsers" FromRole="Comments" ToRole="AspNetUsers" />
+          <NavigationProperty Name="ProjectTasks" Relationship="Self.FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId" FromRole="Comments" ToRole="ProjectTasks" />
         </EntityType>
         <EntityType Name="Files">
           <Key>
@@ -550,6 +721,16 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="ProjectTasks" Relationship="Self.FK_Files_ProjectTasks" FromRole="Files" ToRole="ProjectTasks" />
         </EntityType>
+        <EntityType Name="ProjectRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="AspNetRoles" Relationship="Self.FK_ProjectRoles_AspNetRoles" FromRole="ProjectRoles" ToRole="AspNetRoles" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK_ProjectRoles_Projects" FromRole="ProjectRoles" ToRole="Projects" />
+        </EntityType>
         <EntityType Name="Projects">
           <Key>
             <PropertyRef Name="Id" />
@@ -557,55 +738,60 @@
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Name" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <Property Name="ParentId" Type="Int32" />
+          <NavigationProperty Name="ProjectRoles" Relationship="Self.FK_ProjectRoles_Projects" FromRole="Projects" ToRole="ProjectRoles" />
           <NavigationProperty Name="Projects1" Relationship="Self.FK_Projects_Projects" FromRole="Projects" ToRole="Projects1" />
           <NavigationProperty Name="Projects2" Relationship="Self.FK_Projects_Projects" FromRole="Projects1" ToRole="Projects" />
           <NavigationProperty Name="ProjectTaskHistory" Relationship="Self.FK_ProjectTaskHistory_Projects" FromRole="Projects" ToRole="ProjectTaskHistory" />
           <NavigationProperty Name="ProjectTasks" Relationship="Self.FK_ProjectTasks_Projects" FromRole="Projects" ToRole="ProjectTasks" />
-          <NavigationProperty Name="ProjectRoles" Relationship="BugTrackModel.FK_ProjectRoles_Projects" FromRole="Projects" ToRole="ProjectRoles" />
+          <NavigationProperty Name="UserBoards" Relationship="Self.FK_UserBoards_Projects" FromRole="Projects" ToRole="UserBoards" />
         </EntityType>
         <EntityType Name="ProjectTaskHistory">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="TaskId" Type="Int32" Nullable="false" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ChangedOn" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="EstimatedEndsOn" Type="DateTime" Precision="3" />
           <Property Name="AssignedUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="StartedOn" Type="DateTime" Precision="3" />
           <Property Name="EndedOn" Type="DateTime" Precision="3" />
           <Property Name="TaskTypeId" Type="Int32" />
-          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StatusId" Type="Int32" />
           <Property Name="ParentTaskId" Type="Int32" />
           <Property Name="ProjectId" Type="Int32" />
-          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CompletedPercent" Type="Int32" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_ProjectTaskHistory_AspNetUsers" FromRole="ProjectTaskHistory" ToRole="AspNetUsers" />
           <NavigationProperty Name="Projects" Relationship="Self.FK_ProjectTaskHistory_Projects" FromRole="ProjectTaskHistory" ToRole="Projects" />
           <NavigationProperty Name="ProjectTasks" Relationship="Self.FK_ProjectTaskHistory_ProjectTasks" FromRole="ProjectTaskHistory" ToRole="ProjectTasks" />
           <NavigationProperty Name="Status" Relationship="Self.FK_ProjectTaskHistory_Status" FromRole="ProjectTaskHistory" ToRole="Status" />
           <NavigationProperty Name="TaskTypes" Relationship="Self.FK_ProjectTaskHistory_TaskTypes" FromRole="ProjectTaskHistory" ToRole="TaskTypes" />
-          <Property Name="CompletedPercent" Type="Int32" />
         </EntityType>
         <EntityType Name="ProjectTasks">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Title" Type="String" MaxLength="250" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="StartedOn" Type="DateTime" Precision="3" />
           <Property Name="EndedOn" Type="DateTime" Precision="3" />
-          <Property Name="Url" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Url" Type="String" MaxLength="512" FixedLength="false" Unicode="true" />
           <Property Name="StatusId" Type="Int32" Nullable="false" />
           <Property Name="TaskTypeId" Type="Int32" Nullable="false" />
           <Property Name="AssignedUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="EstimatedEndsOn" Type="DateTime" Precision="3" />
-          <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="ParentTaskId" Type="Int32" />
           <Property Name="ProjectId" Type="Int32" Nullable="false" />
-          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedOn" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="CreatedOn" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CompletedPercent" Type="Int32" />
+          <Property Name="Color" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_ProjectTasks_AspNetUsers" FromRole="ProjectTasks" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="Self.FK_ProjectTasks_AspNetUsers1" FromRole="ProjectTasks" ToRole="AspNetUsers" />
           <NavigationProperty Name="Comments" Relationship="Self.FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId" FromRole="ProjectTasks" ToRole="Comments" />
@@ -617,7 +803,6 @@
           <NavigationProperty Name="ProjectTasks1" Relationship="Self.FK_ProjectTasks_ProjectTasks" FromRole="ProjectTasks" ToRole="ProjectTasks1" />
           <NavigationProperty Name="ProjectTasks2" Relationship="Self.FK_ProjectTasks_ProjectTasks" FromRole="ProjectTasks1" ToRole="ProjectTasks" />
           <NavigationProperty Name="UserBoardTasks" Relationship="Self.FK_UserBoardTasks_ProjectTasks" FromRole="ProjectTasks" ToRole="UserBoardTasks" />
-          <Property Name="CompletedPercent" Type="Int32" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -652,11 +837,14 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" Nullable="false" />
           <Property Name="UserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="IsArchive" Type="Boolean" />
+          <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsArchived" Type="Boolean" Nullable="false" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="AspNetUsers" Relationship="Self.FK_UserBoards_AspNetUsers" FromRole="UserBoards" ToRole="AspNetUsers" />
+          <NavigationProperty Name="Projects" Relationship="Self.FK_UserBoards_Projects" FromRole="UserBoards" ToRole="Projects" />
           <NavigationProperty Name="UserBoardTasks" Relationship="Self.FK_UserBoardTasks_UserBoards" FromRole="UserBoards" ToRole="UserBoardTasks" />
-          <NavigationProperty Name="AspNetUsers" Relationship="BugTrackModel.FK_UserBoards_AspNetUsers" FromRole="UserBoards" ToRole="AspNetUsers" />
         </EntityType>
         <EntityType Name="UserBoardTasks">
           <Key>
@@ -665,9 +853,64 @@
           <Property Name="UserBoardId" Type="Int32" Nullable="false" />
           <Property Name="TaskId" Type="Int32" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ProjectTasks" Relationship="Self.FK_UserBoardTasks_ProjectTasks" FromRole="UserBoardTasks" ToRole="ProjectTasks" />
           <NavigationProperty Name="UserBoards" Relationship="Self.FK_UserBoardTasks_UserBoards" FromRole="UserBoardTasks" ToRole="UserBoards" />
         </EntityType>
+        <Association Name="FK_ProjectRoles_AspNetRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectRoles" Type="Self.ProjectRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Comments_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="Comments" Type="Self.Comments" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Comments">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_ProjectTaskHistory_AspNetUsers">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="ProjectTaskHistory" Type="Self.ProjectTaskHistory" Multiplicity="*" />
@@ -676,7 +919,7 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProjectTaskHistory">
-              <PropertyRef Name="UserId" />
+              <PropertyRef Name="CreatedBy" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -693,13 +936,25 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProjectTasks_AspNetUsers1">
-          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
           <End Role="ProjectTasks" Type="Self.ProjectTasks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="AspNetUsers">
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProjectTasks">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBoards_AspNetUsers">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+          <End Role="UserBoards" Type="Self.UserBoards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserBoards">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -727,6 +982,20 @@
             </Principal>
             <Dependent Role="Files">
               <PropertyRef Name="TaskId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProjectRoles_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="ProjectRoles" Type="Self.ProjectRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ProjectRoles">
+              <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -762,6 +1031,18 @@
               <PropertyRef Name="Id" />
             </Principal>
             <Dependent Role="ProjectTasks">
+              <PropertyRef Name="ProjectId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UserBoards_Projects">
+          <End Role="Projects" Type="Self.Projects" Multiplicity="1" />
+          <End Role="UserBoards" Type="Self.UserBoards" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Projects">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UserBoards">
               <PropertyRef Name="ProjectId" />
             </Dependent>
           </ReferentialConstraint>
@@ -866,11 +1147,19 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="BugTrackEntities" annotation:LazyLoadingEnabled="true">
+        <Association Name="AspNetUserRoles">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="bugTrackEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" />
           <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" />
           <EntitySet Name="Comments" EntityType="Self.Comments" />
           <EntitySet Name="Files" EntityType="Self.Files" />
+          <EntitySet Name="ProjectRoles" EntityType="Self.ProjectRoles" />
           <EntitySet Name="Projects" EntityType="Self.Projects" />
           <EntitySet Name="ProjectTaskHistory" EntityType="Self.ProjectTaskHistory" />
           <EntitySet Name="ProjectTasks" EntityType="Self.ProjectTasks" />
@@ -879,6 +1168,22 @@
           <EntitySet Name="TaskTypes" EntityType="Self.TaskTypes" />
           <EntitySet Name="UserBoards" EntityType="Self.UserBoards" />
           <EntitySet Name="UserBoardTasks" EntityType="Self.UserBoardTasks" />
+          <AssociationSet Name="FK_ProjectRoles_AspNetRoles" Association="Self.FK_ProjectRoles_AspNetRoles">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="ProjectRoles" EntitySet="ProjectRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Comments_AspNetUsers" Association="Self.FK_Comments_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="Comments" EntitySet="Comments" />
+          </AssociationSet>
           <AssociationSet Name="FK_ProjectTaskHistory_AspNetUsers" Association="Self.FK_ProjectTaskHistory_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ProjectTaskHistory" EntitySet="ProjectTaskHistory" />
@@ -891,6 +1196,10 @@
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="ProjectTasks" EntitySet="ProjectTasks" />
           </AssociationSet>
+          <AssociationSet Name="FK_UserBoards_AspNetUsers" Association="Self.FK_UserBoards_AspNetUsers">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="UserBoards" EntitySet="UserBoards" />
+          </AssociationSet>
           <AssociationSet Name="FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId" Association="Self.FK_dbo_Comments_dbo_ProjectTasks_ProjectTaskId">
             <End Role="ProjectTasks" EntitySet="ProjectTasks" />
             <End Role="Comments" EntitySet="Comments" />
@@ -898,6 +1207,10 @@
           <AssociationSet Name="FK_Files_ProjectTasks" Association="Self.FK_Files_ProjectTasks">
             <End Role="ProjectTasks" EntitySet="ProjectTasks" />
             <End Role="Files" EntitySet="Files" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProjectRoles_Projects" Association="Self.FK_ProjectRoles_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="ProjectRoles" EntitySet="ProjectRoles" />
           </AssociationSet>
           <AssociationSet Name="FK_Projects_Projects" Association="Self.FK_Projects_Projects">
             <End Role="Projects" EntitySet="Projects" />
@@ -910,6 +1223,10 @@
           <AssociationSet Name="FK_ProjectTasks_Projects" Association="Self.FK_ProjectTasks_Projects">
             <End Role="Projects" EntitySet="Projects" />
             <End Role="ProjectTasks" EntitySet="ProjectTasks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UserBoards_Projects" Association="Self.FK_UserBoards_Projects">
+            <End Role="Projects" EntitySet="Projects" />
+            <End Role="UserBoards" EntitySet="UserBoards" />
           </AssociationSet>
           <AssociationSet Name="FK_ProjectTaskHistory_ProjectTasks" Association="Self.FK_ProjectTaskHistory_ProjectTasks">
             <End Role="ProjectTasks" EntitySet="ProjectTasks" />
@@ -943,102 +1260,56 @@
             <End Role="UserBoards" EntitySet="UserBoards" />
             <End Role="UserBoardTasks" EntitySet="UserBoardTasks" />
           </AssociationSet>
-          <EntitySet Name="ProjectRoles" EntityType="BugTrackModel.ProjectRoles" />
-          <AssociationSet Name="FK_ProjectRoles_AspNetRoles" Association="BugTrackModel.FK_ProjectRoles_AspNetRoles">
+          <AssociationSet Name="AspNetUserRoles" Association="Self.AspNetUserRoles">
             <End Role="AspNetRoles" EntitySet="AspNetRoles" />
-            <End Role="ProjectRoles" EntitySet="ProjectRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ProjectRoles_Projects" Association="BugTrackModel.FK_ProjectRoles_Projects">
-            <End Role="Projects" EntitySet="Projects" />
-            <End Role="ProjectRoles" EntitySet="ProjectRoles" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Comments_AspNetUsers" Association="BugTrackModel.FK_Comments_AspNetUsers">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="Comments" EntitySet="Comments" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserBoards_AspNetUsers" Association="BugTrackModel.FK_UserBoards_AspNetUsers">
-            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
-            <End Role="UserBoards" EntitySet="UserBoards" />
           </AssociationSet>
         </EntityContainer>
-        <EntityType Name="ProjectRoles">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="ProjectId" Type="Int32" />
-          <Property Name="RoleId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <NavigationProperty Name="AspNetRoles" Relationship="BugTrackModel.FK_ProjectRoles_AspNetRoles" FromRole="ProjectRoles" ToRole="AspNetRoles" />
-          <NavigationProperty Name="Projects" Relationship="BugTrackModel.FK_ProjectRoles_Projects" FromRole="ProjectRoles" ToRole="Projects" />
-        </EntityType>
-        <Association Name="FK_ProjectRoles_AspNetRoles">
-          <End Type="BugTrackModel.AspNetRoles" Role="AspNetRoles" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="BugTrackModel.ProjectRoles" Role="ProjectRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetRoles">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProjectRoles">
-              <PropertyRef Name="RoleId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProjectRoles_Projects">
-          <End Type="BugTrackModel.Projects" Role="Projects" Multiplicity="0..1">
-            <OnDelete Action="Cascade" />
-          </End>
-          <End Type="BugTrackModel.ProjectRoles" Role="ProjectRoles" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Projects">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="ProjectRoles">
-              <PropertyRef Name="ProjectId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Comments_AspNetUsers">
-          <End Type="BugTrackModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-          <End Type="BugTrackModel.Comments" Role="Comments" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Comments">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserBoards_AspNetUsers">
-          <End Type="BugTrackModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
-          <End Type="BugTrackModel.UserBoards" Role="UserBoards" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="AspNetUsers">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="UserBoards">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="BugTrackModelStoreContainer" CdmEntityContainer="BugTrackEntities">
+        <EntityContainerMapping StorageEntityContainer="bugTrackModelStoreContainer" CdmEntityContainer="bugTrackEntities">
+          <EntitySetMapping Name="C__MigrationHistory">
+            <EntityTypeMapping TypeName="bugTrackModel.C__MigrationHistory">
+              <MappingFragment StoreEntitySet="__MigrationHistory">
+                <ScalarProperty Name="MigrationId" ColumnName="MigrationId" />
+                <ScalarProperty Name="ContextKey" ColumnName="ContextKey" />
+                <ScalarProperty Name="Model" ColumnName="Model" />
+                <ScalarProperty Name="ProductVersion" ColumnName="ProductVersion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AspNetRoles">
-            <EntityTypeMapping TypeName="BugTrackModel.AspNetRoles">
+            <EntityTypeMapping TypeName="bugTrackModel.AspNetRoles">
               <MappingFragment StoreEntitySet="AspNetRoles">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="bugTrackModel.AspNetUserClaims">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="bugTrackModel.AspNetUserLogins">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="AspNetUsers">
-            <EntityTypeMapping TypeName="BugTrackModel.AspNetUsers">
+            <EntityTypeMapping TypeName="bugTrackModel.AspNetUsers">
               <MappingFragment StoreEntitySet="AspNetUsers">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
@@ -1056,18 +1327,18 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Comments">
-            <EntityTypeMapping TypeName="BugTrackModel.Comments">
+            <EntityTypeMapping TypeName="bugTrackModel.Comments">
               <MappingFragment StoreEntitySet="Comments">
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Text" ColumnName="Text" />
                 <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
                 <ScalarProperty Name="ProjectTaskId" ColumnName="ProjectTaskId" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Files">
-            <EntityTypeMapping TypeName="BugTrackModel.Files">
+            <EntityTypeMapping TypeName="bugTrackModel.Files">
               <MappingFragment StoreEntitySet="Files">
                 <ScalarProperty Name="TaskId" ColumnName="TaskId" />
                 <ScalarProperty Name="FileName" ColumnName="FileName" />
@@ -1078,8 +1349,17 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="ProjectRoles">
+            <EntityTypeMapping TypeName="bugTrackModel.ProjectRoles">
+              <MappingFragment StoreEntitySet="ProjectRoles">
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Projects">
-            <EntityTypeMapping TypeName="BugTrackModel.Projects">
+            <EntityTypeMapping TypeName="bugTrackModel.Projects">
               <MappingFragment StoreEntitySet="Projects">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1088,11 +1368,10 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProjectTaskHistory">
-            <EntityTypeMapping TypeName="BugTrackModel.ProjectTaskHistory">
+            <EntityTypeMapping TypeName="bugTrackModel.ProjectTaskHistory">
               <MappingFragment StoreEntitySet="ProjectTaskHistory">
-                <ScalarProperty Name="CompletedPercent" ColumnName="CompletedPercent" />
                 <ScalarProperty Name="TaskId" ColumnName="TaskId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="ChangedOn" ColumnName="ChangedOn" />
                 <ScalarProperty Name="EstimatedEndsOn" ColumnName="EstimatedEndsOn" />
                 <ScalarProperty Name="AssignedUserId" ColumnName="AssignedUserId" />
@@ -1105,13 +1384,15 @@
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CompletedPercent" ColumnName="CompletedPercent" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Url" ColumnName="Url" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="ProjectTasks">
-            <EntityTypeMapping TypeName="BugTrackModel.ProjectTasks">
+            <EntityTypeMapping TypeName="bugTrackModel.ProjectTasks">
               <MappingFragment StoreEntitySet="ProjectTasks">
-                <ScalarProperty Name="CompletedPercent" ColumnName="CompletedPercent" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
                 <ScalarProperty Name="StartedOn" ColumnName="StartedOn" />
@@ -1121,16 +1402,18 @@
                 <ScalarProperty Name="TaskTypeId" ColumnName="TaskTypeId" />
                 <ScalarProperty Name="AssignedUserId" ColumnName="AssignedUserId" />
                 <ScalarProperty Name="EstimatedEndsOn" ColumnName="EstimatedEndsOn" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="ParentTaskId" ColumnName="ParentTaskId" />
                 <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CreatedOn" ColumnName="CreatedOn" />
+                <ScalarProperty Name="CompletedPercent" ColumnName="CompletedPercent" />
+                <ScalarProperty Name="Color" ColumnName="Color" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Status">
-            <EntityTypeMapping TypeName="BugTrackModel.Status">
+            <EntityTypeMapping TypeName="bugTrackModel.Status">
               <MappingFragment StoreEntitySet="Status">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1138,7 +1421,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="sysdiagrams">
-            <EntityTypeMapping TypeName="BugTrackModel.sysdiagrams">
+            <EntityTypeMapping TypeName="bugTrackModel.sysdiagrams">
               <MappingFragment StoreEntitySet="sysdiagrams">
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="principal_id" ColumnName="principal_id" />
@@ -1149,7 +1432,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="TaskTypes">
-            <EntityTypeMapping TypeName="BugTrackModel.TaskTypes">
+            <EntityTypeMapping TypeName="bugTrackModel.TaskTypes">
               <MappingFragment StoreEntitySet="TaskTypes">
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="Name" ColumnName="Name" />
@@ -1157,33 +1440,35 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserBoards">
-            <EntityTypeMapping TypeName="BugTrackModel.UserBoards">
+            <EntityTypeMapping TypeName="bugTrackModel.UserBoards">
               <MappingFragment StoreEntitySet="UserBoards">
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Title" ColumnName="Title" />
-                <ScalarProperty Name="IsArchive" ColumnName="IsArchive" />
+                <ScalarProperty Name="IsArchived" ColumnName="IsArchived" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="UserBoardTasks">
-            <EntityTypeMapping TypeName="BugTrackModel.UserBoardTasks">
+            <EntityTypeMapping TypeName="bugTrackModel.UserBoardTasks">
               <MappingFragment StoreEntitySet="UserBoardTasks">
                 <ScalarProperty Name="UserBoardId" ColumnName="UserBoardId" />
                 <ScalarProperty Name="TaskId" ColumnName="TaskId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Order" ColumnName="Order" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ProjectRoles">
-            <EntityTypeMapping TypeName="BugTrackModel.ProjectRoles">
-              <MappingFragment StoreEntitySet="ProjectRoles">
-                <ScalarProperty Name="Id" ColumnName="Id" />
-                <ScalarProperty Name="RoleId" ColumnName="RoleId" />
-                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles" TypeName="bugTrackModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetRoles">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+            <EndProperty Name="AspNetUsers">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+          </AssociationSetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

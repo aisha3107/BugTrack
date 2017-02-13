@@ -8,7 +8,7 @@ namespace BugTrack.BLL
 {
     public class ProjectTreeGrid
     {
-        BugTrackEntities db = new BugTrackEntities();
+        bugTrackEntities db = new bugTrackEntities();
 
         List<dynamic> treeGrid = new List<dynamic>();
 

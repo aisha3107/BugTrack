@@ -17,6 +17,7 @@ namespace BugTrack.DAL
         public int UserBoardId { get; set; }
         public Nullable<int> TaskId { get; set; }
         public int Id { get; set; }
+        public int Order { get; set; }
     
         public virtual ProjectTasks ProjectTasks { get; set; }
         public virtual UserBoards UserBoards { get; set; }

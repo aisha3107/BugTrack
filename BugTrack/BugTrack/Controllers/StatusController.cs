@@ -14,7 +14,7 @@ namespace BugTrack.Controllers
 {
     public class StatusController : ApiController
     {
-        private BugTrackEntities db = new BugTrackEntities();
+        private bugTrackEntities db = new bugTrackEntities();
 
         // GET: api/Status
         public dynamic GetStatus()

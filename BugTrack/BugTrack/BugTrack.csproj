@@ -207,58 +207,67 @@
     <Compile Include="Controllers\TaskTypesController.cs" />
     <Compile Include="Controllers\UserBoardsController.cs" />
     <Compile Include="DAL\AspNetRoles.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\AspNetUserClaims.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\AspNetUserLogins.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\AspNetUsers.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\BugTrack.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BugTrack.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\BugTrack.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BugTrack.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DAL\BugTrack.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>BugTrack.edmx</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Comments.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\C__MigrationHistory.cs">
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Files.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Model1.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Model1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DAL\Model1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Compile>
     <Compile Include="DAL\ProjectRoles.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Projects.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\ProjectTaskHistory.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\ProjectTasks.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\Status.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\sysdiagrams.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\TaskTypes.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\UserBoards.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="DAL\UserBoardTasks.cs">
-      <DependentUpon>BugTrack.tt</DependentUpon>
+      <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -270,10 +279,23 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App\Board\index.html" />
+    <Content Include="App\Board\js\app.js" />
+    <Content Include="App\Board\js\controllers\cardCtrl.js" />
+    <Content Include="App\Board\js\controllers\listCtrl.js" />
+    <Content Include="App\Board\js\controllers\listsCtrl.js" />
+    <Content Include="App\Board\js\directives\closeEditing.js" />
+    <Content Include="App\Board\js\factories\cardFactory.js" />
+    <Content Include="App\Board\js\factories\listFactory.js" />
+    <Content Include="App\TaskManger\app.js" />
+    <Content Include="App\TaskManger\index.html" />
+    <Content Include="App\TaskManger\MainController.js" />
     <Content Include="Content\ajax-loader.gif" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\foundation.min.css" />
     <Content Include="Content\HomePage.css" />
+    <Content Include="Content\normalize.css" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -315,15 +337,16 @@
     <Content Include="Content\themes\base\tabs.css" />
     <Content Include="Content\themes\base\theme.css" />
     <Content Include="Content\themes\base\tooltip.css" />
-    <Content Include="DAL\BugTrack.Context.tt">
+    <Content Include="Content\trello.css" />
+    <Content Include="DAL\Model1.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BugTrack.edmx</DependentUpon>
-      <LastGenOutput>BugTrack.Context.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="DAL\BugTrack.tt">
+    <Content Include="DAL\Model1.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>BugTrack.edmx</DependentUpon>
-      <LastGenOutput>BugTrack.cs</LastGenOutput>
+      <DependentUpon>Model1.edmx</DependentUpon>
+      <LastGenOutput>Model1.cs</LastGenOutput>
     </Content>
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -331,12 +354,12 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <EntityDeploy Include="DAL\BugTrack.edmx">
+    <EntityDeploy Include="DAL\Model1.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>BugTrack.Designer.cs</LastGenOutput>
+      <LastGenOutput>Model1.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="DAL\BugTrack.edmx.diagram">
-      <DependentUpon>BugTrack.edmx</DependentUpon>
+    <Content Include="DAL\Model1.edmx.diagram">
+      <DependentUpon>Model1.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
@@ -357,7 +380,9 @@
     <Content Include="Scripts\respond.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Web.config" />
+    <Content Include="Web.config">
+      <SubType>Designer</SubType>
+    </Content>
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </Content>

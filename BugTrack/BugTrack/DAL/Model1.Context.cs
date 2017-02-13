@@ -13,10 +13,10 @@ namespace BugTrack.DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BugTrackEntities : DbContext
+    public partial class bugTrackEntities : DbContext
     {
-        public BugTrackEntities()
-            : base("name=BugTrackEntities")
+        public bugTrackEntities()
+            : base("name=bugTrackEntities")
         {
         }
     
@@ -25,10 +25,14 @@ namespace BugTrack.DAL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<C__MigrationHistory> C__MigrationHistory { get; set; }
         public virtual DbSet<AspNetRoles> AspNetRoles { get; set; }
+        public virtual DbSet<AspNetUserClaims> AspNetUserClaims { get; set; }
+        public virtual DbSet<AspNetUserLogins> AspNetUserLogins { get; set; }
         public virtual DbSet<AspNetUsers> AspNetUsers { get; set; }
         public virtual DbSet<Comments> Comments { get; set; }
         public virtual DbSet<Files> Files { get; set; }
+        public virtual DbSet<ProjectRoles> ProjectRoles { get; set; }
         public virtual DbSet<Projects> Projects { get; set; }
         public virtual DbSet<ProjectTaskHistory> ProjectTaskHistory { get; set; }
         public virtual DbSet<ProjectTasks> ProjectTasks { get; set; }
@@ -37,6 +41,5 @@ namespace BugTrack.DAL
         public virtual DbSet<TaskTypes> TaskTypes { get; set; }
         public virtual DbSet<UserBoards> UserBoards { get; set; }
         public virtual DbSet<UserBoardTasks> UserBoardTasks { get; set; }
-        public virtual DbSet<ProjectRoles> ProjectRoles { get; set; }
     }
 }

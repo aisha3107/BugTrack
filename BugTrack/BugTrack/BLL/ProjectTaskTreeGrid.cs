@@ -8,7 +8,7 @@ namespace BugTrack.BLL
 {
     public class ProjectTaskTreeGrid
     {
-        BugTrackEntities db = new BugTrackEntities();
+        bugTrackEntities db = new bugTrackEntities();
 
         List<dynamic> treeGrid = new List<dynamic>();
 
@@ -47,7 +47,7 @@ namespace BugTrack.BLL
                         taskItem.AssignedUserId,
                         AssignedUserName = taskItem.AspNetUsers == null ? null : taskItem.AspNetUsers.UserName,
                         taskItem.EstimatedEndsOn,
-                        taskItem.UserId,
+                        taskItem.CreatedBy,
                         AuthorUserName = taskItem.AspNetUsers1 == null ? null : taskItem.AspNetUsers1.UserName,
                         taskItem.ParentTaskId,
                         taskItem.ProjectId,
@@ -118,7 +118,7 @@ namespace BugTrack.BLL
                     taskItem.AssignedUserId,
                     AssignedUserName = taskItem.AspNetUsers == null ? null : taskItem.AspNetUsers.UserName,
                     taskItem.EstimatedEndsOn,
-                    taskItem.UserId,
+                    taskItem.CreatedBy,
                     AuthorUserName = taskItem.AspNetUsers1 == null ? null : taskItem.AspNetUsers1.UserName,
                     taskItem.ParentTaskId,
                     taskItem.ProjectId,

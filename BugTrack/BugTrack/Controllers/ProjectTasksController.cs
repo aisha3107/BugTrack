@@ -11,13 +11,14 @@ using System.Web.Http.Description;
 using BugTrack.DAL;
 using BugTrack.Models;
 using BugTrack.BLL;
+using Microsoft.AspNet.Identity;
 
 namespace BugTrack.Controllers
 {
     [RoutePrefix("api/ProjectTasks")]
     public class ProjectTasksController : ApiController
     {
-        private BugTrackEntities db = new BugTrackEntities();
+        private bugTrackEntities db = new bugTrackEntities();
         private ProjectTaskTreeGrid treeBuilder = new ProjectTaskTreeGrid();
 
         // GET: api/ProjectTasks
@@ -40,7 +41,7 @@ namespace BugTrack.Controllers
                         x.AssignedUserId,
                         AssignedUserName = x.AspNetUsers.UserName,
                         x.EstimatedEndsOn,
-                        x.UserId,
+                        x.CreatedBy,
                         AuthorUserName = x.AspNetUsers1.UserName,
                         x.ParentTaskId,
                         x.ProjectId,
@@ -71,7 +72,7 @@ namespace BugTrack.Controllers
                     x.TaskTypeId,
                     x.AssignedUserId,
                     x.EstimatedEndsOn,
-                    x.UserId,
+                    x.CreatedBy,
                     x.ParentTaskId,
                     x.ProjectId,
                     x.Description,
@@ -93,7 +94,7 @@ namespace BugTrack.Controllers
                     ProjectTaskHistoryList = x.ProjectTaskHistory.Select(hist => new
                     {
                         hist.Id,
-                        hist.UserId,
+                        hist.CreatedBy,
                         AuthorName = hist.AspNetUsers.UserName,
                         hist.ChangedOn,
                         hist.EstimatedEndsOn,
@@ -129,6 +130,9 @@ namespace BugTrack.Controllers
         [ResponseType(typeof(void))]
         public IHttpActionResult PutProjectTasks(int id, ProjectTasks projectTasks)
         {
+            if (User.Identity.GetUserId() != null)
+                projectTasks.CreatedBy = User.Identity.GetUserId();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -163,6 +167,14 @@ namespace BugTrack.Controllers
         [ResponseType(typeof(ProjectTasks))]
         public IHttpActionResult PostProjectTasks(ProjectTasks projectTasks)
         {
+            projectTasks.CreatedOn = DateTime.Now;
+            projectTasks.StartedOn = Convert.ToDateTime(projectTasks.StartedOn).ToLocalTime();
+            projectTasks.EndedOn = Convert.ToDateTime(projectTasks.EndedOn).ToLocalTime();
+            projectTasks.EstimatedEndsOn = Convert.ToDateTime(projectTasks.EstimatedEndsOn).ToLocalTime();
+
+            if (User.Identity.GetUserId() != null)
+                projectTasks.CreatedBy = User.Identity.GetUserId();
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -208,7 +220,7 @@ namespace BugTrack.Controllers
                     x.AssignedUserId,
                     AssignedUserName = x.AspNetUsers.UserName,
                     x.EstimatedEndsOn,
-                    x.UserId,
+                    x.CreatedBy,
                     AuthorUserName = x.AspNetUsers1.UserName,
                     x.ParentTaskId,
                     x.ProjectId,
@@ -237,7 +249,7 @@ namespace BugTrack.Controllers
                     x.AssignedUserId,
                     AssignedUserName = x.AspNetUsers.UserName,
                     x.EstimatedEndsOn,
-                    x.UserId,
+                    x.CreatedBy,
                     AuthorUserName = x.AspNetUsers1.UserName,
                     x.ParentTaskId,
                     x.ProjectId,
