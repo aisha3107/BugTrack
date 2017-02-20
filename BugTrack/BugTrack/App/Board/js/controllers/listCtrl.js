@@ -114,7 +114,8 @@
                     //отправляется 2017-02-12T18:00:00, нужно 2016-01-20T11:24:20.882Z
                     //startedon: today, //response.data.Tasks[i].ProjectTaskStartedOn
                     //estimatedendson: estimatedendson, //estimated,//response.data.Tasks[i].EstimatedEndsOn
-                    //endedon: endedon
+                    //endedon: endedon;
+                    //jhhj
                 });
                 console.log('response cards', cards[i]);
                 //console.log('startedon ' + startedon);
