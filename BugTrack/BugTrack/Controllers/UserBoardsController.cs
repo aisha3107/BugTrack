@@ -42,9 +42,15 @@ namespace BugTrack.Controllers
                         ProjectTaskTypesTitle = y.ProjectTasks.TaskTypes.Name,
                         ProjectTaskStatusId = y.ProjectTasks.StatusId,
                         ProjectTaskStatusTitle = y.ProjectTasks.Status.Name,
+                        ProjectTaskDescription = y.ProjectTasks.Description,
+                        //ProjectTaskAssignedUserId = y.ProjectTasks.AspNetUsers.UserName,
+                        ProjectTaskAssignedUserId = y.ProjectTasks.AssignedUserId,
                         ProjectId = y.ProjectTasks.ProjectId,
                         ProjectTitle = y.ProjectTasks.Projects.Name,
-                        StartedOn = y.ProjectTasks.StartedOn,
+                        ProjectTaskStartedOn = y.ProjectTasks.StartedOn,
+                        ProjectTaskEndedOn = y.ProjectTasks.EndedOn,
+                        ProjectTaskEstimatedEndsOn = y.ProjectTasks.EstimatedEndsOn,
+                        ProjectTaskCompletedPercent = y.ProjectTasks.CompletedPercent,
                         y.Order,
                         ProjectFiles = y.ProjectTasks.Files.Where(file => file.IsDeleted != true)
                             .Select(file => new
@@ -64,7 +70,7 @@ namespace BugTrack.Controllers
             string UserId = User.Identity.GetUserId();
 
             var userBoards = db.UserBoards
-                .Where(x=>x.Id == id)
+                .Where(x => x.Id == id)
                 .Select(x => new
                 {
                     x.Id,
@@ -81,9 +87,15 @@ namespace BugTrack.Controllers
                         ProjectTaskTypesTitle = y.ProjectTasks.TaskTypes.Name,
                         ProjectTaskStatusId = y.ProjectTasks.StatusId,
                         ProjectTaskStatusTitle = y.ProjectTasks.Status.Name,
+                        ProjectTaskDescription = y.ProjectTasks.Description,
+                        //ProjectTaskAssignedUserId = y.ProjectTasks.AspNetUsers.UserName,
+                        ProjectTaskAssignedUserId = y.ProjectTasks.AssignedUserId,
                         ProjectId = y.ProjectTasks.ProjectId,
                         ProjectTitle = y.ProjectTasks.Projects.Name,
-                        StartedOn = y.ProjectTasks.StartedOn,
+                        ProjectTaskStartedOn = y.ProjectTasks.StartedOn,
+                        ProjectTaskEndedOn = y.ProjectTasks.EndedOn,
+                        ProjectTaskEstimatedEndsOn = y.ProjectTasks.EstimatedEndsOn,
+                        ProjectTaskCompletedPercent = y.ProjectTasks.CompletedPercent,
                         y.Order,
                         ProjectFiles = y.ProjectTasks.Files.Where(file => file.IsDeleted != true)
                             .Select(file => new
@@ -127,9 +139,15 @@ namespace BugTrack.Controllers
                         ProjectTaskTypesTitle = y.ProjectTasks.TaskTypes.Name,
                         ProjectTaskStatusId = y.ProjectTasks.StatusId,
                         ProjectTaskStatusTitle = y.ProjectTasks.Status.Name,
+                        ProjectTaskDescription = y.ProjectTasks.Description,
+                        //ProjectTaskAssignedUserId = y.ProjectTasks.AspNetUsers.UserName,
+                        ProjectTaskAssignedUserId = y.ProjectTasks.AssignedUserId,
                         ProjectId = y.ProjectTasks.ProjectId,
                         ProjectTitle = y.ProjectTasks.Projects.Name,
-                        StartedOn = y.ProjectTasks.StartedOn,
+                        ProjectTaskStartedOn = y.ProjectTasks.StartedOn,
+                        ProjectTaskEndedOn = y.ProjectTasks.EndedOn,
+                        ProjectTaskEstimatedEndsOn = y.ProjectTasks.EstimatedEndsOn,
+                        ProjectTaskCompletedPercent = y.ProjectTasks.CompletedPercent,
                         y.Order,
                         ProjectFiles = y.ProjectTasks.Files.Where(file => file.IsDeleted != true)
                             .Select(file => new
@@ -214,10 +232,11 @@ namespace BugTrack.Controllers
         [HttpGet, Route("AddProjectTaskToUserBoard")]
         public void AddProjectTaskToUserBoard(int taskId, int userBoardId, int order)
         {
-            var userBoardTask = new UserBoardTasks() {
+            var userBoardTask = new UserBoardTasks()
+            {
                 TaskId = taskId,
                 UserBoardId = userBoardId,
-                Order = order           
+                Order = order
             };
             db.UserBoardTasks.Add(userBoardTask);
             db.SaveChanges();

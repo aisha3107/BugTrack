@@ -17,3 +17,5 @@
 .idialog-overlay {-webkit-transition:all ease .7s; transition:all ease .7s; opacity:0.5;}
 .idialog-overlay.ng-hide-add, .idialog-overlay.ng-hide-remove {display:block!important;}
 .idialog-overlay.ng-hide {opacity:0;}
+
+.inline {display: inline-block;}

@@ -52,10 +52,30 @@
 							'<i class="expanded" data-ng-show="node.' + nodeChildren + '.length && !node.collapsed" data-ng-click="' + treeId + '.selectNodeHead(node)"></i>' +
 							'<i class="normal" data-ng-hide="node.' + nodeChildren + '.length"></i> ' +
 							'<span data-ng-class="node.selected" data-ng-click="' + treeId + '.selectNodeLabel(node)">{{node.' + nodeLabel + '}}</span>' +
-							'<div data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId + ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
+                            //'<a href="../Board/index.html">' +
+                            //    '<img src="../../img/open.png" alt="HTML tutorial" style="width:13px;height:13px;border:0;">' +
+                            //'</a>' +
+							'<div data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId +
+                                ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
+                            
 						'</li>' +
 					'</ul>';
 
+				//function myFunc($target_div, num_buttons) {
+				//    var buttons = [];
+				//    for (var i = 0; i < num_buttons; i++) {
+				//        buttons.push($('<input type="button" class="button" data-id="' + i + '" value="button ' + i + '" />'));
+				//    }
+				//    $target_div.append(buttons);
+
+				//    var doButtonPress = function () {
+				//        alert($(this).data('id'));
+				//    }
+
+				//    $(".button").click(doButtonPress);
+				//}
+
+				////myFunc($("#test"), 5);
 
 				//check tree id, tree model
 				if( treeId && treeModel ) {

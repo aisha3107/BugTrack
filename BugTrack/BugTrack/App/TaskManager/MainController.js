@@ -257,6 +257,7 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
 
             alert("Add new called!");
             $scope.count++;
+            //$scope.count++;
 
             console.log("Selected node in creation: " + self.selectedNode);
             var data = {
@@ -487,6 +488,9 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
                     self.data4 = self.ParentTasks.filter(function (x) { return x.id == parentid; })[0];
                     console.log('selected object is: ', self.data4);
                     console.log('parent', self.data4);
+                }
+                else {
+                    self.ParentTaskId = self.ParentTasks[0];
                 }
 
                 if (self.startedon != null) {
