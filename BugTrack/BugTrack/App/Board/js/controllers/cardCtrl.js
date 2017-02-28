@@ -1,10 +1,12 @@
-﻿angular.module('app').controller('cardCtrl', function (cardFactory, $scope) {
+﻿angular.module('app').controller('cardCtrl', function (cardFactory, $scope, $http) {
 
     this.isEditing = false;
     this.editingCard = null;
     this.aisha = "Hello from Aisha";
     this.isShowing = false;
     this.selectedCard = null;
+    this.Users = [];
+    var self = this;
 
     this.deleteCard = function (card) {
         cardFactory.deleteCard(card);
@@ -14,7 +16,8 @@
         this.isEditing = true;
         this.editingCard = angular.copy(card);
         console.log("Editing card", card.id);
-        //card.title = "Hello!";
+        console.log("Editing card detailed", card);
+        getUsers();
     };
 
     this.updateCard = function () {
@@ -29,5 +32,25 @@
         //console.log("cards", card.id);
     };
 
+    function getUsers() {
+        $http({
+            method: 'GET',
+            url: '/api/AspNetUsers'
+        }).then(function successCallback(response) {
+            //console.log('users', response.data);
+            self.Users = [];
+            for (var i = 0; i < response.data.length; i++) {
+                self.Users.push({
+                    id: response.data[i].Id,
+                    username: response.data[i].UserName
+                });
+                //console.log('User ' + i, self.Users[i].username);
+            }
+            //console.log('Users', self.Users);
+        }, function errorCallback(response) {
+        });
+    }
 
+
+    
 });

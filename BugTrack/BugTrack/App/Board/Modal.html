@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+
+    <a href="#openModal">edit</a>
+    <div id="openModal" class="modalDialog" item="$ctrl.editCard(data)">
+        <div>
+            <a href="#close" title="Close" class="close">X</a>
+            <h2>Modal Box</h2>
+            <form ng-submit='cardCtrl.updateCard()'>
+                <table id="taskForm">
+                    <tr>
+                        <td>Задание:</td><!--работает-->
+                        <td><input type="text" name="Title" style="width:240px" class="form-control" ng-model="$ctrl.task.title" required /></td>
+                    </tr>
+
+                    <tr>
+                        <td>Описание:</td><!--работает-->
+                        <td><textarea rows="2" cols="36" name="Description" ng-model="$ctrl.task.description" style="width:240px"></textarea></td>
+                    </tr>
+
+                    <tr>
+                        <td>Выполнит:</td><!--работает-->
+                        <td>
+                            <!--<input type="text" name="AssignedUserId" style="width:240px" class="form-control" ng-model="$ctrl.task.assigneduserid" required />-->
+                            <select name="AssignedUserId" ng-model="$ctrl.task.assigneduserid" style="width:240px"
+                                    class="form-control" ng-options="item.id as item.username for item in $ctrl.users">
+                                <option value="">Выберите пользователя...</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Старт:</td><!--работает-->
+                        <td>
+                            <input type="date" id="StartedOn" name="StartedOn" style="width:240px"
+                                   class="form-control" formatted-date format="medium"
+                                   ng-model="$ctrl.task.startedon" value="" /><!--datetime="yyyy-MM-dd HH:mm:ss Z"-->
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Планируемое окончание:</td><!--работает-->
+                        <td>
+                            <input type="date" id="EstimatedEndsOn" name="EstimatedEndsOn" style="width:240px"
+                                   class="form-control" ng-model="$ctrl.task.estimatedendson" value="" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Окончание:</td><!--работает-->
+                        <td>
+                            <input type="date" id="EndedOn" name="EndedOn" style="width:240px"
+                                   class="form-control" ng-model="$ctrl.task.endedon" value="" />
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Прогресс:</td><!--работает-->
+                        <td>
+                            <input type="number" name="CompletedPercent" style="width:240px" class="form-control"
+                                   ng-model="$ctrl.task.completedPercent" value="" pattern="^[0-9]{1,2}$"
+                                   min="0" max="100" integer />
+                            <br />
+                            <span ng-show="form.size.$error.integer">The value is not a valid integer!</span>
+                            <span ng-show="form.size.$error.min || form.size.$error.max">
+                                The value must be in range 0 to 100!
+                            </span>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Статус:</td>
+                        <td>
+                            <select name="StatusName" class="form-control" ng-model="$ctrl.task.statusname" style="width:240px"
+                                    ng-options="item.id as item.text for item in $ctrl.statuses" required>
+                                <option value>{{$ctrl.task.statusname}}</option><!--{{$ctrl.ttboeno}}-->
+
+                            </select>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td>Тип:</td>
+                        <td>
+                            <select name="TaskTypeName" style="width:240px" class="form-control"
+                                    ng-model="$ctrl.task.tasktypename" ng-options="item.id as item.text for item in $ctrl.types" required>
+                                <option value>{{$ctrl.task.tasktypename}}</option>
+                            </select>
+                        </td>
+                    </tr>
+
+                    <!--<tr>
+                <td>ParentTask: </td>
+                <td>
+                    <select name="ParentTaskName" id="ParentTaskName" style="width:240px" ng-model="$ctrl.ParentTaskId"
+                            class="form-control" ng-options="item.id as item.title for item in $ctrl.ParentTasks"
+                            ng-value="$ctrl.data4.id" required>
+
+                        <option value="">Выберите родительское задание...</option>
+                    </select>
+                </td>
+            </tr>-->
+                </table>
+                <!--$ctrl.show()-->
+
+                <input type="submit" value="Save" ng-click="$ctrl.show()" style="height:40px; width:250px; align:right" />
+                <input type="button" value="Cancel" style="height:40px; width:250px; align:right" />
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -285,15 +285,18 @@
     <Content Include="App\Board\JavaScript1.js" />
     <Content Include="App\Board\js\app.js" />
     <Content Include="App\Board\js\controllers\cardCtrl.js" />
+    <Content Include="App\Board\js\controllers\dataCtrl.js" />
     <Content Include="App\Board\js\controllers\listCtrl.js" />
     <Content Include="App\Board\js\controllers\listsCtrl.js" />
     <Content Include="App\Board\js\controllers\modalCtrl.js" />
     <Content Include="App\Board\js\directives\closeEditing.js" />
+    <Content Include="App\Board\js\directives\draggable.js" />
     <Content Include="App\Board\js\factories\cardFactory.js" />
     <Content Include="App\Board\js\factories\listFactory.js" />
     <Content Include="App\Board\js\modal\aisha.js" />
     <Content Include="App\Board\js\modal\iDialog.js" />
     <Content Include="App\Board\js\modal\Modal.js" />
+    <Content Include="App\Board\Modal.html" />
     <Content Include="App\TaskManager\app.js" />
     <Content Include="App\TaskManager\index.html" />
     <Content Include="App\TaskManager\MainController.js" />
@@ -461,6 +464,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="App\Board\file1.ts" />
+    <TypeScriptCompile Include="App\test.ts" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

@@ -27,3 +27,5 @@
 /// <reference path="../app/board/js/modal/aisha.js" />
 /// <reference path="jquery.easyui.min.js" />
 /// <reference path="jquery-1.6.1.min.js" />
+/// <reference path="../app/board/js/controllers/datactrl.js" />
+/// <reference path="../app/board/js/directives/draggable.js" />

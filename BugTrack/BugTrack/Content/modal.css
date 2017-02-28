@@ -22,13 +22,13 @@
 .modalDialog > div {
     width: 600px;
     position: relative;
-    margin: 10% auto;
+    margin: 5% auto;
     padding: 5px 20px 13px 20px;
     border-radius: 10px;
-    background: #fff;
-    background: -moz-linear-gradient(#fff, #999);
+    background: #f2f2f2;/*#fff;*/
+    /*background: -moz-linear-gradient(#fff, #999);
     background: -webkit-linear-gradient(#fff, #999);
-    background: -o-linear-gradient(#fff, #999);
+    background: -o-linear-gradient(#fff, #999);*/
 }
 .close {
     background: #606061;

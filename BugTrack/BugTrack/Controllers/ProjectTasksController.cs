@@ -134,7 +134,24 @@ namespace BugTrack.Controllers
         public IHttpActionResult PutProjectTasks(int id, ProjectTasks projectTasks)
         {
             //projectTasks.CreatedOn = DateTime.Now;
-            
+            if (projectTasks.StartedOn != null)
+            {
+                projectTasks.StartedOn = Convert.ToDateTime(projectTasks.StartedOn).ToLocalTime();
+            }
+            if (projectTasks.EndedOn != null)
+            {
+                projectTasks.EndedOn = Convert.ToDateTime(projectTasks.EndedOn).ToLocalTime();
+            }
+
+            if (projectTasks.EstimatedEndsOn != null)
+            {
+                projectTasks.EstimatedEndsOn = Convert.ToDateTime(projectTasks.EstimatedEndsOn).ToLocalTime();
+            }
+
+            if (User.Identity.GetUserId() != null)
+            {
+                projectTasks.CreatedBy = User.Identity.GetUserId();
+            }
 
             if (!ModelState.IsValid)
             {

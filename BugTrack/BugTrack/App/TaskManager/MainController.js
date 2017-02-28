@@ -271,7 +271,7 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
                 ParentTaskId: self.ParentTaskId,
                 //AssignedUserId: $scope.AssignedUserId
                 AssignedUserId: self.AssignedUserId,
-                UserId: $scope.UserId,
+                CreatedBy: $scope.CreatedBy,
                 CompletedPercent: self.CompletedPercent,
                 Description: self.Description
             };
@@ -556,7 +556,7 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
             ProjectId: self.selectedNode,
             ParentTaskId: self.ParentTaskId,
             //UserId: self.data3.UserId,
-            UserId: $scope.UserId,
+            CreatedBy: $scope.CreatedBy,
             AssignedUserId: self.AssignedUserId,
             CompletedPercent: self.CompletedPercent,
             CreatedOn: self.CreatedOn,

@@ -50,6 +50,23 @@
         card.title = updatingCard.title;
         card.list_id = updatingCard.list_id;
 
+        card.Id = updatingCard.id;
+        card.StatusId = updatingCard.StatusId;
+        card.TaskTypeId = updatingCard.TaskTypeId;
+        card.StartedOn = updatingCard.StartedOn;
+        card.EndedOn = updatingCard.EndedOn;
+        card.EstimatedEndsOn = updatingCard.EstimatedEndsOn;
+        card.ProjectId = updatingCard.ProjectId//
+        card.ParentTaskId = updatingCard.ParentTaskId;
+        card.CreatedBy = updatingCard.CreatedBy;
+        card.AssignedUserId = updatingCard.AssignedUserId;
+        card.CompetedPercent = updatingCard.CompetedPercent;
+        card.CreatedOn = updatingCard.CreatedOn;//
+        card.Description = updatingCard.Description;
+
+        console.warn('~card~', card);
+        
+
         //let getProjectList = $http.get('')
 
 
@@ -58,11 +75,11 @@
             //response.data.TaskTypeId = 1;
             //response.data.id = card.id;
             //response.data.ProjectId = 10;
-            response.data.Title = card.title;
+            ////response.data.Title = card.title;
             $http({
                 method: 'PUT',
                 url: '/api/ProjectTasks/' + card.id,
-                data: response.data
+                data: card //response.data
             }).then(function successCallback(response) {
                 console.log('response.data after updating', response.data);
                 alert("Task Updated Successfully !!!");
@@ -70,26 +87,6 @@
                 alert("Error : " + response.data.ExceptionMessage);
             });
         });
-
-        //var task = {
-        //    Id: card.id,
-        //    Title: card.description,
-        //    StatusId: 5,
-        //    TaskTypeId: 1,            
-        //    CreatedBy: card.CreatedBy,
-        //    StartedOn: card.StartedOn,
-        //    EndedOn: card.EndedOn,
-        //    EstimatedEndsOn: card.EstimatedEndsOn,
-        //    ProjectId: 10,//заглушка
-        //    ParentTaskId: card.ParentTaskId,
-        //    AssignedUserId: card.AssignedUserId,
-        //    CompletedPercent: card.CompletedPercent,
-        //    CreatedOn: card.CreatedOn,
-        //    Description: card.Description,
-        //    Url: card.Url,
-        //    Color: card.Color
-        //};
-
 
         ///updating task on the board
 

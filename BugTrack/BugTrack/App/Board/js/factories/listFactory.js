@@ -12,6 +12,12 @@
         lists.push({
             id: _.uniqueId('list_'),
             listName: listName
+            //id
+            //projectId
+            //title
+            //isarchived
+            //order
+            //userid? not required
         });
     };
 
