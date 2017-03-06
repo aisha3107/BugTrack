@@ -1,6 +1,7 @@
 ﻿angular.module('app').directive('closeEditing', function () {
     var KEYS = {
-        ESCAPE: 27
+        ESCAPE: 27,
+        //SPACE: 32
     };
 
     return {
@@ -14,6 +15,10 @@
                     scope.isEditing = false;
                     scope.$apply();
                 }
+                //if (_.isEqual(e.keyCode, KEYS.SPACE)) {
+                //    scope.isEditing = false;
+                //    scope.$apply();
+                //}
             });
         }
     };

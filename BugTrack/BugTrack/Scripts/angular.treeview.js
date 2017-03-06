@@ -56,8 +56,7 @@
                             //    '<img src="../../img/open.png" alt="HTML tutorial" style="width:13px;height:13px;border:0;">' +
                             //'</a>' +
 							'<div data-ng-hide="node.collapsed" data-tree-id="' + treeId + '" data-tree-model="node.' + nodeChildren + '" data-node-id=' + nodeId +
-                                ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +
-                            
+                                ' data-node-label=' + nodeLabel + ' data-node-children=' + nodeChildren + '></div>' +                            
 						'</li>' +
 					'</ul>';
 

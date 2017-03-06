@@ -18,13 +18,101 @@
     this.createCard = function (list) {
         cardFactory.createCard(list, this.cardTitle);
         this.cardTitle = '';
-
+        
     };
 
 
+    
+    var startedon = null;
+    var endedon = null;
+    var estimatedendson = null;
+    var today = null;
 
+    ///when loading gets tasks in boards
+    function getFromApi(id) {
+        $http({
+            method: 'GET',
+            url: '/api/UserBoards/' + id
+        }).then(function successCallback(response) {
 
+            //console.log('tasks for the ' + id + ' board:', response.data.Tasks);
+            myCards = response.data.Tasks;
+            //console.warn('response', response.data);
+            
 
+            for (var i = 0; i < response.data.Tasks.length; i++) {
+                startedon = response.data.Tasks[i].ProjectTaskStartedOn;
+                endedon = response.data.Tasks[i].ProjectTaskEndedOn;
+                estimatedendson = response.data.Tasks[i].ProjectTaskEstimatedEndsOn;
+                
+                if (startedon == null) {
+                    startedon = '';
+                }
+                if (endedon == null) {
+                    endedon = '';
+                }
+                if (estimatedendson == null) {
+                    estimatedendson = '';
+                }
+
+                if (startedon != null) {
+                    var date = startedon;
+                    var day = date.substring(8, 10);
+                    var month = date.substring(5, 7);
+                    var year = date.substring(0, 4);
+                    today = year + "-" + month + "-" + day;
+                }
+
+                if (endedon != null) {
+                    var endeddate = endedon;
+                    var day = endeddate.substring(8, 10);
+                    var month = endeddate.substring(5, 7);
+                    var year = endeddate.substring(0, 4);
+                    var ended = year + "-" + month + "-" + day;
+                }
+                if (estimatedendson != null) {
+                    var estimateddate = estimatedendson;
+                    var day = estimateddate.substring(8, 10);
+                    var month = estimateddate.substring(5, 7);
+                    var year = estimateddate.substring(0, 4);
+                    var estimated = year + "-" + month + "-" + day;
+                }
+
+                cards.push({
+                    id: response.data.Tasks[i].TaskId,
+                    title: response.data.Tasks[i].ProjectTaskTitle,
+                    list_id: id,
+                    description: response.data.Tasks[i].ProjectTaskDescription,
+                    statusid: response.data.Tasks[i].ProjectTaskStatusId,
+                    statusname: response.data.Tasks[i].ProjectTaskStatusTitle,
+                    tasktypeid: response.data.Tasks[i].ProjectTaskTypesId,
+                    tasktypename: response.data.Tasks[i].ProjectTaskTypesTitle,
+                    assigneduserid: response.data.Tasks[i].ProjectTaskAssignedUserId,
+                    completedPercent: response.data.Tasks[i].ProjectTaskCompletedPercent,
+                    startedon: new Date(today),
+                    estimatedendson: new Date(estimated), 
+                    endedon: new Date(ended),
+                    //StartedOn: response.data.Tasks[i].ProjectTaskStartedOn,
+                    //EstimatedEndsOn: response.data.Tasks[i].ProjectTaskEstimatedEndsOn,
+                    //EndedOn: response.data.Tasks[i].ProjectTaskEndedOn,
+                    createdon: response.data.Tasks[i].ProjectTaskCreatedOn,
+                    projectid: response.data.Tasks[i].ProjectId
+
+                });
+                //console.log('response cards', cards[i]);
+                //console.log('startedon ' + startedon);
+                //console.log('estimatedendson ' + estimatedendson);
+                //console.log('endedon ' + endedon);
+                
+            }
+            //console.log('allCards: ', cards);
+
+        }, function errorCallback(response) {
+        });
+    }
+
+    
+    
     //window.onload = addListeners();
 
     //function addListeners(){
@@ -94,97 +182,6 @@
     //document.onmousemove = _move_elem;
     //document.onmouseup = _destroy;
 
-
-
-
-
-
-    
-
-    var startedon = null;
-    var endedon = null;
-    var estimatedendson = null;
-    var today = null;
-
-    ///when loading gets tasks in boards
-    function getFromApi(id) {
-        $http({
-            method: 'GET',
-            url: '/api/UserBoards/' + id
-        }).then(function successCallback(response) {
-
-            //console.log('tasks for the ' + id + ' board:', response.data.Tasks);
-            myCards = response.data.Tasks;
-            //console.warn('response', response.data);
-            
-
-
-
-            for (var i = 0; i < response.data.Tasks.length; i++) {
-                startedon = response.data.Tasks[i].ProjectTaskStartedOn;
-                endedon = response.data.Tasks[i].ProjectTaskEndedOn;
-                estimatedendson = response.data.Tasks[i].ProjectTaskEstimatedEndsOn;
-                
-                if (startedon == null) {
-                    startedon = '';
-                }
-                if (endedon == null) {
-                    endedon = '';
-                }
-                if (estimatedendson == null) {
-                    estimatedendson = '';
-                }
-
-                if (startedon != null) {
-                    var date = startedon;
-                    var day = date.substring(8, 10);
-                    var month = date.substring(5, 7);
-                    var year = date.substring(0, 4);
-                    today = year + "-" + month + "-" + day;
-                }
-
-                if (endedon != null) {
-                    var endeddate = endedon;
-                    var day = endeddate.substring(8, 10);
-                    var month = endeddate.substring(5, 7);
-                    var year = endeddate.substring(0, 4);
-                    var ended = year + "-" + month + "-" + day;
-                }
-                if (estimatedendson != null) {
-                    var estimateddate = estimatedendson;
-                    var day = estimateddate.substring(8, 10);
-                    var month = estimateddate.substring(5, 7);
-                    var year = estimateddate.substring(0, 4);
-                    var estimated = year + "-" + month + "-" + day;
-                }
-
-                cards.push({
-                    id: response.data.Tasks[i].TaskId,
-                    title: response.data.Tasks[i].ProjectTaskTitle,
-                    list_id: id,
-                    description: response.data.Tasks[i].ProjectTaskDescription,
-                    statusname: response.data.Tasks[i].ProjectTaskStatusTitle,
-                    tasktypename: response.data.Tasks[i].ProjectTaskTypesTitle,
-                    assigneduserid: response.data.Tasks[i].ProjectTaskAssignedUserId,
-                    completedPercent: response.data.Tasks[i].ProjectTaskCompletedPercent,
-                    startedon: new Date(today),
-                    estimatedendson: new Date(estimated), 
-                    endedon: new Date(ended)
-                });
-                //console.log('response cards', cards[i]);
-                //console.log('startedon ' + startedon);
-                //console.log('estimatedendson ' + estimatedendson);
-                //console.log('endedon ' + endedon);
-                
-            }
-            //console.log('allCards: ', cards);
-
-        }, function errorCallback(response) {
-        });
-    }
-
-    
-    
 
 
 });

@@ -212,7 +212,26 @@ namespace BugTrack.Controllers
             {
                 return BadRequest(ModelState);
             }
-            db.ProjectTasks.Add(projectTasks);
+            
+            //instead of trigger
+            var addedTask = db.ProjectTasks.Add(projectTasks);
+            var board = db.UserBoards.FirstOrDefault(t => t.ProjectId == addedTask.ProjectId && t.Order == 0);
+
+            if (board == null)
+            {
+                db.UserBoards.Add(new UserBoards() { //board =
+                    Title = "Новые", 
+                    ProjectId = addedTask.ProjectId, 
+                    Order = 0,
+                    IsArchived = false //userBoard
+                });
+            }
+
+            db.UserBoardTasks.Add(new UserBoardTasks() { 
+                TaskId = addedTask.Id,
+                UserBoardId = board.Id
+            });
+
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = projectTasks.Id }, projectTasks);

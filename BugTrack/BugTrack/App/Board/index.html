@@ -53,6 +53,10 @@
 
     <!--<div id="draggable-element">Drag me!</div>-->
 
+
+    <!--<span my-draggable>Drag Me</span>-->
+
+
     
     <section id="lists-container"
              class="lists-container"
@@ -70,11 +74,13 @@
                         <div class="shape" ng-draggable='dragOptions'></div>
                     </div>
                 </div>-->
+
+                
                 <div id="card"
                      class='card'
                      ng-controller='cardCtrl as cardCtrl'
                      ng-repeat="card in listCtrl.getCards(list)"
-                     ng-dblclick="cardCtrl.hello(card)">
+                     ><!--ng-dblclick="cardCtrl.hello(card)"-->
                     
                     <div id="card2"
                          ng-show='!cardCtrl.isEditing'>
@@ -123,7 +129,6 @@
             </section>
 
 
-
             <section class="list new-list list-inline">
                 <form ng-submit="listsCtrl.addList()">
                     <input type="text" ng-model="listsCtrl.listName"
@@ -152,6 +157,8 @@
     <script type="text/javascript" src="js/controllers/modalCtrl.js"></script>
     <script type="text/javascript" src="js/modal/Modal.js"></script>
     <script type="text/javascript" src="js/directives/draggable.js"></script>
+    <!--<script type="text/javascript" src="js/directives/myDraggable.js"></script>-->
+
     <!--<script type="text/javascript" src="js/controllers/dataCtrl.js"></script>-->
     <!--<script type="text/javascript" src="js/modal/aisha.js"></script>-->
     <!--<script type="text/javascript" src="js/modal/complexcontroller.js"></script>

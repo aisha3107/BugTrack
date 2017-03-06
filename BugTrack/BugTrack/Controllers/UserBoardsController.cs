@@ -51,6 +51,7 @@ namespace BugTrack.Controllers
                         ProjectTaskEndedOn = y.ProjectTasks.EndedOn,
                         ProjectTaskEstimatedEndsOn = y.ProjectTasks.EstimatedEndsOn,
                         ProjectTaskCompletedPercent = y.ProjectTasks.CompletedPercent,
+                        ProjectTaskCreatedOn = y.ProjectTasks.CreatedOn,
                         y.Order,
                         ProjectFiles = y.ProjectTasks.Files.Where(file => file.IsDeleted != true)
                             .Select(file => new
@@ -96,6 +97,7 @@ namespace BugTrack.Controllers
                         ProjectTaskEndedOn = y.ProjectTasks.EndedOn,
                         ProjectTaskEstimatedEndsOn = y.ProjectTasks.EstimatedEndsOn,
                         ProjectTaskCompletedPercent = y.ProjectTasks.CompletedPercent,
+                        ProjectTaskCreatedOn = y.ProjectTasks.CreatedOn,
                         y.Order,
                         ProjectFiles = y.ProjectTasks.Files.Where(file => file.IsDeleted != true)
                             .Select(file => new
@@ -148,6 +150,7 @@ namespace BugTrack.Controllers
                         ProjectTaskEndedOn = y.ProjectTasks.EndedOn,
                         ProjectTaskEstimatedEndsOn = y.ProjectTasks.EstimatedEndsOn,
                         ProjectTaskCompletedPercent = y.ProjectTasks.CompletedPercent,
+                        ProjectTaskCreatedOn = y.ProjectTasks.CreatedOn,
                         y.Order,
                         ProjectFiles = y.ProjectTasks.Files.Where(file => file.IsDeleted != true)
                             .Select(file => new

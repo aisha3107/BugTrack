@@ -58,6 +58,8 @@
                         </td>
                     </tr>
 
+                    
+
                     <tr>
                         <td>Прогресс:</td><!--работает-->
                         <td>
@@ -75,9 +77,9 @@
                     <tr>
                         <td>Статус:</td>
                         <td>
-                            <select name="StatusName" class="form-control" ng-model="$ctrl.task.statusname" style="width:240px"
+                            <select name="StatusName" class="form-control" ng-model="$ctrl.task.statusid" style="width:240px"
                                     ng-options="item.id as item.text for item in $ctrl.statuses" required>
-                                <option value>{{$ctrl.task.statusname}}</option><!--{{$ctrl.ttboeno}}-->
+                                <option value>---Выберите статус---<!--{{$ctrl.task.statusname}}--></option>
 
                             </select>
                         </td>
@@ -87,11 +89,12 @@
                         <td>Тип:</td>
                         <td>
                             <select name="TaskTypeName" style="width:240px" class="form-control"
-                                    ng-model="$ctrl.task.tasktypename" ng-options="item.id as item.text for item in $ctrl.types" required>
-                                <option value>{{$ctrl.task.tasktypename}}</option>
+                                    ng-model="$ctrl.task.tasktypeid" ng-options="item.id as item.text for item in $ctrl.types" required>
+                                <option value>---Выберите тип---<!--{{$ctrl.task.tasktypename}}--></option>
                             </select>
                         </td>
                     </tr>
+
 
                     <!--<tr>
                 <td>ParentTask: </td>
@@ -107,7 +110,7 @@
                 </table>
                 <!--$ctrl.show()-->
 
-                <input type="submit" value="Save" ng-click="$ctrl.show()" style="height:40px; width:250px; align:right" />
+                <input type="submit" value="Save" ng-click="$ctrl.updateTask()" style="height:40px; width:250px; align:right" />
                 <input type="button" value="Cancel" style="height:40px; width:250px; align:right" />
             </form>
         </div>

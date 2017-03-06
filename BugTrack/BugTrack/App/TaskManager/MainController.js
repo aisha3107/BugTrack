@@ -234,10 +234,12 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
             self.createParent = self.data3.Id;
             console.log("self.createParent", self.createParent);
             self.ParentTaskId = self.data3.Id;//ParentTask when create
-            //self.statusId = self.statuses[4];
-            //self.taskTypeId = self.types[0];
-            self.ttboeno = self.statuses[4].text;
-            self.taskFeature = self.types[0].text;
+            self.statusId = self.statuses[4].text;
+            self.taskTypeId = self.types[0].text;
+            //self.data3.StatusId = self.statuses[4].text;
+            //self.data3.TaskTypeId = self.types[0].text;
+            //self.ttboeno = self.statuses[4].text;
+            //self.taskFeature = self.types[0].text;
             self.selectedTask = null;
         }
     };

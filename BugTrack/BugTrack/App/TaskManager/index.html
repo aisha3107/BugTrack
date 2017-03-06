@@ -327,7 +327,7 @@
                                             class="form-control"
                                             ng-options="item.id as item.text for item in $ctrl.statuses"
                                             ng-value="data3.StatusName" required>
-                                        <option value>{{$ctrl.ttboeno}}</option>
+                                        <option value>Выберите статус...<!--{{$ctrl.ttboeno}}--></option>
                                     </select>
                                 </td>
                             </tr>
@@ -342,7 +342,7 @@
                                             ng-model="$ctrl.taskTypeId"
                                             ng-options="item.id as item.text for item in $ctrl.types"
                                             ng-value="data3.TaskTypeName" required>
-                                        <option value="">{{$ctrl.taskFeature}}</option>
+                                        <option value>Выберите тип...<!--{{$ctrl.taskFeature}}--></option>
                                     </select>
                                 </td>
                             </tr>

@@ -291,6 +291,7 @@
     <Content Include="App\Board\js\controllers\modalCtrl.js" />
     <Content Include="App\Board\js\directives\closeEditing.js" />
     <Content Include="App\Board\js\directives\draggable.js" />
+    <Content Include="App\Board\js\directives\myDraggable.js" />
     <Content Include="App\Board\js\factories\cardFactory.js" />
     <Content Include="App\Board\js\factories\listFactory.js" />
     <Content Include="App\Board\js\modal\aisha.js" />
@@ -379,6 +380,7 @@
     <Content Include="img\jsfiddle01.png" />
     <Content Include="img\jsfiddle02.png" />
     <Content Include="img\loading.gif" />
+    <Content Include="img\open.png" />
     <Content Include="img\preview.png" />
     <Content Include="Scripts\angular.treeview.js" />
     <Content Include="Scripts\bootstrap.js" />

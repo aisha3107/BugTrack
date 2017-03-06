@@ -2,20 +2,24 @@
        .component('myModal', {
            //controller: function (cardFactory, $scope) {
            //    this.show = function () {
-           //        console.log('china', this.task);
            //    }
            //},
            controller: (function () {
-               var self;
-               function ctrl($http) {
+               //var self;
+               cards = [];////
+               function ctrl($http, $scope) {
                    self = this;
                    this.$http = $http;
+                   this.$scope = $scope;
                }
 
-
+               //ctrl.prototype.init = function (id) {////
+               //    updateTask(updatingCard);
+               //    //console.log('list\'s id: ', id);
+               //};
 
                ctrl.prototype.$onInit = function () {
-                   console.warn(self);
+                   //console.warn(self);
                }
 
                ctrl.prototype.show = function () {
@@ -23,6 +27,7 @@
                }
 
                ctrl.prototype.getUsers = function () {
+                   var self = this;
                    console.log('called getUsers', self);
                    self.$http({
                        method: 'GET',
@@ -42,28 +47,49 @@
                    });
                }
 
-               //ctrl.prototype.updateTask = function (updatingCard) {
-               //    var card = _.findWhere(cards, { id: updatingCard.id });
+               ctrl.prototype.updateTask = function (task) {
+                   var self = this;
+                   //var card = _.findWhere(cards, { id: updatingCard.id });
+                   //UpdateTask = function();
 
-               //    card = {
-               //        title: updatingCard.title,
-               //        list_id: updatingCard.list_id,
-               //        Id: updatingCard.id,
-               //        StatusId: updatingCard.StatusId,
-               //        TaskTypeId: updatingCard.TaskTypeId,
-               //        StartedOn: updatingCard.StartedOn,
-               //        EndedOn: updatingCard.EndedOn,
-               //        EstimatedEndsOn: updatingCard.EstimatedEndsOn,
-               //        ProjectId: updatingCard.ProjectId,
-               //        ParentTaskId: updatingCard.ParentTaskId,
-               //        CreatedBy: updatingCard.CreatedBy,
-               //        AssignedUserId: updatingCard.AssignedUserId,
-               //        CompetedPercent: updatingCard.CompetedPercent,
-               //        CreatedOn: updatingCard.CreatedOn,
-               //        Description: updatingCard.Description,
-               //    };
-               //    console.warn('~~~current card~~~', card);
-               //}
+                   console.log(self.task);
+                   var card = {
+                       title: self.task.title,
+                       list_id: self.task.list_id,
+                       Id: self.task.id,
+                       StatusId: self.task.statusid,
+                       TaskTypeId: self.task.tasktypeid,
+                       StartedOn: self.task.startedon,
+                       EndedOn: self.task.endedon,
+                       EstimatedEndsOn: self.task.estimatedendson,
+                       //StartedOn: self.task.StartedOn,
+                       //EndedOn: self.task.EndedOn,
+                       //EstimatedEndsOn: self.task.EstimatedEndsOn,
+                       ProjectId: self.task.projectid,
+                       //ParentTaskId: self.task.ParentTaskId,
+                       //CreatedBy: self.task.CreatedBy,
+                       AssignedUserId: self.task.assigneduserid,
+                       CompletedPercent: self.task.completedPercent,
+                       Description: self.task.description,
+                       CreatedOn: self.task.createdon
+                   };
+                   console.warn('~~~current card~~~', card);
+
+                   ////this.$http.get('/api/ProjectTasks/' + card.Id).then(function (response) {
+                       
+                       this.$http({
+                           method: 'PUT',
+                           url: '/api/ProjectTasks/' + card.Id,
+                           data: card
+                       }).then(function successCallback(response) {
+                           console.log('CARD after updating', card);
+                           alert("Task Updated Successfully !!!");
+                       }, function errorCallback(response) {
+                           alert("Error : " + response.data.ExceptionMessage);
+                       });
+                   //});
+
+               }
 
                ctrl.prototype.statuses = [
                     { id: 1, text: 'В работе' },

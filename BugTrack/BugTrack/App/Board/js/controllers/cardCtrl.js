@@ -10,6 +10,21 @@
 
     this.deleteCard = function (card) {
         cardFactory.deleteCard(card);
+        //console.warn("called");
+        console.log("delete was called!");
+        $http.delete('/api/ProjectTasks/' + card.id)
+           .then(
+               function (response) {
+                   // success callback
+                   console.log("Deleted successfully!");
+                   //getList();
+                   //$scope.cleanout();
+               },
+               function (response) {
+                   // failure call back
+                   console.log("some error has been occured");
+               }
+            );
     };
 
     this.editCard = function (card) {

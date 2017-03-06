@@ -29,3 +29,4 @@
 /// <reference path="jquery-1.6.1.min.js" />
 /// <reference path="../app/board/js/controllers/datactrl.js" />
 /// <reference path="../app/board/js/directives/draggable.js" />
+/// <reference path="../app/board/js/directives/mydraggable.js" />
