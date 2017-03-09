@@ -30,3 +30,4 @@
 /// <reference path="../app/board/js/controllers/datactrl.js" />
 /// <reference path="../app/board/js/directives/draggable.js" />
 /// <reference path="../app/board/js/directives/mydraggable.js" />
+/// <reference path="jquery-ui.js" />

@@ -9,7 +9,7 @@
     <div id="openModal" class="modalDialog" item="$ctrl.editCard(data)">
         <div>
             <a href="#close" title="Close" class="close">X</a>
-            <h2>Modal Box</h2>
+            <h2>Задание №{{$ctrl.task.id}}</h2>
             <form ng-submit='cardCtrl.updateCard()'>
                 <table id="taskForm">
                     <tr>
@@ -80,7 +80,6 @@
                             <select name="StatusName" class="form-control" ng-model="$ctrl.task.statusid" style="width:240px"
                                     ng-options="item.id as item.text for item in $ctrl.statuses" required>
                                 <option value>---Выберите статус---<!--{{$ctrl.task.statusname}}--></option>
-
                             </select>
                         </td>
                     </tr>

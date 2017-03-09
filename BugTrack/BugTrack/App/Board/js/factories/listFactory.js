@@ -44,16 +44,28 @@
     service.removeList = function (list) {
         _.pull(lists, list);
         console.log("list object", list);
-        $http.delete('/api/UserBoards/' + list.id)//какой Id взять?
-       .then(
-           function (response) {
-               // success callback
-               console.log("List deleted successfully!");
-           },
-           function (response) {
-               // failure call back
-           }
-        );
+        alert("task will be deleted!");
+        //var txt;
+        //var r = confirm("Task will be deleted!\nPress a button!\nEither OK or Cancel.");
+        //if (r == true) {
+        //    txt = "You pressed OK!";
+            $http.delete('/api/UserBoards/' + list.id)
+               .then(
+                   function (response) {
+                       // success callback
+                       console.log("List deleted successfully!");
+                   },
+                   function (response) {
+                       // failure call back
+                   }
+                );
+        //} else {
+        //    txt = "You pressed Cancel!";
+        //}
+        //document.getElementById("demo").innerHTML = txt;
+
+
+        
     };
 
     return service;

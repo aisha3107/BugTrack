@@ -9,22 +9,33 @@
     var self = this;
 
     this.deleteCard = function (card) {
-        cardFactory.deleteCard(card);
-        //console.warn("called");
+        console.warn("card", card);
         console.log("delete was called!");
-        $http.delete('/api/ProjectTasks/' + card.id)
-           .then(
-               function (response) {
-                   // success callback
-                   console.log("Deleted successfully!");
-                   //getList();
-                   //$scope.cleanout();
-               },
-               function (response) {
-                   // failure call back
-                   console.log("some error has been occured");
-               }
-            );
+        //alert("task will be deleted!");
+
+        var txt;
+        var r = confirm("Task will be deleted!\nPress a button!\nEither OK or Cancel.");
+        if (r == true) {
+            cardFactory.deleteCard(card);
+
+            txt = "You pressed OK!";
+            $http.delete('/api/ProjectTasks/' + card.id)
+               .then(
+                   function (response) {
+                       // success callback
+                       console.log("Deleted successfully!");
+                       //getList();
+                       //$scope.cleanout();
+                   },
+                   function (response) {
+                       // failure call back
+                       console.log("some error has been occured");
+                   }
+                );
+        } else {
+            txt = "You pressed Cancel!";
+        }
+        //document.getElementById("demo").innerHTML = txt;
     };
 
     this.editCard = function (card) {
@@ -65,7 +76,4 @@
         }, function errorCallback(response) {
         });
     }
-
-
-    
 });

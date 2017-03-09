@@ -37,26 +37,8 @@
             });
     };
 
-    //не работает!!!!!!
     service.deleteCard = function (card) {
-        return _.pull(cards, card);
-
-        ////console.warn("called");
-        //console.log("delete was called!");
-
-        //$http.delete('/api/ProjectTasks/' + card.id)
-        //   .then(
-        //       function (response) {
-        //           // success callback
-        //           console.log("Deleted successfully!");
-        //           //getList();
-        //           //$scope.cleanout();
-        //       },
-        //       function (response) {
-        //           // failure call back
-        //           console.log("some error has been occured");
-        //       }
-        //    );
+        return _.pull(cards, card);       
     };
 
     //function getProjectTaskById(id) {
@@ -69,26 +51,6 @@
         var card = _.findWhere(cards, { id: updatingCard.id });
         card.title = updatingCard.title;
         card.list_id = updatingCard.list_id;
-
-        //card.Id = updatingCard.id;
-        //card.StatusId = updatingCard.StatusId;
-        //card.TaskTypeId = updatingCard.TaskTypeId;
-        //card.StartedOn = updatingCard.StartedOn;
-        //card.EndedOn = updatingCard.EndedOn;
-        //card.EstimatedEndsOn = updatingCard.EstimatedEndsOn;
-        //card.ProjectId = updatingCard.ProjectId//
-        //card.ParentTaskId = updatingCard.ParentTaskId;
-        //card.CreatedBy = updatingCard.CreatedBy;
-        //card.AssignedUserId = updatingCard.AssignedUserId;
-        //card.CompetedPercent = updatingCard.CompetedPercent;
-        //card.CreatedOn = updatingCard.CreatedOn;//
-        //card.Description = updatingCard.Description;
-
-        //console.warn('~card~', card);
-        
-
-        //let getProjectList = $http.get('')
-
 
         $http.get('/api/ProjectTasks/' + updatingCard.id).then(function (response) {
             //response.data.StatusId = 5;
