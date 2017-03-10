@@ -6,13 +6,14 @@
 
     service.getCards = function (list) {
         return _.filter(cards, { list_id: list.id });
+        
     };
 
 
     //работает
     service.createCard = function (list, cardTitle) {
         cards.push({
-            id: _.uniqueId('card_'),
+            id: _.uniqueId('card_'),//сразу удалить не получится из-за ID
             title: cardTitle,
             list_id: list.id
         });

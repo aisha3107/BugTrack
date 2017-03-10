@@ -76,6 +76,16 @@
                     </div>
                 </div>-->
 
+                <section class='new-card'
+                         ng-show="listCtrl.isLongList">
+                    <!--сделать скрытие, если больше 8-->
+                    <form ng-submit="listCtrl.createCard(list)">
+                        <input type="text"
+                               ng-model='listCtrl.cardTitle'
+                               class='card-input'
+                               placeholder='Add a card...'>
+                    </form>
+                </section>
                 
                 <div id="card"
                      class='card'

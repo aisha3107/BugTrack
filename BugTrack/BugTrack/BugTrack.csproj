@@ -195,6 +195,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\SwaggerConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="BLL\ProjectTasksBLL.cs" />
     <Compile Include="BLL\ProjectTaskTreeGrid.cs" />
     <Compile Include="BLL\ProjectTreeGrid.cs" />
     <Compile Include="Controllers\AspNetUsersController.cs" />

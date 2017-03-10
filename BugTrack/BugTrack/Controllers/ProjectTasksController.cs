@@ -19,6 +19,7 @@ namespace BugTrack.Controllers
     public class ProjectTasksController : ApiController
     {
         private bugTrackEntities db = new bugTrackEntities();
+        private ProjectTasksBLL projectTaskBll = new ProjectTasksBLL();
         private ProjectTaskTreeGrid treeBuilder = new ProjectTaskTreeGrid();
 
         // GET: api/ProjectTasks
@@ -241,16 +242,19 @@ namespace BugTrack.Controllers
         [ResponseType(typeof(ProjectTasks))]
         public IHttpActionResult DeleteProjectTasks(int id)
         {
-            ProjectTasks projectTasks = db.ProjectTasks.Find(id);
-            if (projectTasks == null)
-            {
-                return NotFound();
-            }
+            //var childTasks = db.ProjectTasks.Where(x => x.ParentTaskId == id);
+            //db.ProjectTasks.RemoveRange(childTasks);
 
-            db.ProjectTasks.Remove(projectTasks);
-            db.SaveChanges();
+            //ProjectTasks projectTasks = db.ProjectTasks.Find(id);
+            //if (projectTasks == null)
+            //{
+            //    return NotFound();
+            //}
 
-            return Ok(projectTasks);
+            //db.ProjectTasks.Remove(projectTasks);
+            //db.SaveChanges();
+            projectTaskBll.DeleteTask(id);
+            return Ok();
         }
 
         [HttpGet, Route("SearchByParams")]

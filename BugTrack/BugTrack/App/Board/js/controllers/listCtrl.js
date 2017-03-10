@@ -1,8 +1,12 @@
 ﻿angular.module('app').controller('listCtrl', function (listFactory, cardFactory, $scope, $http) {
     //console.log('listCtrl');
+    var isLongList = false;
+    var count = 0;
+
     $scope.init = function (id) {
         getFromApi(id);
         console.log('list\'s id: ', id);
+        
     };
 
     this.removeList = function (list) {
@@ -13,6 +17,7 @@
 
     this.getCards = function (list) {
         return cardFactory.getCards(list);
+        
     };
 
     this.createCard = function (list) {
@@ -20,7 +25,6 @@
         this.cardTitle = '';
         
     };
-
 
     
     var startedon = null;
@@ -30,11 +34,15 @@
 
     ///when loading gets tasks in boards
     function getFromApi(id) {
+        if (id == 19) {
+            isLongList = true;
+        }
         $http({
             method: 'GET',
             url: '/api/UserBoards/' + id
         }).then(function successCallback(response) {
 
+            
             //console.log('tasks for the ' + id + ' board:', response.data.Tasks);
             myCards = response.data.Tasks;
             //console.warn('response', response.data);
@@ -103,9 +111,15 @@
                 //console.log('startedon ' + startedon);
                 //console.log('estimatedendson ' + estimatedendson);
                 //console.log('endedon ' + endedon);
-                
+                count += 1;
             }
             //console.log('allCards: ', cards);
+            console.log(':::::' + id + ':::', count);
+            //if (count > 9) {
+            //    console.log('isLongList', isLongList);
+            //    isLongList = true;
+            //    console.log('isLongList', isLongList);
+            //}
 
         }, function errorCallback(response) {
         });
