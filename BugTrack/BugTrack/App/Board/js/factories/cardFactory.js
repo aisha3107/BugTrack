@@ -1,8 +1,10 @@
 ﻿angular.module('app').factory('cardFactory', function ($http) {
     var service = {};
+    var projectBoardId = null;
 
     cards = [];
 
+    var myParam = location.search.split('projectid=')[1]
 
     service.getCards = function (list) {
         return _.filter(cards, { list_id: list.id });
@@ -22,20 +24,83 @@
             Title: cardTitle,
             StatusId: 5,
             TaskTypeId: 1,
-            ProjectId: 11,  //заглушка. позже надо сделать выбранный проект
+            ProjectId: myParam, 
             CreatedBy: "532bec7d-4eb9-4e53-bb3c-4379e03f5e23", //заглушка. $scope.UserId
             Description: "",
-            //здесь надо сделать добавление в нужный список, если таск был добавлен в другой борд вручную.
+            projectBoardId: list.id //здесь надо сделать добавление в нужный список, если таск был добавлен в другой борд вручную.
         };
+        console.warn('~~~~~data', data);
+
+        projectBoardId = list.id;
+
+        data2 = {
+            UserBoardId: list.id
+        }
+
+        $http({
+            method: 'POST',
+            url: '/api/ProjectTasks',
+            contentType: "application/json",
+            data: data,
+
+            //    JSON.stringify({
+            //    projectTasks: data1,
+            //    projectBoardId: projectBoardId
+            //}),
+            success: function (result) {
+                alert(result.Result);
+            }
+        });
+
+        //$.ajax({ //not correct 
+        //    url: '/api/ProjectTasks',
+        //    type: 'POST',
+        //    data: { projectTasks: data,
+        //            projectBoardId: projectBoardId
+        //    },
+        //    dataType: 'json',
+        //    success: function (data) {
+        //        alert(data);
+        //    }
+        //});
+
+        //vm = {
+        //    projectTasks: projectTasks,
+        //    projectBoardId: projectBoardId
+        //}
+        
+        //$http({
+        //    url: '/api/ProjectTasks?projectBoardId=' + projectBoardId,
+        //    method: 'POST',
+        //    data: JSON.stringify(projectTasks),
+        //    dataType: 'json',
+        //    success: function (vm) {
+        //        alert(vm);
+        //    }
+        //});
+
+
+        ////AddProjectTaskToUserBoard
+        //$http({
+        //    method: 'POST',
+        //    url: '/api/UserBoards/AddProjectTaskToUserBoard',
+        //    contentType: "application/json",
+        //    data: data2,
+        //    success: function (result) {
+        //        alert(result.Result);
+        //    }
+        //});
+
+
 
         ///creating task on the board
-        $http.post('/api/ProjectTasks', data)
-            .then(function (response) {
-                console.log(response);
-                console.warn("~~~~~created", data);
-            }, function (response) {
-                console.log(response)
-            });
+        //$http.post('/api/ProjectTasks', { projectTasks: data, projectBoardId: projectBoardId })
+        //    .then(function (response) {
+        //        console.log(response);
+        //        console.warn("~~~~~created", data);
+        //    }, function (response) {
+        //        console.log(response)
+        //    });
     };
 
     service.deleteCard = function (card) {

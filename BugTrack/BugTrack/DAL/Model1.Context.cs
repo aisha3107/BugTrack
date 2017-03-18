@@ -13,10 +13,10 @@ namespace BugTrack.DAL
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class bugTrackEntities : DbContext
+    public partial class bugTrackEntities1 : DbContext
     {
-        public bugTrackEntities()
-            : base("name=bugTrackEntities")
+        public bugTrackEntities1()
+            : base("name=bugTrackEntities1")
         {
         }
     

@@ -3,17 +3,22 @@
 
     lists = [];
     arr = [];
-
+    var myParam = location.search.split('projectid=')[1]
+    
+    console.log("`````myParam", myParam);
     service.getLists = function () {
         return lists;
     };
+
+    //UserId = listsCtrl.UserIdCommon;
+    //console.log("UserID", UserId);
 
     //добавляет, но возникает проблема подгрузки данных, так как сразу пытается достать таски
     service.addList = function (listName) {
         lists.push({
             //Id: _.uniqueId('list_'), 
             listName: listName, //title
-            ProjectId: 11, //заглушка
+            ProjectId: myParam,
             IsArchived: 0, 
             order: 1, 
             //userid? not required
@@ -23,7 +28,7 @@
         var data = {
             //Id: lists.Id,
             Title: listName,
-            ProjectId: 11,  //заглушка. позже надо сделать выбранный проект
+            ProjectId: myParam,
             UserId: "532bec7d-4eb9-4e53-bb3c-4379e03f5e23", //заглушка. $scope.UserId
             IsArchived: 0,
             Order: 1

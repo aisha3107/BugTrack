@@ -1,0 +1,139 @@
+﻿.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+
+
+/*from http://codepen.io/chris22smith/pen/37459a002cbe6b6cd37aa5e927698fba*/
+
+.help-text {
+  line-height:1.25;
+}
+
+.items {
+    border-spacing: 30px 0;
+    display:table;
+    margin:30px -30px;
+    min-height: 200px;
+    table-layout: fixed;
+    width: 100%;
+}
+
+.items > div {
+    border:solid 1px #ccc;
+    display:table-cell;
+    vertical-align:top;
+}
+
+.red-column {
+    background-color: #c00;
+}
+
+.amber-column {
+    background-color:#f83;
+}
+
+.green-column {
+    background-color:#6a4;
+}
+
+.items h3,
+.items p {
+  margin:.5em 0;
+  text-align:center;
+}
+
+.items p {
+    color: #999;
+    margin-bottom: 0;
+}
+
+.items-red,
+.items-amber,
+.items-green {
+    display:block;
+    list-style:none;
+    min-height:158px; /* 3 items */
+/*   overflow:auto; */
+    padding:.5em;
+}
+
+.items li {
+  background-color:#fff;
+  border:solid 1px #ccc;
+  box-sizing:border-box;
+  display:block;
+  margin:.5em;
+  padding:.5em;
+  min-height: 40px;
+}
+
+.item-text {
+    padding: .5em;
+}
+
+/* Dragula classes */
+
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+}
+.gu-hide {
+  display: none !important;
+}
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}
+
+/* customisation */
+
+.gu-mirror {
+  background-color:#fff;
+  border:solid 1px #ccc;
+  box-shadow: 0 1em .5em -0.5em rgba(0,0,0,0.25);
+  box-sizing:border-box;
+  cursor:move;
+  cursor: -webkit-grabbing;
+  cursor: -moz-grabbing;
+  cursor: grabbing;
+  display:block;
+  list-style:none;
+  min-height: 40px;
+  padding:.5em;
+}
+
+.no-drop {
+  cursor:none;
+  cursor:not-allowed;
+  cursor:no-drop;
+}

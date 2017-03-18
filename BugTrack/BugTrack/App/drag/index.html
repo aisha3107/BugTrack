@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+    <style>
+        #firstcard {
+            width: 100px;
+            height: 100px;
+            background-color: antiquewhite;
+            color: grey;
+            padding: 10px 12px;
+            cursor: move;
+            position: relative;
+        }
+
+        #container {
+            width: 300px;
+            height: 300px;
+            /*background-color: white;*/
+        }
+
+        .shape {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background-color: black;
+        }
+    </style>
+
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="../../Content/normalize.css">
+    <link rel="stylesheet" href="../../Content/foundation.min.css">
+    <link rel="stylesheet" href="../../Content/trello.css">
+    <!--<link href="../../Content/jquery-ui.css" rel="stylesheet" />-->
+    <!--<script src="../Board/js/modal/iDialog.js"></script>-->
+    <link rel="stylesheet" href="../../Content/iDialog.css" />
+    <link rel="stylesheet" href="../../Content/modal.css" />
+    <link href='../../Content/dragula.css' rel='stylesheet' type='text/css' />
+    <link href='../../Content/example.css' rel='stylesheet' type='text/css' />
+</head>
+<body ng-cloak>
+    <header>
+        <div class='row'>
+            <h1 class='app-name left'>Boards</h1>
+        </div>
+    </header>
+
+    <!--<a href="" idialog="Editor" idialog-id="someid">Show dialog</a>-->
+    <!--<aisha></aisha>-->
+    <!--<div id="dxy" style="width:100px; background-color:steelblue">test</div>-->
+    <!--<div id="draggable-element">Drag me!</div>-->
+    <!--<span my-draggable>Drag Me</span>-->
+
+    <div class='examples'>
+
+        <div class='parent'>
+            <section id="lists-container"
+                     class="lists-container wrapper"
+                     ng-controller="listsCtrl as listsCtrl">
+                <div class="row">
+                    <section id='left-rm-spill'
+                             class="list list-inline"
+                             ng-repeat="list in listsCtrl.lists"
+                             ng-controller="listCtrl as listCtrl"
+                             ng-init="init(list.id)">
+                        <h1>{{list.listName}}  </h1>
+
+                        <!--<div id="firstcard">My first card</div>
+                        <div ng-controller="testCtrl">
+                            <div id="container">
+                                <div class="shape" ng-draggable='dragOptions'></div>
+                            </div>
+                        </div>-->
+
+                        <section class='new-card'
+                                 ng-show="listCtrl.isLongList">
+                            <!--сделать скрытие, если больше 8-->
+                            <form ng-submit="listCtrl.createCard(list)">
+                                <input type="text"
+                                       ng-model='listCtrl.cardTitle'
+                                       class='card-input'
+                                       placeholder='Add a card...'>
+                            </form>
+                        </section>
+
+                        <div id="card"
+                             class='card'
+                             ng-controller='cardCtrl as cardCtrl'
+                             ng-repeat="card in listCtrl.getCards(list)">
+                            <!--ng-dblclick="cardCtrl.hello(card)"-->
+
+                            <div id="card2"
+                                 ng-show='!cardCtrl.isEditing'>
+                                {{card.title}}
+                                <div ng-click='cardCtrl.editCard(card)'
+                                     class='edit-small edit-card hand'>
+                                    <!--idialog="Editor"-->
+                                    <!--<aisha show-on="var" ng-show="var"></aisha>-->
+
+                                </div>
+                                <div ng-click='cardCtrl.deleteCard(card)'
+                                     class='remove-small remove-card hand'>
+                                </div>
+
+                            </div>
+
+                            <div ng-if='cardCtrl.isEditing'>
+                                <form ng-submit='cardCtrl.updateCard()'>
+                                    <input type="text"
+                                           close-editing
+                                           is-editing='cardCtrl.isEditing'
+                                           ng-model='cardCtrl.editingCard.title'>
+                                    <select class="select-list"
+                                            ng-model='cardCtrl.editingCard.list_id'
+                                            ng-change="cardCtrl.updateCard()"
+                                            ng-options="list.id as list.listName for list in listsCtrl.lists"></select>
+                                </form>
+                                <div><my-modal users="cardCtrl.Users" task="card" style="margin-left:50px"></my-modal></div>
+                            </div>
+
+                        </div>
+
+                        <a ng-click="listCtrl.removeList(list)" class='hand'>
+                            <div class="remove remove-list"></div>
+                        </a>
+
+                        <section class='new-card'>
+                            <form ng-submit="listCtrl.createCard(list)">
+                                <input type="text"
+                                       ng-model='listCtrl.cardTitle'
+                                       class='card-input'
+                                       placeholder='Add a card...'>
+                            </form>
+                        </section>
+
+                    </section>
+
+
+                    <section class="list new-list list-inline">
+                        <form ng-submit="listsCtrl.addList()">
+                            <input type="text" ng-model="listsCtrl.listName"
+                                   placeholder='Add a list...'>
+                        </form>
+                    </section>
+                    <!--<p id="demo"></p>-->
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <!--<script>
+        new Draggable('card2');
+    </script>-->
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+
+    <script type="text/javascript" src="../Board/js/app.js"></script>
+    <script type="text/javascript" src="../Board/js/factories/listFactory.js"></script>
+    <script type="text/javascript" src="../Board/js/factories/cardFactory.js"></script>
+    <script type="text/javascript" src="../Board/js/controllers/listCtrl.js"></script>
+    <script type="text/javascript" src="../Board/js/controllers/listsCtrl.js"></script>
+    <script type="text/javascript" src="../Board/js/controllers/cardCtrl.js"></script>
+    <script type="text/javascript" src="../Board/js/directives/closeEditing.js"></script>
+    <script type="text/javascript" src="../Board/js/controllers/modalCtrl.js"></script>
+    <script type="text/javascript" src="../Board/js/modal/Modal.js"></script>
+    <script type="text/javascript" src="../Board/js/directives/draggable.js"></script>
+    <!--<script type="text/javascript" src="js/directives/myDraggable.js"></script>-->
+    <script type="text/javascript" src='../../Scripts/dragula.min.js'></script>
+    <script type="text/javascript" src='../../Scripts/example.min.js'></script>
+
+    <!--<script type="text/javascript" src="js/controllers/dataCtrl.js"></script>-->
+    <!--<script type="text/javascript" src="js/modal/aisha.js"></script>-->
+    <!--<script type="text/javascript" src="js/modal/complexcontroller.js"></script>
+    <script type="text/javascript" src="js/modal/sampleapp.js"></script>-->
+    <!-- Animation scripts are not required, but otherwise you will not see animations -->
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.22/angular-animate.min.js"></script>
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/animatecss/3.2.0/animate.css" />
+
+</body>
+</html>

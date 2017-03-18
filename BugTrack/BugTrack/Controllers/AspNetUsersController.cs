@@ -14,7 +14,7 @@ namespace BugTrack.Controllers
 {
     public class AspNetUsersController : ApiController
     {
-        private bugTrackEntities db = new bugTrackEntities();
+        private bugTrackEntities1 db = new bugTrackEntities1();
 
         // GET: api/AspNetUsers
         public dynamic GetAspNetUsers()

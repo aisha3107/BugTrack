@@ -15,7 +15,7 @@ namespace BugTrack.DAL
     public partial class UserBoardTasks
     {
         public int UserBoardId { get; set; }
-        public Nullable<int> TaskId { get; set; }
+        public int TaskId { get; set; }
         public int Id { get; set; }
         public int Order { get; set; }
     

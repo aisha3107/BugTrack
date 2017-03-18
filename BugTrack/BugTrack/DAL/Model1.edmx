@@ -186,7 +186,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="UserBoardId" Type="int" Nullable="false" />
-          <Property Name="TaskId" Type="int" />
+          <Property Name="TaskId" Type="int" Nullable="false" />
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Order" Type="int" Nullable="false" />
         </EntityType>
@@ -485,7 +485,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserBoardTasks_ProjectTasks">
-          <End Role="ProjectTasks" Type="Self.ProjectTasks" Multiplicity="0..1" />
+          <End Role="ProjectTasks" Type="Self.ProjectTasks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserBoardTasks" Type="Self.UserBoardTasks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProjectTasks">
@@ -851,7 +853,7 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="UserBoardId" Type="Int32" Nullable="false" />
-          <Property Name="TaskId" Type="Int32" />
+          <Property Name="TaskId" Type="Int32" Nullable="false" />
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Order" Type="Int32" Nullable="false" />
           <NavigationProperty Name="ProjectTasks" Relationship="Self.FK_UserBoardTasks_ProjectTasks" FromRole="UserBoardTasks" ToRole="ProjectTasks" />
@@ -1124,7 +1126,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserBoardTasks_ProjectTasks">
-          <End Role="ProjectTasks" Type="Self.ProjectTasks" Multiplicity="0..1" />
+          <End Role="ProjectTasks" Type="Self.ProjectTasks" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="UserBoardTasks" Type="Self.UserBoardTasks" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProjectTasks">
@@ -1151,7 +1155,7 @@
           <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="*" />
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="*" />
         </Association>
-        <EntityContainer Name="bugTrackEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="bugTrackEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="C__MigrationHistory" EntityType="Self.C__MigrationHistory" />
           <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" />
           <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" />
@@ -1270,7 +1274,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="bugTrackModelStoreContainer" CdmEntityContainer="bugTrackEntities">
+        <EntityContainerMapping StorageEntityContainer="bugTrackModelStoreContainer" CdmEntityContainer="bugTrackEntities1">
           <EntitySetMapping Name="C__MigrationHistory">
             <EntityTypeMapping TypeName="bugTrackModel.C__MigrationHistory">
               <MappingFragment StoreEntitySet="__MigrationHistory">

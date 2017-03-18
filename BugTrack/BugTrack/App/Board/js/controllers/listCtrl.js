@@ -34,15 +34,15 @@
 
     ///when loading gets tasks in boards
     function getFromApi(id) {
-        if (id == 19) {
-            isLongList = true;
-        }
+        
         $http({
             method: 'GET',
             url: '/api/UserBoards/' + id
         }).then(function successCallback(response) {
 
-            
+            if (id == 19) {
+                isLongList = true;
+            }
             //console.log('tasks for the ' + id + ' board:', response.data.Tasks);
             myCards = response.data.Tasks;
             //console.warn('response', response.data);
@@ -116,9 +116,9 @@
             //console.log('allCards: ', cards);
             console.log(':::::' + id + ':::', count);
             //if (count > 9) {
-            //    console.log('isLongList', isLongList);
+            //    //console.log(id + ' isLongList- ' + count + ' ', isLongList);
             //    isLongList = true;
-            //    console.log('isLongList', isLongList);
+            //    console.log(id + ' isLongList- ' + count + ' ', isLongList);
             //}
 
         }, function errorCallback(response) {

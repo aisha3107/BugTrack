@@ -15,7 +15,7 @@ namespace BugTrack.Controllers
 {
     public class FilesController : ApiController
     {
-        private bugTrackEntities db = new bugTrackEntities();
+        private bugTrackEntities1 db = new bugTrackEntities1();
 
         [HttpPost]
         public void Upload()

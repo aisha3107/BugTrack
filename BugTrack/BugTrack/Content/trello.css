@@ -159,3 +159,17 @@ input.search{
 [ng\:cloak], [ng-cloak], .ng-cloak {
   display: none;
 }
+
+.primary-footer {
+  padding: 24px 0;
+  background-color: #fff;
+  color: #898989;
+  font-size: 14px;
+  text-align: center;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 0 24px;
+  /*max-width: 960px;*/
+}

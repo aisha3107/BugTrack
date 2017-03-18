@@ -16,7 +16,7 @@ namespace BugTrack.Controllers
     [RoutePrefix("api/UserBoards")]
     public class UserBoardsController : ApiController
     {
-        private bugTrackEntities db = new bugTrackEntities();
+        private bugTrackEntities1 db = new bugTrackEntities1();
 
         // GET: api/UserBoards
         [HttpGet]
@@ -232,14 +232,14 @@ namespace BugTrack.Controllers
             return Ok(userBoards);
         }
 
-        [HttpGet, Route("AddProjectTaskToUserBoard")]
-        public void AddProjectTaskToUserBoard(int taskId, int userBoardId, int order)
+        [HttpPost, Route("AddProjectTaskToUserBoard")]
+        public void AddProjectTaskToUserBoard(UserBoardTasks board)
         {
             var userBoardTask = new UserBoardTasks()
             {
-                TaskId = taskId,
-                UserBoardId = userBoardId,
-                Order = order
+                TaskId = board.TaskId,
+                UserBoardId = board.UserBoardId,
+                //Order = order
             };
             db.UserBoardTasks.Add(userBoardTask);
             db.SaveChanges();

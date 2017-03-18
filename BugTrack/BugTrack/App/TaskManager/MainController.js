@@ -6,6 +6,27 @@
     return ctrl;
 })();
 
+//function MyCtrl($scope) {
+//    $scope.value = 50;
+//    $scope.increment = function () {
+//        $scope.value = $scope.value + 1;
+//    };
+//    $scope.decrement = function () {
+//        $scope.value = $scope.value - 1;
+//    };
+//};
+//app.directive('ngRightClick', function ($parse) {
+//    return function (scope, element, attrs) {
+//        var fn = $parse(attrs.ngRightClick);
+//        element.bind('contextmenu', function (event) {
+//            scope.$apply(function () {
+//                event.preventDefault();
+//                fn(scope, { $event: event });
+//            });
+//        });
+//    };
+//});
+
 app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
     var self = this;
     this.statusId = null;
@@ -48,6 +69,16 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
         { id: 1, text: 'Feature' },
         { id: 2, text: 'Bug' }
     ];
+
+    this.value = 50;
+    this.increment = function () {
+        this.value = this.value + 1;
+    };
+    this.decrement = function () {
+        this.value = this.value - 1;
+    };
+
+    
 
 
 
@@ -141,8 +172,8 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
     //        }, function (response) {
     //            console.log(response)
     //        });
-
-
+    
+    
 
     $scope.$watch('abc.currentNode', function (newObj, oldObj) {
         if ($scope.abc && angular.isObject($scope.abc.currentNode)) {
@@ -614,6 +645,32 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
     };
 
 
+    //$(function () {
+    //    $.contextMenu({
+    //        selector: '.context-menu-one',
+    //        callback: function (key, options) {
+    //            var m = "clicked: " + key;
+    //            window.console && console.log(m) || alert(m);
+    //        },
+    //        items: {
+    //            "edit": { name: "Edit", icon: "edit" },
+    //            "cut": { name: "Cut", icon: "cut" },
+    //            copy: { name: "Copy", icon: "copy" },
+    //            "paste": { name: "Paste", icon: "paste" },
+    //            "delete": { name: "Delete", icon: "delete" },
+    //            "sep1": "---------",
+    //            "quit": {
+    //                name: "Quit", icon: function () {
+    //                    return 'context-menu-icon context-menu-icon-quit';
+    //                }
+    //            }
+    //        }
+    //    });
+
+    //    $('.context-menu-one').on('click', function (e) {
+    //        console.log('clicked', this);
+    //    })
+    //}); 
 
 }]);
 

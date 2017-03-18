@@ -18,7 +18,7 @@ namespace BugTrack.Controllers
     [RoutePrefix("api/ProjectTasks")]
     public class ProjectTasksController : ApiController
     {
-        private bugTrackEntities db = new bugTrackEntities();
+        private bugTrackEntities1 db = new bugTrackEntities1();
         private ProjectTasksBLL projectTaskBll = new ProjectTasksBLL();
         private ProjectTaskTreeGrid treeBuilder = new ProjectTaskTreeGrid();
 
@@ -185,8 +185,11 @@ namespace BugTrack.Controllers
         }
 
         // POST: api/ProjectTasks
-        [ResponseType(typeof(ProjectTasks))]
+        //HttpResponseMessage
+        [HttpPost, ResponseType(typeof(ProjectTasks))]
         public IHttpActionResult PostProjectTasks(ProjectTasks projectTasks)
+            //, int projectBoardId
+            //[FromBody]ProjectTasks projectTasks, [FromUri]int projectBoardId
         {
             projectTasks.CreatedOn = DateTime.Now;
             if (projectTasks.StartedOn != null)
@@ -213,30 +216,67 @@ namespace BugTrack.Controllers
             {
                 return BadRequest(ModelState);
             }
+
             
+
+
             //instead of trigger
             var addedTask = db.ProjectTasks.Add(projectTasks);
-            var board = db.UserBoards.FirstOrDefault(t => t.ProjectId == addedTask.ProjectId && t.Order == 0);
+            //if (projectBoardId != 0)
+            //{
+            //    var userBoard = db.UserBoards.FirstOrDefault(x => x.Id == projectBoardId);
+            //    db.UserBoardTasks.Add(new UserBoardTasks()
+            //    {
+            //        TaskId = addedTask.Id,
+            //        UserBoardId = userBoard.Id
+            //    });
+            //}
+            //else {
+                var board = db.UserBoards.FirstOrDefault(t => t.ProjectId == addedTask.ProjectId && t.Order == 0);
 
-            if (board == null)
-            {
-                db.UserBoards.Add(new UserBoards() { //board =
-                    Title = "Новые", 
-                    ProjectId = addedTask.ProjectId, 
-                    Order = 0,
-                    IsArchived = false //userBoard
+                if (board == null)
+                {
+                    db.UserBoards.Add(new UserBoards()
+                    { //board =
+                        Title = "Новые",
+                        ProjectId = addedTask.ProjectId,
+                        Order = 0,
+                        IsArchived = false //userBoard
+                    });
+                }
+
+                db.UserBoardTasks.Add(new UserBoardTasks()
+                {
+                    TaskId = addedTask.Id,
+                    UserBoardId = board.Id
                 });
-            }
-
-            db.UserBoardTasks.Add(new UserBoardTasks() { 
-                TaskId = addedTask.Id,
-                UserBoardId = board.Id
-            });
-
+            //}
+           
             db.SaveChanges();
 
             return CreatedAtRoute("DefaultApi", new { id = projectTasks.Id }, projectTasks);
         }
+
+
+        //[HttpPost]
+        //public HttpResponseMessage PostProjectTasks(ProjectTaskRequest request)
+        //{
+        //    var projectTasks = request.projectTasks;
+
+        //    var projectBoardId = request.projectBoardId;
+
+        //    //Usual code to store data in the database
+
+        //    return Request.CreateResponse(HttpStatusCode.OK, "Success...");
+
+        //    //var data = Request.RequestUri.ParseQueryString();
+        //    //string projectBoardId = data["projectBoardId"];
+        //    ////Usual code to store data in the database
+        //    //return Request.CreateResponse(HttpStatusCode.OK, "Success...");
+        //}
+
+
+
 
         // DELETE: api/ProjectTasks/5
         [ResponseType(typeof(ProjectTasks))]
