@@ -294,19 +294,22 @@ app.controller('MainController', ['$scope', '$http', function ($scope, $http) {
 
             console.log("Selected node in creation: " + self.selectedNode);
             var data = {
-                Title: $scope.Title,
-                StatusId: self.statusId,
-                TaskTypeId: self.taskTypeId,
-                StartedOn: self.StartedOn,
-                EndedOn: self.EndedOn,
-                EstimatedEndsOn: self.EstimatedEndsOn,
-                ProjectId: self.selectedNode,
-                ParentTaskId: self.ParentTaskId,
-                //AssignedUserId: $scope.AssignedUserId
-                AssignedUserId: self.AssignedUserId,
-                CreatedBy: $scope.CreatedBy,
-                CompletedPercent: self.CompletedPercent,
-                Description: self.Description
+                ProjectTasks: {
+                    Title: $scope.Title,
+                    StatusId: self.statusId,
+                    TaskTypeId: self.taskTypeId,
+                    StartedOn: self.StartedOn,
+                    EndedOn: self.EndedOn,
+                    EstimatedEndsOn: self.EstimatedEndsOn,
+                    ProjectId: self.selectedNode,
+                    ParentTaskId: self.ParentTaskId,
+                    //AssignedUserId: $scope.AssignedUserId
+                    AssignedUserId: self.AssignedUserId,
+                    CreatedBy: $scope.CreatedBy,
+                    CompletedPercent: self.CompletedPercent,
+                    Description: self.Description
+                },
+                IsWordNeed: false
             };
 
 

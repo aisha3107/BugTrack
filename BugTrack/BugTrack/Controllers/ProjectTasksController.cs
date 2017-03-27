@@ -21,6 +21,7 @@ namespace BugTrack.Controllers
         private bugTrackEntities1 db = new bugTrackEntities1();
         private ProjectTasksBLL projectTaskBll = new ProjectTasksBLL();
         private ProjectTaskTreeGrid treeBuilder = new ProjectTaskTreeGrid();
+        bool needBoardId = false;
 
         // GET: api/ProjectTasks
         [HttpGet]
@@ -185,13 +186,15 @@ namespace BugTrack.Controllers
         }
 
         // POST: api/ProjectTasks
+        //this method called from the TaskManager page
         //HttpResponseMessage
         [HttpPost, ResponseType(typeof(ProjectTasks))]
-        public IHttpActionResult PostProjectTasks(ProjectTasks projectTasks)
+        public IHttpActionResult PostProjectTasks(ProjectTaskViewModel projectTasksVM)
             //, int projectBoardId
             //[FromBody]ProjectTasks projectTasks, [FromUri]int projectBoardId
         {
-            //hello everyone
+            var projectTasks = projectTasksVM.ProjectTasks;
+
             projectTasks.CreatedOn = DateTime.Now;
             if (projectTasks.StartedOn != null)
             {
@@ -218,27 +221,29 @@ namespace BugTrack.Controllers
                 return BadRequest(ModelState);
             }
 
-            
+            var isNeed = projectTasksVM.IsWordNeed.HasValue? projectTasksVM.IsWordNeed.Value : false;
 
+            var res = CreateProjectTask(projectTasksVM.ProjectTasks, isNeed);
 
             //instead of trigger
             var addedTask = db.ProjectTasks.Add(projectTasks);
-            //if (projectBoardId != 0)
-            //{
-            //    var userBoard = db.UserBoards.FirstOrDefault(x => x.Id == projectBoardId);
-            //    db.UserBoardTasks.Add(new UserBoardTasks()
-            //    {
-            //        TaskId = addedTask.Id,
-            //        UserBoardId = userBoard.Id
-            //    });
-            //}
-            //else {
+
+            return CreatedAtRoute("DefaultApi", new { id = addedTask.Id }, addedTask);
+        }
+
+        private ProjectTasks CreateProjectTask(ProjectTasks projectTasks, bool isNeed = false) 
+        {
+            //instead of trigger
+            var addedTask = db.ProjectTasks.Add(projectTasks);
+
+            if(!isNeed) 
+            {
                 var board = db.UserBoards.FirstOrDefault(t => t.ProjectId == addedTask.ProjectId && t.Order == 0);
 
                 if (board == null)
                 {
                     db.UserBoards.Add(new UserBoards()
-                    { //board =
+                    {
                         Title = "Новые",
                         ProjectId = addedTask.ProjectId,
                         Order = 0,
@@ -251,12 +256,13 @@ namespace BugTrack.Controllers
                     TaskId = addedTask.Id,
                     UserBoardId = board.Id
                 });
-            //}
-           
+            }
+
             db.SaveChanges();
 
-            return CreatedAtRoute("DefaultApi", new { id = projectTasks.Id }, projectTasks);
+            return projectTasks;
         }
+
 
 
         //[HttpPost]

@@ -61,7 +61,7 @@
         <div class='parent'>
             <div class="wrapper">-->
 
-    <!--<div ng-controller="demoController as mc">-->
+    <div ng-controller="demoController as mc">
 
         <section id="lists-container red-column"
                  ng-controller="listsCtrl as listsCtrl">
@@ -70,7 +70,8 @@
                 <section class="list list-inline item"
                          ng-repeat="list in listsCtrl.lists"
                          ng-controller="listCtrl as listCtrl"
-                         ng-init="init(list.id)">
+                         ng-init="init(list.id)"
+                         id="list_id">
                     <h1>{{list.listName}}</h1>
                     <!--<div id="firstcard">My first card</div>
         <div ng-controller="testCtrl">
@@ -187,9 +188,6 @@
             <div id="global"></div>
         </div>
 
-
-
-
         <div class="items">
             <div class="red-column">
                 <h3>Red</h3>
@@ -229,7 +227,7 @@
             </div>
         </div>-->
 
-    <!--</div>-->
+    </div>
 
 
     
@@ -245,8 +243,8 @@
 
     <script type="text/javascript" src="../Board/js/app.js"></script>
 
-    <!--<script type="text/javascript" src='../../Scripts/dragula.min.js'></script>-->
-    <!--<script type="text/javascript" src='../../Scripts/example.min.js'></script>-->
+    <script type="text/javascript" src='../../Scripts/dragula.min.js'></script>
+    <script type="text/javascript" src='../../Scripts/example.min.js'></script>
     <!--<script type="text/javascript" src="../drag/dragulaaddition.js"></script>-->
     <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/71829/dragula-3.7.2.js'></script>
 

@@ -1,4 +1,4 @@
-﻿angular.module('app').controller('listCtrl', function (listFactory, cardFactory, $scope, $http) {
+﻿angular.module('app').controller('listCtrl', function (listFactory, cardFactory, $scope, $http, $document) {
     //console.log('listCtrl');
     var isLongList = false;
     var count = 0;
@@ -8,6 +8,9 @@
         console.log('list\'s id: ', id);
         
     };
+
+    //var overflowScrollElement = $document[0].getElementById('list_id');
+    //overflowScrollElement[0].scrollTop = overflowScrollElement[0].scrollHeight;
 
     this.removeList = function (list) {
         listFactory.removeList(list);
@@ -21,10 +24,16 @@
     };
 
     this.createCard = function (list) {
-        cardFactory.createCard(list, this.cardTitle);
+        cardFactory.createCard(list, this.cardTitle, true);
         this.cardTitle = '';
         
     };
+
+    //this.scroll = function () {
+    //    var objDiv = document.getElementById("list_id");
+    //    objDiv.scrollTop = objDiv.scrollHeight;
+    //    console.log("scroll was called");
+    //};
 
     
     var startedon = null;
@@ -45,7 +54,6 @@
             }
             //console.log('tasks for the ' + id + ' board:', response.data.Tasks);
             myCards = response.data.Tasks;
-            //console.warn('response', response.data);
             
 
             for (var i = 0; i < response.data.Tasks.length; i++) {

@@ -218,28 +218,19 @@
                 <!--<script>
                     $('#date').datepicker();
                 </script>-->
-
-
-
-
                 <!--<span class="context-menu-one btn btn-neutral">right click me</span>-->
                 <!--<span class="action"
                       ng-click="$ctrl.increment()"
                       ng-right-click="$ctrl.decrement()">{{$ctrl.value}}</span>-->
+                
 
-
-
-
-
-
-
-
-                <!--<children ng-repeat="elem in data" item="elem"></children>-->
+                  <!--<children ng-repeat="elem in data" item="elem"></children>-->
                 <!--взято с http://www.dotnetawesome.com/2016/08/treeview-in-angularjs-application.html   -->
                 <div id="projectsView" class="w3-container">
                     СПИСОК ПРОЕКТОВ
                     <br /><br />
-                    <div class="task" data-id="{{selectedNode.Id}}"><!---->
+                    <div class="task" data-id="{{selectedNode.Id}}">
+                        <!---->
                         <div data-angular-treeview="true"
                              data-tree-id="abc"
                              data-tree-model="data"
@@ -248,14 +239,14 @@
                              data-node-children="Nodes">
 
                             <!--data-id ="Id"
-            class="task"-->
+                            class="task"-->
                             <!--__content-->
                             <!--<div><a href="">QQQ</a></div>-->
                         </div>
                     </div>
                     <!--<a href="../Board/index.html">
-            <img src="../../img/Boards/favicon.png" alt="HTML tutorial" style="width:42px;height:42px;border:0;">
-        </a>-->
+                        <img src="../../img/Boards/favicon.png" alt="HTML tutorial" style="width:42px;height:42px;border:0;">
+                    </a>-->
                     <br />
                     <!--<span>Selected Node : <strong>{{selectedNode.Name}}</strong></span>-->
                 </div>
@@ -265,9 +256,11 @@
                 <!--style="display:none;"-->
                 <!--ng-class="{loading:loading}"-->
                 <!--<a href="javascript:void(0)" onclick="showHide('RightColumn')">Скрыть/Показать элемент</a><br /><br />-->
-                <div id="RightColumn" class="w3-container RightCol" ng-hide="$ctrl.taskNotSelected">
+                <div id="RightColumn" class="w3-container RightCol" ng-hide="$ctrl.taskNotSelected"
+                     style="width:370px">
 
                     <!--{{selectedNode.Id}}-->
+                    <div id="for
                     <div id="formHeader">
 
                         <div class="inline">
@@ -296,7 +289,8 @@
                                 <td>Описание:</td>
                                 <td>
                                     <textarea rows="2" cols="36" name="Description"
-                                              ng-model="$ctrl.Description"></textarea>
+                                              ng-model="$ctrl.Description"
+                                              style="width:240px"></textarea>
                                 </td>
                             </tr>
 
@@ -304,14 +298,15 @@
                                 <td>Выполнит:</td>
                                 <td>
                                     <!--<input type="email" name="AssignedUserId" style="width:240px"
-                                           class="form-control" ng-model="$ctrl.AssignedUserId"
-                                           value="" ng-value="data3.AuthorUserName" />-->
+                                    class="form-control" ng-model="$ctrl.AssignedUserId"
+                                    value="" ng-value="data3.AuthorUserName" />-->
                                     <select name="AssignedUserId"
                                             id="AssignedUserId"
                                             ng-model="$ctrl.AssignedUserId"
                                             class="form-control"
                                             ng-options="item.id as item.username for item in $ctrl.Users"
-                                            ng-value="data3.AssignedUserName">
+                                            ng-value="data3.AssignedUserName"
+                                            style="width:240px">
                                         <option value="">Выберите пользователя...</option>
                                     </select>
                                 </td>
@@ -359,7 +354,8 @@
                                             ng-model="$ctrl.statusId"
                                             class="form-control"
                                             ng-options="item.id as item.text for item in $ctrl.statuses"
-                                            ng-value="data3.StatusName" required>
+                                            ng-value="data3.StatusName" required
+                                            style="width:240px">
                                         <option value>Выберите статус...<!--{{$ctrl.ttboeno}}--></option>
                                     </select>
                                 </td>
@@ -375,7 +371,7 @@
                                             ng-model="$ctrl.taskTypeId"
                                             ng-options="item.id as item.text for item in $ctrl.types"
                                             ng-value="data3.TaskTypeName" required>
-                                        <option value>Выберите тип...<!--{{$ctrl.taskFeature}}--></option>
+                                        <option value>Выберите тип...<!--{{$ctrl.taskFeature}}--></</option>
                                     </select>
                                 </td>
                             </tr>
@@ -388,7 +384,8 @@
                                             ng-model="$ctrl.ParentTaskId"
                                             class="form-control"
                                             ng-options="item.id as item.title for item in $ctrl.ParentTasks"
-                                            ng-value="$ctrl.data4.id" required>
+                                            ng-value="$ctrl.data4.id" required
+                                            style="width:240px">
                                         <option value="">Выберите родительское задание...</option>
                                     </select>
                                 </td>
@@ -530,12 +527,12 @@
                 </div>
             </div>
             <nav id="context-menu" class="context-menu">
-    <ul class="context-menu__items">
-        <li class="context-menu__item">
-            <a href="../Board/index.html?projectid={{selectedNode.Id}}"> Open project's boards</a>
-        </li>
-    </ul>
-</nav>
+                <ul class="context-menu__items">
+                    <li class="context-menu__item">
+                        <a href="../Board/index.html?projectid={{selectedNode.Id}}"> Open project's boards</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
     </div>
 
