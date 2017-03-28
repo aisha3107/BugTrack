@@ -35,6 +35,15 @@
     //    console.log("scroll was called");
     //};
 
+    //function tothetop() {
+    //    document.body.scrollTop = document.documentElement.scrollTop = 0;
+    //    alert("Hello!");
+    //}
+
+    //function tothebottom() {
+    //    alert("Hello!");
+    //    window.scrollTo(0, document.body.scrollHeight);
+    //}
     
     var startedon = null;
     var endedon = null;
@@ -93,7 +102,7 @@
                     var year = estimateddate.substring(0, 4);
                     var estimated = year + "-" + month + "-" + day;
                 }
-
+                
                 cards.push({
                     id: response.data.Tasks[i].TaskId,
                     title: response.data.Tasks[i].ProjectTaskTitle,
@@ -121,6 +130,9 @@
                 //console.log('endedon ' + endedon);
                 count += 1;
             }
+            
+            alists = {};
+            console.log('asdasd', alists);
             //console.log('allCards: ', cards);
             console.log(':::::' + id + ':::', count);
             //if (count > 9) {

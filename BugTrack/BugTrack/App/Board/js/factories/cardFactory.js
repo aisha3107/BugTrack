@@ -5,10 +5,9 @@
     cards = [];
 
     var myParam = location.search.split('projectid=')[1]
-
+    var alists = {};
     service.getCards = function (list) {
         return _.filter(cards, { list_id: list.id });
-        
     };
 
 

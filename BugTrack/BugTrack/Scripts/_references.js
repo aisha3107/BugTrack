@@ -37,3 +37,6 @@
 /// <reference path="../app/drag/dragulaaddition.js" />
 /// <reference path="../app/taskmanager/ngrightclick.js" />
 /// <reference path="../app/board/js/directives/addnewtaskscrolling.js" />
+/// <reference path="../app/board/test.js" />
+/// <reference path="../app/drag/example.js" />
+/// <reference path="../app/drag/angular-dragula.js" />

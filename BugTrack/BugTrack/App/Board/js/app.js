@@ -1,4 +1,7 @@
-﻿angular.module('app', [])
+﻿//var angular = require('angular');
+//var angularDragula = require('angularjs-dragula');
+
+angular.module('app', [])
 
 /**
  * Init default templates

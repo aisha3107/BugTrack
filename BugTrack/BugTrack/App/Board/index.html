@@ -12,11 +12,11 @@
             position: relative;
         }
 
-        #container {
+        /*#container {
             width: 300px;
-            height: 300px;
+            height: 300px;*/
             /*background-color: white;*/
-        }
+        /*}*/
 
         .shape {
             position: absolute;
@@ -35,14 +35,14 @@
     <!--<script src="../Board/js/modal/iDialog.js"></script>-->
     <link rel="stylesheet" href="../../Content/iDialog.css" />
     <link rel="stylesheet" href="../../Content/modal.css" />
-    <link href='../../Content/dragula.css' rel='stylesheet' type='text/css' />
-    <link href='../../Content/example.css' rel='stylesheet' type='text/css' />
+    <link rel='stylesheet' type='text/css' href='../../Content/dragula.css' />
+    <link rel='stylesheet' type='text/css' href='../../Content/example.css' />
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">-->
 
-    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>
+    <!--<link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css'>-->
 
-    <link rel="stylesheet" href="../../Content/dragula.css">
+    <!--<link rel="stylesheet" href="../../Content/dragula.css">-->
 </head>
 <body ng-cloak>
     <header>
@@ -51,200 +51,242 @@
         </div>
     </header>
 
+    
+
+    <script>
+        function tothebottom() {
+            //alert("Hello!");
+            window.scrollTo(0, document.body.scrollHeight);
+            //var objDiv = document.getElementById("list_id");
+            //objDiv.scrollTop = objDiv.scrollHeight;            
+        }
+    </script>
     <!--<a href="" idialog="Editor" idialog-id="someid">Show dialog</a>-->
     <!--<aisha></aisha>-->
     <!--<div id="dxy" style="width:100px; background-color:steelblue">test</div>-->
     <!--<div id="draggable-element">Drag me!</div>-->
     <!--<span my-draggable>Drag Me</span>-->
-    <!--<div class='examples'>
+    <div class='examples'>
 
         <div class='parent'>
-            <div class="wrapper">-->
+            <div class="wrapper">
+                
+                <!--<div ng-controller="demoController as mc">-->
 
-    <div ng-controller="demoController as mc">
+                <section id="lists-container red-column row"
+                         ng-controller="listsCtrl as listsCtrl">
 
-        <section id="lists-container red-column"
-                 ng-controller="listsCtrl as listsCtrl">
+                    <div class="col-sm-12 items">
 
-            <div class="row items">
-                <section class="list list-inline item"
-                         ng-repeat="list in listsCtrl.lists"
-                         ng-controller="listCtrl as listCtrl"
-                         ng-init="init(list.id)"
-                         id="list_id">
-                    <h1>{{list.listName}}</h1>
-                    <!--<div id="firstcard">My first card</div>
-        <div ng-controller="testCtrl">
-            <div id="container">
-                <div class="shape" ng-draggable='dragOptions'></div>
+                        <!--<div id='left-rm-spill' class='container'>
+                <div>Anxious Cab Driver</div>
+                <div>Thriving Venture</div>
+                <div>Such <a href='http://ponyfoo.com'>a good blog</a></div>
+                <div>Calm Clam</div>
             </div>
-        </div>-->
-                    <!--items-red-->
-                    <section class='new-card'
-                             ng-hide="listCtrl.isLongList">
-                        <!--сделать скрытие, если больше 8-->
-                        <form ng-submit="listCtrl.createCard(list)">
-                            <input type="text"
-                                   ng-model='listCtrl.cardTitle'
-                                   class='card-input'
-                                   placeholder='Add a card...'>
-                        </form>
-                    </section>
+            <div id='right-rm-spill' class='container'>
+                <div>Banana Boat</div>
+                <div>Orange Juice</div>
+                <div>Cuban Cigar</div>
+                <div>Terrible Comedian</div>
+            </div>-->
 
-                    <div id="card"
-                         class='card item-text'
-                         ng-controller='cardCtrl as cardCtrl'
-                         ng-repeat="card in listCtrl.getCards(list)">
-                        <!--ng-dblclick="cardCtrl.hello(card)"-->
-                        <!--item-text делает карточки маленькими-->
-
-                        <div id="card2"
-                             ng-show='!cardCtrl.isEditing'>
-                            {{card.title}}
-                            <div ng-click='cardCtrl.editCard(card)'
-                                 class='edit-small edit-card hand'>
-                                <!--idialog="Editor"-->
-                                <!--<aisha show-on="var" ng-show="var"></aisha>-->
-
-                            </div>
-                            <div ng-click='cardCtrl.deleteCard(card)'
-                                 class='remove-small remove-card hand'>
-                            </div>
-
-                        </div>
-
-                        <div ng-if='cardCtrl.isEditing'>
-                            <form ng-submit='cardCtrl.updateCard()'>
-                                <input type="text"
-                                       close-editing
-                                       is-editing='cardCtrl.isEditing'
-                                       ng-model='cardCtrl.editingCard.title'>
-                                <select class="select-list"
-                                        ng-model='cardCtrl.editingCard.list_id'
-                                        ng-change="cardCtrl.updateCard()"
-                                        ng-options="list.id as list.listName for list in listsCtrl.lists"></select>
-                            </form>
-                            <div><my-modal users="cardCtrl.Users" task="card" style="margin-left:50px"></my-modal></div>
-                        </div>
-
+                        <div class='parent row' ng-controller='SuchExampleCtrl as suchExampleCtrl'>
+                            <!--<div class='wrapper'>
+                    <div class='container' dragula='"fourth-bag"'>
+                        <div>Moving items between containers works as usual</div>
+                        <div>If you try to drop an item outside of any containers, though, it'll retain its original position</div>
+                        <div>When that happens, a <code>cancel</code> event will be raised</div>
                     </div>
-
-                    <a ng-click="listCtrl.removeList(list)" class='hand'>
-                        <div class="remove remove-list"></div>
-                    </a>
-
-                    <section class='new-card'>
-                        <form ng-submit="listCtrl.createCard(list)">
-                            <input type="text"                                   
-                                   ng-model='listCtrl.cardTitle'
-                                   class='card-input'
-                                   placeholder='Add a card...'><!--add-new-task-scrolling-->
-                        </form>
-                    </section>
-
-                </section>
+                    <div class='container' dragula='"fourth-bag"'>
+                        <div>Note that the dragged element will go back to the place you originally dragged it from, even if you move it over other containers</div>
+                        <div>This is useful if you want to ensure drop events only happen when the user intends for them to happen explicitly, avoiding surprises</div>
+                    </div>
+                </div>-->
 
 
+                            <section class="list list-inline item col-sm-3"
+                                     ng-repeat="list in listsCtrl.lists"
+                                     ng-controller="listCtrl as listCtrl"
+                                     ng-init="init(list.id)"
+                                     id="list_id">
+                                <h1>{{list.listName}}</h1>
+                                <!--<div id="firstcard">My first card</div>
+                    <div ng-controller="testCtrl">
+                        <div id="container">
+                            <div class="shape" ng-draggable='dragOptions'></div>
+                        </div>
+                    </div>-->
+                                <form>
+                                    <input type="button" value="to the bottom" onclick="tothebottom()" style="width:176px" />
+                                </form>
+                                <!--items-red-->
+                                <section class='new-card'
+                                         ng-hide="listCtrl.getCards(list).length < 10">
+                                    <!--сделать скрытие, если больше 8-->
+                                    {{listCtrl.getCards(list).length}}
+                                    <form ng-submit="listCtrl.createCard(list)">
+                                        <input type="text"
+                                               ng-model='listCtrl.cardTitle'
+                                               class='card-input'
+                                               placeholder='Add a card...'>
+                                    </form>
+                                </section>
+                                <div dragula='"fourth-bag"'>
+                                    <div id="card"
+                                         ng-repeat="card in listCtrl.getCards(list)" ng-controller='cardCtrl as cardCtrl'
+                                         class='card item-text'
+                                         ng-dblclick="cardCtrl.hello(card)">
+                                        <!---->
+                                        <!--item-text делает карточки маленькими-->
+                                        <div id="card2"
+                                             ng-show='!cardCtrl.isEditing'>
+                                            {{card.title}}
+                                            <div ng-click='cardCtrl.editCard(card)'
+                                                 class='edit-small edit-card hand'>
+                                                <!--idialog="Editor"-->
+                                                <!--<aisha show-on="var" ng-show="var"></aisha>-->
 
-                <!--<section class="list list-inline green-column">
-                    TITLE1
-                    <ol id="green" class="items-green" ng-hide="mc.loadingCount">
-                        <li class="item" ng-repeat="item in mc.pageData.greenItems | orderBy : 'listIndex' track by $index" id="{{item.itemId}}">
-                            <span class="item-text">{{item.itemText}}</span>
-                        </li>
-                    </ol>
-                </section>
+                                            </div>
+                                            <div ng-click='cardCtrl.deleteCard(card)'
+                                                 class='remove-small remove-card hand'>
+                                            </div>
+                                        </div>
+
+                                        <div ng-if='cardCtrl.isEditing'>
+                                            <form ng-submit='cardCtrl.updateCard()'>
+                                                <input type="text"
+                                                       close-editing
+                                                       is-editing='cardCtrl.isEditing'
+                                                       ng-model='cardCtrl.editingCard.title'>
+                                                <select class="select-list"
+                                                        ng-model='cardCtrl.editingCard.list_id'
+                                                        ng-change="cardCtrl.updateCard()"
+                                                        ng-options="list.id as list.listName for list in listsCtrl.lists"></select>
+                                            </form>
+                                            <div><my-modal users="cardCtrl.Users" task="card" style="margin-left:50px"></my-modal></div>
+                                        </div>
+                                    </div>
+                                </div>
 
 
-                <section class="list list-inline amber-column">
-                    TITLE2
-                    <ol id="amber" class="items-amber" ng-hide="mc.loadingCount">
-                        <li class="item" ng-repeat="item in mc.pageData.amberItems | orderBy : 'listIndex' track by $index" id="{{item.itemId}}">
-                            <span class="item-text">{{item.itemText}}</span>
-                        </li>
-                    </ol>
-                </section>-->
+
+                                <a ng-click="listCtrl.removeList(list)" class='hand'>
+                                    <div class="remove remove-list"></div>
+                                </a>
+
+                                <section class='new-card'>
+                                    <form ng-submit="listCtrl.createCard(list)">
+                                        <input type="text"
+                                               ng-model='listCtrl.cardTitle'
+                                               class='card-input'
+                                               placeholder='Add a card...'><!--add-new-task-scrolling-->
+                                    </form>
+                                </section>
+                            </section>
+                        </div>
 
 
-                <section class="list new-list list-inline">
-                    <form ng-submit="listsCtrl.addList()">
-                        <input type="text" ng-model="listsCtrl.listName"
-                               placeholder='Add a list...'>
-                    </form>
-                </section>
-            </div>
-        </section>
-    <!--</div>
-        </div>
-    </div>-->
-    <!--<script>
-        new Draggable('card2');
-    </script>-->
-
-
-    <!--<div>--> <!--ng-controller="demoController as mc"-->
-
-        <!--<div id="header-wrapper">
-            <div id="global"></div>
-        </div>
-
-        <div class="items">
-            <div class="red-column">
-                <h3>Red</h3>
-                <p>subtitle</p>
-                <div class="loading-container" ng-show="mc.loadingCount">
-                    <i class="loading fa fa-spinner fa-fw fa-spin fa-3x"></i>
-                </div>
-                <ul id="red" class="items-red" ng-hide="mc.loadingCount">
-                    <li class="item" ng-repeat="item in mc.pageData.redItems | orderBy : 'itemText' track by $index" id="{{item.itemId}}">
+                        <!--<section class="list list-inline green-column">
+                TITLE1
+                <ol id="green" class="items-green" ng-hide="mc.loadingCount">
+                    <li class="item" ng-repeat="item in mc.pageData.greenItems | orderBy : 'listIndex' track by $index" id="{{item.itemId}}">
                         <span class="item-text">{{item.itemText}}</span>
                     </li>
-                </ul>
-            </div>
-            <div class="amber-column">
-                <h3>Amber</h3>
-                <p>subtitle</p>
-                <div class="loading-container" ng-show="mc.loadingCount">
-                    <i class="loading fa fa-spinner fa-fw fa-spin fa-3x"></i>
-                </div>
+                </ol>
+            </section>
+
+
+            <section class="list list-inline amber-column">
+                TITLE2
                 <ol id="amber" class="items-amber" ng-hide="mc.loadingCount">
                     <li class="item" ng-repeat="item in mc.pageData.amberItems | orderBy : 'listIndex' track by $index" id="{{item.itemId}}">
                         <span class="item-text">{{item.itemText}}</span>
                     </li>
                 </ol>
-            </div>
-            <div class="green-column">
-                <h3>Green</h3>
-                <p>subtitle</p>
-                <div class="loading-container" ng-show="mc.loadingCount">
-                    <i class="loading fa fa-spinner fa-fw fa-spin fa-3x"></i>
-                </div>
-                <ol id="green" class="items-green" ng-hide="mc.loadingCount">
-                    <li class="item" ng-repeat="item in mc.pageData.greenItems | orderBy : 'listIndex'  track by $index" id="{{item.itemId}}">
-                        <span class="item-text">{{item.itemText}}</span>
-                    </li>
-                </ol>
-            </div>
-        </div>-->
+            </section>-->
 
+
+                        <section class="list new-list list-inline">
+                            <form ng-submit="listsCtrl.addList()">
+                                <input type="text" ng-model="listsCtrl.listName"
+                                       placeholder='Add a list...'>
+                            </form>
+                        </section>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <!--<script>
+        new Draggable('card2');
+    </script>-->
+    <!--<div>--> <!--ng-controller="demoController as mc"-->
+    <!--<div id="header-wrapper">
+        <div id="global"></div>
     </div>
 
+    <div class="items">
+        <div class="red-column">
+            <h3>Red</h3>
+            <p>subtitle</p>
+            <div class="loading-container" ng-show="mc.loadingCount">
+                <i class="loading fa fa-spinner fa-fw fa-spin fa-3x"></i>
+            </div>
+            <ul id="red" class="items-red" ng-hide="mc.loadingCount">
+                <li class="item" ng-repeat="item in mc.pageData.redItems | orderBy : 'itemText' track by $index" id="{{item.itemId}}">
+                    <span class="item-text">{{item.itemText}}</span>
+                </li>
+            </ul>
+        </div>
+        <div class="amber-column">
+            <h3>Amber</h3>
+            <p>subtitle</p>
+            <div class="loading-container" ng-show="mc.loadingCount">
+                <i class="loading fa fa-spinner fa-fw fa-spin fa-3x"></i>
+            </div>
+            <ol id="amber" class="items-amber" ng-hide="mc.loadingCount">
+                <li class="item" ng-repeat="item in mc.pageData.amberItems | orderBy : 'listIndex' track by $index" id="{{item.itemId}}">
+                    <span class="item-text">{{item.itemText}}</span>
+                </li>
+            </ol>
+        </div>
+        <div class="green-column">
+            <h3>Green</h3>
+            <p>subtitle</p>
+            <div class="loading-container" ng-show="mc.loadingCount">
+                <i class="loading fa fa-spinner fa-fw fa-spin fa-3x"></i>
+            </div>
+            <ol id="green" class="items-green" ng-hide="mc.loadingCount">
+                <li class="item" ng-repeat="item in mc.pageData.greenItems | orderBy : 'listIndex'  track by $index" id="{{item.itemId}}">
+                    <span class="item-text">{{item.itemText}}</span>
+                </li>
+            </ol>
+        </div>
+    </div>-->
+    <!--</div>-->
 
     
 
+
     <footer class="primary-footer">
         <div>
+            <!--<input type="button" value="to the top" ng-click="listCtrl.tothetop()"/>-->
             <small>&copy; 2017 IEIT KBTU </small>
         </div>
     </footer>
 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/2.4.1/lodash.js"></script>
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
-
+    <script type="text/javascript" src="../drag/angular-dragula.js"></script>
     <script type="text/javascript" src="../Board/js/app.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
 
     <script type="text/javascript" src='../../Scripts/dragula.min.js'></script>
-    <script type="text/javascript" src='../../Scripts/example.min.js'></script>
+    <!--<script type="text/javascript" src='../../Scripts/example.min.js'></script>-->
+    <script type="text/javascript" src="../drag/example.js"></script>
+    <script type="text/javascript" src="../drag/angular-dragula.js"></script>
+
     <!--<script type="text/javascript" src="../drag/dragulaaddition.js"></script>-->
     <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/71829/dragula-3.7.2.js'></script>
 

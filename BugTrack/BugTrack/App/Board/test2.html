@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <link rel="stylesheet" href="test.css" />
+</head>
+<body ng-app="app">
+    <h1>Demo: Simple Lists</h1>
+
+    <div class="alert alert-success">
+        <strong>Instructions:</strong>
+        Drag &amp; drop the list items to move them around, or just click to select them.
+        If that's too boring, check out the <a href="#/nested">nested container demo</a>
+    </div>
+
+    <div ng-controller="SimpleDemoController as SDC" class="simpleDemo row">
+
+        <div class="col-md-8">
+            <div class="row">
+                <div ng-repeat="(listName, list) in models.lists" class="col-md-6">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">List {{listName}}</h3>
+                        </div>
+                        <div class="panel-body" ng-include="'test.html'"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div view-source="simple"></div>
+
+        </div>
+
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Generated Model</h3>
+                </div>
+                <div class="panel-body">
+                    <pre class="code">{{modelAsJson}}</pre>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+    <script type="text/javascript" src="js/app.js"></script>
+    <script type="text/javascript" src="test.js"></script>
+    
+</body>
+</html>
